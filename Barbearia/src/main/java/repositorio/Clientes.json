@@ -1,0 +1,18 @@
+[
+    {
+        "id": 1,
+        "nome": "João Silva",
+        "cpf": "123.456.789-00",
+        "telefone": "(31) 99999-1111",
+        "email": "joao@email.com",
+        "endereco": "Rua A, 123"
+    },
+    {
+        "id": 2,
+        "nome": "Maria Souza",
+        "cpf": "987.654.321-00",
+        "telefone": "(31) 98888-2222",
+        "email": "maria@email.com",
+        "endereco": "Rua B, 456"
+    }
+]
