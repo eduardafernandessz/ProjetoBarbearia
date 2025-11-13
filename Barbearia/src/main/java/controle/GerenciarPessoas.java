@@ -10,7 +10,7 @@ import java.io.File;
 
     public class GerenciarPessoas {
 
-        private static final String CAMINHO_CLIENTES = "scr/main/java/repositorio/Clientes.json";
+        private static final String CAMINHO_CLIENTES = "src/main/java/repositorio/Clientes.json";
         private static final String CAMINHO_FUNCIONARIOS = "src/repositorio/Funcionarios.json";
         private static final String CAMINHO_GERENTES = "src/repositorio/Gerente.json";
 
