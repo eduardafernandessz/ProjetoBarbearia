@@ -1,7 +1,9 @@
-package servico;
+package agenda;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import agenda.Agendamento;
+import servico.Estacao;
 
 public class Agenda {
 

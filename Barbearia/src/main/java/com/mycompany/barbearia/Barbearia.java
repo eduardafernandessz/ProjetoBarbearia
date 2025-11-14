@@ -2,7 +2,7 @@ package com.mycompany.barbearia;
 
 
 import menu.MenuPrincipal;
-import servico.GerenciadorAgendamentos;
+import agenda.GerenciadorAgendamentos;
 
 
 public class Barbearia {

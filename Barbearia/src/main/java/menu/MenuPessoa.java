@@ -1,8 +1,8 @@
 package menu;
 
+import usuarios.GerenciadorPessoas;
 import usuarios.Cliente;
 import usuarios.Funcionario;
-import utils.CRUDGenerico;
 
 import java.util.List;
 import java.util.Scanner;
@@ -10,11 +10,9 @@ import java.util.Scanner;
 public class MenuPessoa {
 
     private Scanner sc = new Scanner(System.in);
+    private GerenciadorPessoas gerenciador = new GerenciadorPessoas();
 
-    private CRUDGenerico<Cliente> crudClientes = new CRUDGenerico<>("src/main/java/repositorio/clientes.json", Cliente.class);
-    private CRUDGenerico<Funcionario> crudFuncionarios = new CRUDGenerico<>("src/main/java/repositorio/funcionarios.json", Funcionario.class);
-
-    // --- MENU PARA CLIENTES ---
+    // --- MENU PRINCIPAL CLIENTES ---
     public void exibirMenuClientes() {
         int opc;
         do {
@@ -41,7 +39,7 @@ public class MenuPessoa {
         } while (opc != 0);
     }
 
-    // --- MENU PARA FUNCIONÁRIOS ---
+    // --- MENU PRINCIPAL FUNCIONÁRIOS ---
     public void exibirMenuFuncionarios() {
         int opc;
         do {
@@ -68,169 +66,89 @@ public class MenuPessoa {
         } while (opc != 0);
     }
 
-    // ---------- CLIENTES ----------
+    // ======================
+    // CLIENTES
+    // ======================
     private void listarClientes() {
-        List<Cliente> lista = crudClientes.listar();
+        List<Cliente> lista = gerenciador.listarClientes();
         if (lista.isEmpty()) System.out.println("Nenhum cliente cadastrado.");
-        else lista.forEach(System.out::println);
+        else lista.forEach(c -> System.out.println(c.getId() + " - " + c.getNome()));
     }
 
     private void adicionarCliente() {
-        System.out.print("Nome: ");
-        String nome = sc.nextLine();
-        System.out.print("CPF: ");
-        String cpf = sc.nextLine();
-        System.out.print("Telefone: ");
-        String telefone = sc.nextLine();
-        System.out.print("Email: ");
-        String email = sc.nextLine();
-        System.out.print("Endereço: ");
-        String endereco = sc.nextLine();
+        System.out.print("Nome: "); String nome = sc.nextLine();
+        System.out.print("CPF: "); String cpf = sc.nextLine();
+        System.out.print("Telefone: "); String telefone = sc.nextLine();
+        System.out.print("Email: "); String email = sc.nextLine();
+        System.out.print("Endereço: "); String endereco = sc.nextLine();
 
-        Cliente c = new Cliente(0, nome, cpf, telefone, email, endereco);
-        crudClientes.adicionar(c);
-        System.out.println("Cliente adicionado!");
+        gerenciador.adicionarCliente(nome, cpf, telefone, email, endereco);
+        System.out.println("✔ Cliente adicionado!");
     }
 
     private void buscarCliente() {
         System.out.print("ID do cliente: ");
         int id = sc.nextInt(); sc.nextLine();
-        Cliente c = crudClientes.buscarPorId(id);
+        Cliente c = gerenciador.buscarClientePorId(id);
         System.out.println(c != null ? c : "Cliente não encontrado.");
     }
 
     private void editarCliente() {
         System.out.print("ID do cliente para editar: ");
         int id = sc.nextInt(); sc.nextLine();
-        Cliente c = crudClientes.buscarPorId(id);
-        if (c != null) {
-            System.out.print("Nome (" + c.getNome() + "): ");
-            String nome = sc.nextLine();
-            if (!nome.isEmpty()) c.setNome(nome);
-
-            System.out.print("Telefone (" + c.getTelefone() + "): ");
-            String telefone = sc.nextLine();
-            if (!telefone.isEmpty()) c.setTelefone(telefone);
-
-            System.out.print("Email (" + c.getEmail() + "): ");
-            String email = sc.nextLine();
-            if (!email.isEmpty()) c.setEmail(email);
-
-            System.out.print("Endereço (" + c.getEndereco() + "): ");
-            String endereco = sc.nextLine();
-            if (!endereco.isEmpty()) c.setEndereco(endereco);
-
-            crudClientes.salvar(); // salvar alterações
-            System.out.println("Cliente atualizado!");
-        } else {
-            System.out.println("Cliente não encontrado.");
-        }
+        gerenciador.editarCliente(id, sc);
+        System.out.println("✔ Cliente atualizado!");
     }
 
     private void removerCliente() {
         System.out.print("ID do cliente para remover: ");
         int id = sc.nextInt(); sc.nextLine();
-        Cliente c = crudClientes.buscarPorId(id);
-        if (c != null) {
-            crudClientes.remover(c);
-            System.out.println("Cliente removido!");
-        } else {
-            System.out.println("Cliente não encontrado.");
-        }
+        if (gerenciador.removerCliente(id)) System.out.println("✔ Cliente removido!");
+        else System.out.println("Cliente não encontrado.");
     }
 
-    // ---------- FUNCIONÁRIOS ----------
+    // ======================
+    // FUNCIONÁRIOS
+    // ======================
     private void listarFuncionarios() {
-        List<Funcionario> lista = crudFuncionarios.listar();
+        List<Funcionario> lista = gerenciador.listarFuncionarios();
         if (lista.isEmpty()) System.out.println("Nenhum funcionário cadastrado.");
-        else lista.forEach(System.out::println);
+        else lista.forEach(f -> System.out.println(f.getId() + " - " + f.getNome()));
     }
 
     private void adicionarFuncionario() {
-        System.out.print("Nome: ");
-        String nome = sc.nextLine();
-        System.out.print("CPF: ");
-        String cpf = sc.nextLine();
-        System.out.print("Telefone: ");
-        String telefone = sc.nextLine();
-        System.out.print("Email: ");
-        String email = sc.nextLine();
-        System.out.print("Endereço: ");
-        String endereco = sc.nextLine();
-        System.out.print("Cargo: ");
-        String cargo = sc.nextLine();
-        System.out.print("Salário: ");
-        double salario = sc.nextDouble(); sc.nextLine();
-        System.out.print("Login: ");
-        String login = sc.nextLine();
-        System.out.print("Senha: ");
-        int senha = sc.nextInt(); sc.nextLine();
+        System.out.print("Nome: "); String nome = sc.nextLine();
+        System.out.print("CPF: "); String cpf = sc.nextLine();
+        System.out.print("Telefone: "); String telefone = sc.nextLine();
+        System.out.print("Email: "); String email = sc.nextLine();
+        System.out.print("Endereço: "); String endereco = sc.nextLine();
+        System.out.print("Cargo: "); String cargo = sc.nextLine();
+        System.out.print("Salário: "); double salario = sc.nextDouble(); sc.nextLine();
+        System.out.print("Login: "); String login = sc.nextLine();
+        System.out.print("Senha: "); int senha = sc.nextInt(); sc.nextLine();
 
-        Funcionario f = new Funcionario(cargo, salario, login, senha, 0, nome, cpf, telefone, email, endereco);
-        crudFuncionarios.adicionar(f);
-        System.out.println("Funcionário adicionado!");
+        gerenciador.adicionarFuncionario(nome, cpf, telefone, email, endereco, cargo, salario, login, senha);
+        System.out.println("✔ Funcionário adicionado!");
     }
 
     private void buscarFuncionario() {
         System.out.print("ID do funcionário: ");
         int id = sc.nextInt(); sc.nextLine();
-        Funcionario f = crudFuncionarios.buscarPorId(id);
+        Funcionario f = gerenciador.buscarFuncionarioPorId(id);
         System.out.println(f != null ? f : "Funcionário não encontrado.");
     }
 
     private void editarFuncionario() {
         System.out.print("ID do funcionário para editar: ");
         int id = sc.nextInt(); sc.nextLine();
-        Funcionario f = crudFuncionarios.buscarPorId(id);
-        if (f != null) {
-            System.out.print("Nome (" + f.getNome() + "): ");
-            String nome = sc.nextLine();
-            if (!nome.isEmpty()) f.setNome(nome);
-
-            System.out.print("Cargo (" + f.getCargo() + "): ");
-            String cargo = sc.nextLine();
-            if (!cargo.isEmpty()) f.setCargo(cargo);
-
-            System.out.print("Salário (" + f.getSalario() + "): ");
-            String salarioStr = sc.nextLine();
-            if (!salarioStr.isEmpty()) f.setSalario(Double.parseDouble(salarioStr));
-
-            System.out.print("Telefone (" + f.getTelefone() + "): ");
-            String telefone = sc.nextLine();
-            if (!telefone.isEmpty()) f.setTelefone(telefone);
-
-            System.out.print("Email (" + f.getEmail() + "): ");
-            String email = sc.nextLine();
-            if (!email.isEmpty()) f.setEmail(email);
-
-            System.out.print("Endereço (" + f.getEndereco() + "): ");
-            String endereco = sc.nextLine();
-            if (!endereco.isEmpty()) f.setEndereco(endereco);
-
-            System.out.print("Login (" + f.getLogin() + "): ");
-            String login = sc.nextLine();
-            if (!login.isEmpty()) f.setLogin(login);
-
-            System.out.print("Senha (" + f.getSenha() + "): ");
-            String senhaStr = sc.nextLine();
-            if (!senhaStr.isEmpty()) f.setSenha(Integer.parseInt(senhaStr));
-
-            crudFuncionarios.salvar();
-            System.out.println("Funcionário atualizado!");
-        } else {
-            System.out.println("Funcionário não encontrado.");
-        }
+        gerenciador.editarFuncionario(id, sc);
+        System.out.println("✔ Funcionário atualizado!");
     }
 
     private void removerFuncionario() {
         System.out.print("ID do funcionário para remover: ");
         int id = sc.nextInt(); sc.nextLine();
-        Funcionario f = crudFuncionarios.buscarPorId(id);
-        if (f != null) {
-            crudFuncionarios.remover(f);
-            System.out.println("Funcionário removido!");
-        } else {
-            System.out.println("Funcionário não encontrado.");
-        }
+        if (gerenciador.removerFuncionario(id)) System.out.println("✔ Funcionário removido!");
+        else System.out.println("Funcionário não encontrado.");
     }
 }

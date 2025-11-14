@@ -13,13 +13,8 @@ import java.util.List;
 /**
  * CRUD genérico para qualquer tipo de objeto.
  *
- * Funciona assim:
- * - Abre o arquivo JSON e transforma em lista de objetos
- * - Permite adicionar, remover, listar, editar, buscar
- * - Gera ID automaticamente pegando o maior existente
- * - Salva de volta no arquivo JSON
- *
- * OBS: Todas as classes devem ter os métodos getId() e setId(int)
+ * Agora, os métodos adicionar, remover e editar apenas alteram a lista em memória.
+ * Para persistir no JSON, é necessário chamar manualmente o método salvar().
  *
  * @param <T> Tipo de objeto que será gerenciado (Cliente, Funcionario, Agendamento...)
  */
@@ -29,7 +24,6 @@ public class CRUDGenerico<T> {
     private final Class<T> clazz;
     private List<T> lista;
 
-    // Jackson ObjectMapper para converter objetos ↔ JSON
     private final ObjectMapper mapper = new ObjectMapper();
 
     public CRUDGenerico(String caminhoArquivo, Class<T> clazz) {
@@ -37,7 +31,6 @@ public class CRUDGenerico<T> {
         this.clazz = clazz;
         this.lista = carregar();
 
-        // Configura Jackson para lidar com LocalDateTime e JSON legível
         mapper.registerModule(new JavaTimeModule());
         mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     }
@@ -55,10 +48,14 @@ public class CRUDGenerico<T> {
         }
     }
 
+    /**
+     * Salva a lista atual em arquivo JSON
+     */
     public void salvar() {
         try {
             mapper.writerWithDefaultPrettyPrinter()
                     .writeValue(new File(caminhoArquivo), lista);
+            System.out.println("✔ Alterações salvas no arquivo " + caminhoArquivo);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -77,6 +74,9 @@ public class CRUDGenerico<T> {
         return maiorId + 1;
     }
 
+    /**
+     * Apenas adiciona na lista em memória
+     */
     public void adicionar(T obj) {
         int novoId = gerarId();
         try {
@@ -85,23 +85,26 @@ public class CRUDGenerico<T> {
             e.printStackTrace();
         }
         lista.add(obj);
-        salvar();
     }
 
+    /**
+     * Apenas remove da lista em memória
+     */
     public void remover(T obj) {
         lista.remove(obj);
-        salvar();
+    }
+
+    /**
+     * Apenas substitui o objeto na lista em memória
+     */
+    public void editar(int indice, T obj) {
+        if (indice >= 0 && indice < lista.size()) {
+            lista.set(indice, obj);
+        }
     }
 
     public List<T> listar() {
         return new ArrayList<>(lista);
-    }
-
-    public void editar(int indice, T obj) {
-        if (indice >= 0 && indice < lista.size()) {
-            lista.set(indice, obj);
-            salvar();
-        }
     }
 
     public T buscarPorId(int id) {

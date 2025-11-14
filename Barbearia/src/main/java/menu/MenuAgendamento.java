@@ -1,7 +1,8 @@
 package menu;
 
-import servico.Agendamento;
-import servico.GerenciadorAgendamentos;
+import agenda.Agendamento;
+import agenda.Agendamento;
+import agenda.GerenciadorAgendamentos;
 import servico.Servico;
 import servico.Estacao;
 import usuarios.Cliente;
@@ -40,10 +41,10 @@ public class MenuAgendamento {
             System.out.println("3 - Remover Agendamento");
             System.out.println("4 - Buscar Agendamento por ID");
             System.out.println("5 - Editar Agendamento");
+            System.out.println("6 - Salvar Alterações");
             System.out.println("0 - Sair");
             System.out.print("Escolha: ");
-            opc = sc.nextInt();
-            sc.nextLine();
+            opc = sc.nextInt(); sc.nextLine();
 
             switch (opc) {
                 case 1 -> criarAgendamento();
@@ -51,6 +52,7 @@ public class MenuAgendamento {
                 case 3 -> removerAgendamento();
                 case 4 -> buscarAgendamento();
                 case 5 -> editarAgendamento();
+                case 6 -> gerenciador.salvar();
                 case 0 -> System.out.println("Saindo...");
                 default -> System.out.println("Opção inválida!");
             }
@@ -113,7 +115,7 @@ public class MenuAgendamento {
 
     // --- LISTAR AGENDAMENTOS ---
     private void listarAgendamentos() {
-        var lista = gerenciador.listar();
+        List<Agendamento> lista = gerenciador.listar();
         if (lista.isEmpty()) {
             System.out.println("Nenhum agendamento.");
             return;
@@ -280,12 +282,7 @@ public class MenuAgendamento {
         System.out.println("Início: " + a.getHorarioInicio().format(fmt));
         System.out.println("Fim: " + a.getHorarioFim().format(fmt));
         System.out.println("Serviços:");
-        a.getServicos().forEach(s -> {
-            String estacoes = s.getEstacoesPossiveis().stream()
-                    .map(Estacao::name)
-                    .collect(Collectors.joining(", "));
-            System.out.println(" - " + s.getNome() + " (Possíveis: " + estacoes + ")");
-        });
+        a.getServicos().forEach(s -> System.out.println(" - " + s.getNome()));
         System.out.println("Total: R$ " + a.getPrecoTotal());
     }
 }
