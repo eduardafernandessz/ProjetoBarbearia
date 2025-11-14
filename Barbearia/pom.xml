@@ -11,6 +11,12 @@
         <artifactId>json</artifactId>
         <version>20230227</version>
     </dependency>
+        <dependency>
+            <groupId>ch.softappeal.yass</groupId>
+            <artifactId>yass-generate</artifactId>
+            <version>66.0.0</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
     <packaging>jar</packaging>
     <properties>

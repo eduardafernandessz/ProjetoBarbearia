@@ -9,21 +9,16 @@ import java.io.File;
 
 
     public class GerenciarPessoas {
+        
+        public GerenciarPessoas(boolean par) {
+         }
 
         private static final String CAMINHO_CLIENTES = "src/main/java/repositorio/Clientes.json";
         private static final String CAMINHO_FUNCIONARIOS = "src/repositorio/Funcionarios.json";
         private static final String CAMINHO_GERENTES = "src/repositorio/Gerente.json";
 
 
-        /**
-         * Construtor da classe GerenciarPessoas
-         * Ao ser chamado, ele:
-         * 1. Inicializa as listas de clientes, funcionários e gerentes.
-         * 2. Lê os dados dos arquivos JSON correspondentes.
-         */
         public void menu() {
-
-
         }
 
         public void menuPrincipal() {
@@ -31,7 +26,7 @@ import java.io.File;
             int opcao = 0;
 
             do {
-                System.out.println("\n======= MENU PRINCIPAL =======");
+                System.out.println("\n------ MENU PRINCIPAL ------");
                 System.out.println("1 - Cadastrar pessoa");
                 System.out.println("2 - Listar pessoas");
                 System.out.println("3 - Editar pessoa");

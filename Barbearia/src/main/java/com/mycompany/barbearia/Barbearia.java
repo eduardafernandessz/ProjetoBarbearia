@@ -15,7 +15,7 @@ public class Barbearia {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        GerenciarPessoas gerenciar = new GerenciarPessoas();
+        GerenciarPessoas gerenciar = new GerenciarPessoas(true);
 
         boolean rodando = true;
 
