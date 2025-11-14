@@ -18,12 +18,17 @@ public class Funcionario extends Pessoa{
         this.login = login;
         this.senha = senha;
     }
+    
+    public Funcionario() {
+}
 
 
     public String getCargo() {
         return cargo;
     }
-
+    public void setId(int id) {
+        this.id = id;
+    }
     public void setCargo(String cargo) {
         this.cargo = cargo;
     }

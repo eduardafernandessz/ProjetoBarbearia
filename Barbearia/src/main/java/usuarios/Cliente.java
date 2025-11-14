@@ -10,6 +10,9 @@ public class Cliente extends Pessoa{
         super(id, nome, cpf, telefone, email, endereco);
     }
 
+    public Cliente() {
+}
+    
     public String toString() {
         return  "\nId:" + getId() +
                 "\nNome: " + getNome() +
