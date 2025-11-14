@@ -1,19 +1,16 @@
 package com.mycompany.barbearia;
-import java.util.Scanner;
-import controle.GerenciarPessoas;
+
+
+import menu.MenuPrincipal;
+import servico.GerenciadorAgendamentos;
+
 
 public class Barbearia {
 
-public static void main(String[] args) {
-        GerenciarPessoas gerenciar = new GerenciarPessoas();
-
-        boolean rodando = true;
-
-        while (rodando) {
-            gerenciar.exibirMenu();
-                    rodando = false;
-                    System.out.println("\nSaindo do sistema...");
-                }
-        };
-    
+    public static void main(String[] args) {
+        // Instancia e inicia o menu principal
+        MenuPrincipal menu = new MenuPrincipal();
+        menu.iniciarSistema();
+    }
 }
+

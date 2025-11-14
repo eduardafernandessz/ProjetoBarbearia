@@ -7,7 +7,6 @@
     "telefone": "(31) 91234-5678",
     "endereco": "Rua A, 100",
     "cargo": "Barbeiro",
-    "tipo": "Funcionario",
     "salario": 2500,
     "login": "carlos",
     "senha": 1234
@@ -20,7 +19,6 @@
     "telefone": "(31) 92345-6789",
     "endereco": "Rua B, 200",
     "cargo": "Recepcionista",
-    "tipo": "Funcionario",
     "salario": 1800,
     "login": "ana",
     "senha": 5678
@@ -33,7 +31,6 @@
     "telefone": "(31) 93456-7890",
     "endereco": "Rua C, 300",
     "cargo": "Barbeiro",
-    "tipo": "Funcionario",
     "salario": 2600,
     "login": "pedro",
     "senha": 9012
@@ -46,7 +43,6 @@
     "telefone": "(31) 94567-8901",
     "endereco": "Rua D, 400",
     "cargo": "Auxiliar",
-    "tipo": "Funcionario",
     "salario": 1500,
     "login": "mariana",
     "senha": 3456
@@ -59,7 +55,6 @@
     "telefone": "(31) 95678-9012",
     "endereco": "Rua E, 500",
     "cargo": "Barbeiro",
-    "tipo": "Funcionario",
     "salario": 2700,
     "login": "rafael",
     "senha": 7890

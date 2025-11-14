@@ -1,0 +1,43 @@
+[ {
+  "id" : 1,
+  "cliente" : {
+    "id" : 2,
+    "nome" : "Maria Souza",
+    "cpf" : "987.654.321-00",
+    "telefone" : "(31) 98888-2222",
+    "email" : "maria@email.com",
+    "endereco" : "Rua B, 456"
+  },
+  "funcionario" : {
+    "id" : 1,
+    "nome" : "Carlos Silva",
+    "cpf" : "123.456.789-00",
+    "telefone" : "(31) 91234-5678",
+    "email" : "carlos@barbearia.com",
+    "endereco" : "Rua A, 100",
+    "cargo" : "Barbeiro",
+    "salario" : 2500.0,
+    "login" : "carlos",
+    "senha" : 1234
+  },
+  "servicos" : [ {
+    "id" : 1,
+    "nome" : "Corte Masculino",
+    "preco" : 35.0,
+    "duracaoMinutos" : 30,
+    "estacoesPossiveis" : [ {
+      "id" : 2,
+      "nome" : "Cadeira 1"
+    }, {
+      "id" : 3,
+      "nome" : "Cadeira 2"
+    } ]
+  } ],
+  "horarioInicio" : "12/12/2025 14:30",
+  "horarioFim" : "12/12/2025 15:00",
+  "precoTotal" : 35.0,
+  "estacaoEscolhida" : {
+    "id" : 2,
+    "nome" : "Cadeira 1"
+  }
+} ]

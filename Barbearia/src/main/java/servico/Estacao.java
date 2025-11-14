@@ -9,6 +9,10 @@ public class Estacao {
         this.nome = nome;
     }
 
+    public Estacao() {
+    }
+    
+    
     public int getId() {
         return id;
     }

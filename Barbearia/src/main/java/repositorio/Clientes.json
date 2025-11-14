@@ -6,13 +6,6 @@
   "email" : "maria@email.com",
   "endereco" : "Rua B, 456"
 }, {
-  "id" : 0,
-  "nome" : "feaf",
-  "cpf" : "feafa",
-  "telefone" : "63365",
-  "email" : "jyryr",
-  "endereco" : "jyrjrj"
-}, {
   "id" : 3,
   "nome" : "htreh",
   "cpf" : "htrehtehte",
@@ -26,4 +19,11 @@
   "telefone" : "feawfaw",
   "email" : "feawf",
   "endereco" : "feawaw"
+}, {
+  "id" : 5,
+  "nome" : "Pedro Almeida",
+  "cpf" : "165998765437",
+  "telefone" : "3398780855",
+  "email" : "pedro@gmail.com",
+  "endereco" : "Rua das Flores"
 } ]

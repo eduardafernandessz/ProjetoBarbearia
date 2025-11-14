@@ -10,7 +10,7 @@ public class Gerente extends Funcionario {
     }
     
     public Gerente() {
-}
+    }
 
     public String toString() {
         return "Gerente:\n" +
@@ -23,4 +23,8 @@ public class Gerente extends Funcionario {
                 "Cargo: " + cargo + "\n" +
                 "Salário: " + salario;
     }
+
+    
 }
+
+
