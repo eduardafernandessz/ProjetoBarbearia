@@ -1,13 +1,67 @@
-[{
-    "senha": 525,
-    "telefone": "grw",
-    "tipo": "Funcionario",
-    "endereco": "grw",
-    "salario": 54254,
-    "cpf": "grwe",
-    "nome": "gfesg",
+[
+  {
     "id": 1,
-    "cargo": "ggrw",
-    "login": "ghetre",
-    "email": "grw"
-}]
+    "nome": "Carlos Silva",
+    "cpf": "123.456.789-00",
+    "email": "carlos@barbearia.com",
+    "telefone": "(31) 91234-5678",
+    "endereco": "Rua A, 100",
+    "cargo": "Barbeiro",
+    "tipo": "Funcionario",
+    "salario": 2500,
+    "login": "carlos",
+    "senha": 1234
+  },
+  {
+    "id": 2,
+    "nome": "Ana Souza",
+    "cpf": "987.654.321-00",
+    "email": "ana@barbearia.com",
+    "telefone": "(31) 92345-6789",
+    "endereco": "Rua B, 200",
+    "cargo": "Recepcionista",
+    "tipo": "Funcionario",
+    "salario": 1800,
+    "login": "ana",
+    "senha": 5678
+  },
+  {
+    "id": 3,
+    "nome": "Pedro Oliveira",
+    "cpf": "456.789.123-00",
+    "email": "pedro@barbearia.com",
+    "telefone": "(31) 93456-7890",
+    "endereco": "Rua C, 300",
+    "cargo": "Barbeiro",
+    "tipo": "Funcionario",
+    "salario": 2600,
+    "login": "pedro",
+    "senha": 9012
+  },
+  {
+    "id": 4,
+    "nome": "Mariana Lima",
+    "cpf": "321.654.987-00",
+    "email": "mariana@barbearia.com",
+    "telefone": "(31) 94567-8901",
+    "endereco": "Rua D, 400",
+    "cargo": "Auxiliar",
+    "tipo": "Funcionario",
+    "salario": 1500,
+    "login": "mariana",
+    "senha": 3456
+  },
+  {
+    "id": 5,
+    "nome": "Rafael Costa",
+    "cpf": "654.321.987-00",
+    "email": "rafael@barbearia.com",
+    "telefone": "(31) 95678-9012",
+    "endereco": "Rua E, 500",
+    "cargo": "Barbeiro",
+    "tipo": "Funcionario",
+    "salario": 2700,
+    "login": "rafael",
+    "senha": 7890
+  }
+]

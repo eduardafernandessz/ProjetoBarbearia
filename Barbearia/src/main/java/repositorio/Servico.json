@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "nome": "Corte Masculino",
+    "valor": 35.0,
+    "duracao": 30,
+    "estacao": 2
+  },
+  {
+    "id": 2,
+    "nome": "Corte + Barba",
+    "valor": 55.0,
+    "duracao": 50,
+    "estacao": 2
+  },
+  {
+    "id": 3,
+    "nome": "Barba",
+    "valor": 25.0,
+    "duracao": 20,
+    "estacao": 3
+  },
+  {
+    "id": 4,
+    "nome": "Sombrancelha",
+    "valor": 15.0,
+    "duracao": 10,
+    "estacao": 3
+  },
+  {
+    "id": 5,
+    "nome": "Lavagem",
+    "valor": 20.0,
+    "duracao": 15,
+    "estacao": 1
+  },
+  {
+    "id": 6,
+    "nome": "Hidratação Capilar",
+    "valor": 40.0,
+    "duracao": 30,
+    "estacao": 1
+  }
+]
