@@ -4,57 +4,41 @@
     "nome": "Corte Masculino",
     "preco": 35.0,
     "duracaoMinutos": 30,
-    "estacoesPossiveis": [
-      { "id": 2, "nome": "Cadeira 1" },
-      { "id": 3, "nome": "Cadeira 2" }
-    ]
+    "estacoesPossiveis": ["CADEIRA_1", "CADEIRA_2"]
   },
   {
     "id": 2,
     "nome": "Corte + Barba",
     "preco": 55.0,
     "duracaoMinutos": 50,
-    "estacoesPossiveis": [
-      { "id": 2, "nome": "Cadeira 1" },
-      { "id": 3, "nome": "Cadeira 2" }
-    ]
+    "estacoesPossiveis": ["CADEIRA_1", "CADEIRA_2"]
   },
   {
     "id": 3,
     "nome": "Barba",
     "preco": 25.0,
     "duracaoMinutos": 20,
-    "estacoesPossiveis": [
-      { "id": 2, "nome": "Cadeira 1" },
-      { "id": 3, "nome": "Cadeira 2" }
-    ]
+    "estacoesPossiveis": ["CADEIRA_1", "CADEIRA_2"]
   },
   {
     "id": 4,
     "nome": "Sombrancelha",
     "preco": 15.0,
     "duracaoMinutos": 10,
-    "estacoesPossiveis": [
-      { "id": 2, "nome": "Cadeira 1" },
-      { "id": 3, "nome": "Cadeira 2" }
-    ]
+    "estacoesPossiveis": ["CADEIRA_1", "CADEIRA_2"]
   },
   {
     "id": 5,
     "nome": "Lavagem",
     "preco": 20.0,
     "duracaoMinutos": 15,
-    "estacoesPossiveis": [
-      { "id": 1, "nome": "Lavatório" }
-    ]
+    "estacoesPossiveis": ["LAVATORIO"]
   },
   {
     "id": 6,
     "nome": "Hidratação Capilar",
     "preco": 40.0,
     "duracaoMinutos": 30,
-    "estacoesPossiveis": [
-      { "id": 1, "nome": "Lavatório" }
-    ]
+    "estacoesPossiveis": ["LAVATORIO"]
   }
 ]

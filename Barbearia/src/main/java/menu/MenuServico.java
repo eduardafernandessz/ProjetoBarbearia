@@ -54,10 +54,9 @@ public class MenuServico {
 
         for (Servico s : lista) {
             String estacoes = "Não definidas";
-
             if (s.getEstacoesPossiveis() != null && !s.getEstacoesPossiveis().isEmpty()) {
                 estacoes = s.getEstacoesPossiveis().stream()
-                        .map(Estacao::getNome)
+                        .map(Estacao::name)
                         .collect(Collectors.joining(", "));
             }
 
@@ -84,16 +83,30 @@ public class MenuServico {
         int duracao = sc.nextInt();
         sc.nextLine();
 
-        // --- coletar várias estações ---
+        // --- selecionar estações possíveis via enum ---
         List<Estacao> estacoes = new ArrayList<>();
-        System.out.println("Digite os nomes das estações possíveis (vazio para parar):");
+        System.out.println("Escolha as estações possíveis (1 a 3, vazio para parar):");
+        for (Estacao e : Estacao.values()) {
+            System.out.println(e.ordinal() + 1 + " - " + e.name());
+        }
 
         while (true) {
-            System.out.print("Estação: ");
-            String nomeEstacao = sc.nextLine();
-            if (nomeEstacao.isBlank()) break;
-
-            estacoes.add(new Estacao(0, nomeEstacao));
+            System.out.print("Número da estação: ");
+            String input = sc.nextLine();
+            if (input.isBlank()) break;
+            try {
+                int num = Integer.parseInt(input);
+                if (num >= 1 && num <= Estacao.values().length) {
+                    Estacao escolhida = Estacao.values()[num - 1];
+                    if (!estacoes.contains(escolhida)) {
+                        estacoes.add(escolhida);
+                    }
+                } else {
+                    System.out.println("Número inválido!");
+                }
+            } catch (NumberFormatException ex) {
+                System.out.println("Digite um número válido!");
+            }
         }
 
         Servico s = new Servico(0, nome, preco, duracao, estacoes);
@@ -117,7 +130,7 @@ public class MenuServico {
         String estacoes = "Não definidas";
         if (s.getEstacoesPossiveis() != null && !s.getEstacoesPossiveis().isEmpty()) {
             estacoes = s.getEstacoesPossiveis().stream()
-                    .map(Estacao::getNome)
+                    .map(Estacao::name)
                     .collect(Collectors.joining(", "));
         }
 
@@ -154,21 +167,34 @@ public class MenuServico {
         String duracaoStr = sc.nextLine();
         if (!duracaoStr.isEmpty()) s.setDuracaoMinutos(Integer.parseInt(duracaoStr));
 
-        // --- editar lista de estações ---
         System.out.println("Editar estações possíveis? (s/n): ");
         String editar = sc.nextLine();
 
         if (editar.equalsIgnoreCase("s")) {
             List<Estacao> novas = new ArrayList<>();
-            System.out.println("Digite as novas estações (vazio para parar):");
-
-            while (true) {
-                System.out.print("Estação: ");
-                String nomeEstacao = sc.nextLine();
-                if (nomeEstacao.isBlank()) break;
-                novas.add(new Estacao(0, nomeEstacao));
+            System.out.println("Escolha as novas estações possíveis:");
+            for (Estacao e : Estacao.values()) {
+                System.out.println(e.ordinal() + 1 + " - " + e.name());
             }
 
+            while (true) {
+                System.out.print("Número da estação: ");
+                String input = sc.nextLine();
+                if (input.isBlank()) break;
+                try {
+                    int num = Integer.parseInt(input);
+                    if (num >= 1 && num <= Estacao.values().length) {
+                        Estacao escolhida = Estacao.values()[num - 1];
+                        if (!novas.contains(escolhida)) {
+                            novas.add(escolhida);
+                        }
+                    } else {
+                        System.out.println("Número inválido!");
+                    }
+                } catch (NumberFormatException ex) {
+                    System.out.println("Digite um número válido!");
+                }
+            }
             s.setEstacoesPossiveis(novas);
         }
 

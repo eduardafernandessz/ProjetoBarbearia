@@ -1,32 +1,17 @@
 package servico;
 
-public class Estacao {
-    private int id;
-    private String nome;
+public enum Estacao {
+    CADEIRA_1("Cadeira 1"),
+    CADEIRA_2("Cadeira 2"),
+    LAVATORIO("Lavatório");
 
-    public Estacao(int id, String nome) {
-        this.id = id;
+    private final String nome;
+
+    Estacao(String nome) {
         this.nome = nome;
     }
 
-    public Estacao() {
-    }
-    
-    
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
     public String getNome() {
         return nome;
     }
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    
 }
-
-

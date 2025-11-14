@@ -25,19 +25,43 @@
     "nome" : "Corte Masculino",
     "preco" : 35.0,
     "duracaoMinutos" : 30,
-    "estacoesPossiveis" : [ {
-      "id" : 2,
-      "nome" : "Cadeira 1"
-    }, {
-      "id" : 3,
-      "nome" : "Cadeira 2"
-    } ]
+    "estacoesPossiveis" : [ "CADEIRA_1", "CADEIRA_2" ]
   } ],
   "horarioInicio" : "12/12/2025 14:30",
   "horarioFim" : "12/12/2025 15:00",
   "precoTotal" : 35.0,
-  "estacaoEscolhida" : {
+  "estacaoEscolhida" : "CADEIRA_2"
+}, {
+  "id" : 2,
+  "cliente" : {
+    "id" : 3,
+    "nome" : "htreh",
+    "cpf" : "htrehtehte",
+    "telefone" : "hteht",
+    "email" : "htehte",
+    "endereco" : "hteh"
+  },
+  "funcionario" : {
     "id" : 2,
-    "nome" : "Cadeira 1"
-  }
+    "nome" : "Ana Souza",
+    "cpf" : "987.654.321-00",
+    "telefone" : "(31) 92345-6789",
+    "email" : "ana@barbearia.com",
+    "endereco" : "Rua B, 200",
+    "cargo" : "Recepcionista",
+    "salario" : 1800.0,
+    "login" : "ana",
+    "senha" : 5678
+  },
+  "servicos" : [ {
+    "id" : 2,
+    "nome" : "Corte + Barba",
+    "preco" : 55.0,
+    "duracaoMinutos" : 50,
+    "estacoesPossiveis" : [ "CADEIRA_1", "CADEIRA_2" ]
+  } ],
+  "horarioInicio" : "11/12/2025 14:30",
+  "horarioFim" : "11/12/2025 15:20",
+  "precoTotal" : 55.0,
+  "estacaoEscolhida" : "CADEIRA_2"
 } ]
