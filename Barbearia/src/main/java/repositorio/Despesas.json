@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "descricao": "Compra de produtos para salão",
+    "valor": 450.50,
+    "data": "2025-11-01",
+    "categoria": "Estoque"
+  },
+  {
+    "id": 2,
+    "descricao": "Conta de luz do salão",
+    "valor": 320.75,
+    "data": "2025-11-05",
+    "categoria": "Contas"
+  },
+  {
+    "id": 3,
+    "descricao": "Pagamento de marketing online",
+    "valor": 200.00,
+    "data": "2025-11-07",
+    "categoria": "Publicidade"
+  },
+  {
+    "id": 4,
+    "descricao": "Manutenção de equipamentos",
+    "valor": 150.90,
+    "data": "2025-11-10",
+    "categoria": "Manutenção"
+  },
+  {
+    "id": 5,
+    "descricao": "Compra de material de limpeza",
+    "valor": 85.30,
+    "data": "2025-11-12",
+    "categoria": "Limpeza"
+  }
+]

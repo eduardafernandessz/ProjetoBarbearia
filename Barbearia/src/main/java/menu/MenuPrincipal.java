@@ -18,6 +18,8 @@ public class MenuPrincipal {
     private MenuAgendamento menuAgendamento = new MenuAgendamento();
     private MenuPessoa menuPessoa = new MenuPessoa(); // clientes e funcionários
     private MenuServico menuServico = new MenuServico(); // menu de serviços
+    private MenuProdutos menuProduto = new MenuProdutos(); // menu de produtos
+    private MenuDespesas menuDespesa = new MenuDespesas(); // menu de despesas
 
     public void iniciarSistema() {
         System.out.println("===== BEM-VINDO À BARBEARIA =====");
@@ -32,7 +34,7 @@ public class MenuPrincipal {
                 usuario = loginFuncionario.autenticar();
             }
 
-            System.out.println("✔ Login realizado! Bem-vindo(a), " + usuario.getNome());
+            System.out.println(" Login realizado! Bem-vindo(a), " + usuario.getNome());
             menuFuncionario(usuario);
 
         } else { // Gerente
@@ -67,13 +69,15 @@ public class MenuPrincipal {
             System.out.println("\n--- MENU FUNCIONÁRIO ---");
             System.out.println("1 - Gerenciar Agendamentos");
             System.out.println("2 - Gerenciar Clientes");
+            System.out.println("3 - Gerenciar Produtos");
             System.out.println("0 - Sair");
             System.out.print("Escolha: ");
             opc = sc.nextInt();
 
             switch (opc) {
                 case 1 -> menuAgendamento.exibirMenu();
-                case 2 -> menuPessoa.exibirMenuClientes(); // apenas clientes
+                case 2 -> menuPessoa.exibirMenuClientes(); 
+                case 3 -> menuProduto.exibirMenu();   // produtos
                 case 0 -> System.out.println("Voltando...");
                 default -> System.out.println("Opção inválida!");
             }
@@ -89,6 +93,8 @@ public class MenuPrincipal {
             System.out.println("2 - Gerenciar Clientes");
             System.out.println("3 - Gerenciar Funcionários");
             System.out.println("4 - Gerenciar Serviços");
+            System.out.println("5 - Gerenciar Produtos");
+            System.out.println("6 - Gerenciar Despesas");
             System.out.println("0 - Sair");
             System.out.print("Escolha: ");
             opc = sc.nextInt();
@@ -98,6 +104,8 @@ public class MenuPrincipal {
                 case 2 -> menuPessoa.exibirMenuClientes();
                 case 3 -> menuPessoa.exibirMenuFuncionarios();
                 case 4 -> menuServico.exibirMenu();
+                case 5 -> menuProduto.exibirMenu();   
+                case 6 -> menuDespesa.exibirMenu();   
                 case 0 -> System.out.println("Voltando...");
                 default -> System.out.println("Opção inválida!");
             }

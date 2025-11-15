@@ -1,0 +1,25 @@
+[ {
+  "id" : 1,
+  "nome" : "Shampoo Profissional",
+  "preco" : 35.0,
+  "quantidadeEstoque" : 50,
+  "categoria" : "Higiene"
+}, {
+  "id" : 2,
+  "nome" : "Condicionador Hidratante",
+  "preco" : 40.0,
+  "quantidadeEstoque" : 40,
+  "categoria" : "Higiene"
+}, {
+  "id" : 3,
+  "nome" : "Máscara Capilar",
+  "preco" : 60.0,
+  "quantidadeEstoque" : 30,
+  "categoria" : "Tratamento"
+}, {
+  "id" : 4,
+  "nome" : "Minoxidil",
+  "preco" : 100.0,
+  "quantidadeEstoque" : 20,
+  "categoria" : null
+} ]

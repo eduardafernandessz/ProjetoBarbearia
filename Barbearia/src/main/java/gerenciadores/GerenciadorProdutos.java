@@ -63,6 +63,6 @@ public class GerenciadorProdutos {
     // ==========================================================
     public void salvar() {
         crud.salvar();
-        System.out.println(" Produtos salvos no JSON!");
+        System.out.println(" Produtos salvos!");
     }
 }

@@ -85,7 +85,7 @@ public class MenuProdutos {
         Produto existente = gerenciador.buscarPorId(id);
 
         if (existente == null) {
-            System.out.println("❌ Produto não encontrado.");
+            System.out.println(" Produto não encontrado.");
             return;
         }
 
@@ -106,9 +106,9 @@ public class MenuProdutos {
         novo.setQuantidadeEstoque(quantidadeEstoque);
 
         if (gerenciador.editar(id, novo))
-            System.out.println("✔ Produto editado!");
+            System.out.println(" Produto editado!");
         else
-            System.out.println("❌ Erro ao editar.");
+            System.out.println(" Erro ao editar.");
     }
 
     // ==========================================================
