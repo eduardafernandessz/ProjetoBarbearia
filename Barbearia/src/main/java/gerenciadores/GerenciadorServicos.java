@@ -1,53 +1,48 @@
 package gerenciadores;
 
+import modelo.Estacao;
+import modelo.Servico;
 import utils.CRUDGenerico;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import modelo.Estacao;
-import modelo.Servico;
 
 public class GerenciadorServicos {
 
-    private CRUDGenerico<Servico> crud;
+    private final CRUDGenerico<Servico> crud;
 
     public GerenciadorServicos() {
         crud = new CRUDGenerico<>("src/main/java/repositorio/servicos.json", Servico.class);
     }
 
-    // ======================
-    // LISTAR SERVIÇOS
-    // ======================
-    public List<Servico> listarServicos() {
+    // ==============================
+    // LISTAR
+    // ==============================
+    public List<Servico> listar() {
         return crud.listar();
     }
 
-    // ======================
-    // ADICIONAR SERVIÇO
-    // ======================
-    public void adicionarServico(String nome, double preco, int duracao, List<Estacao> estacoes) {
-        Servico s = new Servico(0, nome, preco, duracao, estacoes);
+    // ==============================
+    // ADICIONAR
+    // ==============================
+    public void adicionar(Servico s) {
         crud.adicionar(s);
-        crud.salvar();
     }
 
-    // ======================
-    // BUSCAR SERVIÇO
-    // ======================
-    public Servico buscarServicoPorId(int id) {
+    // ==============================
+    // BUSCAR POR ID
+    // ==============================
+    public Servico buscarPorId(int id) {
         return crud.buscarPorId(id);
     }
 
-    // ======================
-    // EDITAR SERVIÇO
-    // ======================
-    public void editarServico(int id, Scanner sc) {
+    // ==============================
+    // EDITAR
+    // ==============================
+    public boolean editar(int id, Scanner sc) {
         Servico s = crud.buscarPorId(id);
-        if (s == null) {
-            System.out.println("Serviço não encontrado.");
-            return;
-        }
+        if (s == null) return false;
 
         System.out.print("Nome (" + s.getNome() + "): ");
         String nome = sc.nextLine();
@@ -90,19 +85,26 @@ public class GerenciadorServicos {
             s.setEstacoesPossiveis(novas);
         }
 
-        crud.salvar();
+        return true;
     }
 
-    // ======================
-    // REMOVER SERVIÇO
-    // ======================
-    public boolean removerServico(int id) {
+    // ==============================
+    // REMOVER
+    // ==============================
+    public boolean remover(int id) {
         Servico s = crud.buscarPorId(id);
         if (s != null) {
             crud.remover(s);
-            crud.salvar();
             return true;
         }
         return false;
+    }
+
+    // ==============================
+    // SALVAR NO JSON
+    // ==============================
+    public void salvar() {
+        crud.salvar();
+        System.out.println("✔ Serviços salvos!");
     }
 }

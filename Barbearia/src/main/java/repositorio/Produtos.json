@@ -8,7 +8,7 @@
   "id" : 2,
   "nome" : "Condicionador Hidratante",
   "preco" : 40.0,
-  "quantidadeEstoque" : 40,
+  "quantidadeEstoque" : 39,
   "categoria" : "Higiene"
 }, {
   "id" : 3,

@@ -1,12 +1,11 @@
 package menu;
 
 import modelo.Agendamento;
-import modelo.Agendamento;
-import gerenciadores.GerenciadorAgendamentos;
 import modelo.Servico;
 import modelo.Estacao;
 import modelo.Cliente;
 import modelo.Funcionario;
+import gerenciadores.GerenciadorAgendamentos;
 import utils.CRUDGenerico;
 
 import java.time.LocalDateTime;
@@ -52,9 +51,12 @@ public class MenuAgendamento {
                 case 3 -> removerAgendamento();
                 case 4 -> buscarAgendamento();
                 case 5 -> editarAgendamento();
-                case 6 -> gerenciador.salvar();
+                case 6 -> {
+                    gerenciador.salvar();
+                    System.out.println("✔ Alterações salvas!");
+                }
                 case 0 -> System.out.println("Saindo...");
-                default -> System.out.println("Opção inválida!");
+                default -> System.out.println("⚠ Opção inválida!");
             }
         } while (opc != 0);
     }
@@ -68,36 +70,34 @@ public class MenuAgendamento {
         if (funcionario == null) return;
 
         List<Servico> servicosEscolhidos = selecionarServicos();
-        if (servicosEscolhidos == null || servicosEscolhidos.isEmpty()) return;
+        if (servicosEscolhidos.isEmpty()) return;
 
         System.out.print("Digite a data e hora do agendamento (dd/MM/yyyy HH:mm): ");
         LocalDateTime inicio;
         try {
             inicio = LocalDateTime.parse(sc.nextLine(), fmt);
         } catch (Exception e) {
-            System.out.println(" Data inválida!");
+            System.out.println("⚠ Data inválida!");
             return;
         }
 
         Estacao estacao = escolherEstacaoParaServicos(servicosEscolhidos);
         if (estacao == null) {
-            System.out.println(" Não há estação compatível com TODOS os serviços escolhidos.");
+            System.out.println("⚠ Não há estação compatível com TODOS os serviços escolhidos.");
             return;
         }
 
         Agendamento novo = new Agendamento(0, cliente, funcionario, inicio, estacao);
         novo.setServicos(servicosEscolhidos);
 
-        boolean deuCerto = gerenciador.adicionar(novo);
-        System.out.println(deuCerto ? " Agendamento criado com sucesso!" : " Não foi possível criar. Verifique conflitos.");
+        boolean sucesso = gerenciador.adicionar(novo);
+        System.out.println(sucesso ? "✔ Agendamento criado com sucesso!" : "⚠ Não foi possível criar. Verifique conflitos.");
     }
 
     // --- ESCOLHER ESTAÇÃO ---
     private Estacao escolherEstacaoParaServicos(List<Servico> servicos) {
         Set<Estacao> estacoesComuns = new HashSet<>(servicos.get(0).getEstacoesPossiveis());
-        for (Servico s : servicos) {
-            estacoesComuns.retainAll(s.getEstacoesPossiveis());
-        }
+        for (Servico s : servicos) estacoesComuns.retainAll(s.getEstacoesPossiveis());
         if (estacoesComuns.isEmpty()) return null;
 
         List<Estacao> lista = new ArrayList<>(estacoesComuns);
@@ -117,7 +117,7 @@ public class MenuAgendamento {
     private void listarAgendamentos() {
         List<Agendamento> lista = gerenciador.listar();
         if (lista.isEmpty()) {
-            System.out.println("Nenhum agendamento.");
+            System.out.println("⚠ Nenhum agendamento.");
             return;
         }
         System.out.println("\n===== Lista de Agendamentos =====");
@@ -145,10 +145,9 @@ public class MenuAgendamento {
 
         Agendamento ag = gerenciador.buscarPorId(id);
         if (ag == null) {
-            System.out.println(" Agendamento não encontrado.");
+            System.out.println("⚠ Agendamento não encontrado.");
             return;
         }
-
         System.out.println("\n===== Detalhes =====");
         imprimirResumo(ag);
     }
@@ -160,10 +159,11 @@ public class MenuAgendamento {
 
         Agendamento atual = gerenciador.buscarPorId(id);
         if (atual == null) {
-            System.out.println(" Agendamento não encontrado.");
+            System.out.println("⚠ Agendamento não encontrado.");
             return;
         }
 
+        // Clonar para editar
         Agendamento novo = new Agendamento();
         novo.setId(atual.getId());
         novo.setCliente(atual.getCliente());
@@ -187,7 +187,7 @@ public class MenuAgendamento {
         System.out.print("Deseja alterar os serviços? (s/n): ");
         if (sc.nextLine().equalsIgnoreCase("s")) {
             List<Servico> servs = selecionarServicos();
-            if (servs != null && !servs.isEmpty()) {
+            if (!servs.isEmpty()) {
                 novo.setServicos(servs);
                 novo.setEstacaoEscolhida(escolherEstacaoParaServicos(servs));
             }
@@ -199,19 +199,19 @@ public class MenuAgendamento {
                 System.out.print("Digite a nova data e hora (dd/MM/yyyy HH:mm): ");
                 novo.setHorarioInicio(LocalDateTime.parse(sc.nextLine(), fmt));
             } catch (Exception e) {
-                System.out.println("Data inválida. Mantendo a original.");
+                System.out.println("⚠ Data inválida. Mantendo a original.");
             }
         }
 
         boolean ok = gerenciador.editar(id, novo);
-        System.out.println(ok ? " Agendamento editado com sucesso!" : " Não foi possível editar. Verifique conflitos.");
+        System.out.println(ok ? "✔ Agendamento editado com sucesso!" : "⚠ Não foi possível editar. Verifique conflitos.");
     }
 
     // --- SELEÇÃO DE CLIENTE ---
     private Cliente selecionarCliente() {
         List<Cliente> clientes = crudClientes.listar();
         if (clientes.isEmpty()) {
-            System.out.println(" Nenhum cliente cadastrado!");
+            System.out.println("⚠ Nenhum cliente cadastrado!");
             return null;
         }
 
@@ -219,7 +219,7 @@ public class MenuAgendamento {
         System.out.print("Digite o ID do cliente: ");
         Cliente cliente = crudClientes.buscarPorId(sc.nextInt()); sc.nextLine();
 
-        if (cliente == null) System.out.println(" Cliente não encontrado!");
+        if (cliente == null) System.out.println("⚠ Cliente não encontrado!");
         return cliente;
     }
 
@@ -227,7 +227,7 @@ public class MenuAgendamento {
     private Funcionario selecionarFuncionario() {
         List<Funcionario> funcionarios = crudFuncionarios.listar();
         if (funcionarios.isEmpty()) {
-            System.out.println(" Nenhum funcionário cadastrado!");
+            System.out.println("⚠ Nenhum funcionário cadastrado!");
             return null;
         }
 
@@ -235,7 +235,7 @@ public class MenuAgendamento {
         System.out.print("Digite o ID do funcionário: ");
         Funcionario funcionario = crudFuncionarios.buscarPorId(sc.nextInt()); sc.nextLine();
 
-        if (funcionario == null) System.out.println(" Funcionário não encontrado!");
+        if (funcionario == null) System.out.println("⚠ Funcionário não encontrado!");
         return funcionario;
     }
 
@@ -243,8 +243,8 @@ public class MenuAgendamento {
     private List<Servico> selecionarServicos() {
         List<Servico> servicos = crudServicos.listar();
         if (servicos.isEmpty()) {
-            System.out.println(" Nenhum serviço cadastrado!");
-            return null;
+            System.out.println("⚠ Nenhum serviço cadastrado!");
+            return Collections.emptyList();
         }
 
         servicos.forEach(s -> {
@@ -262,10 +262,14 @@ public class MenuAgendamento {
             if (id != 0) {
                 Servico s = crudServicos.buscarPorId(id);
                 if (s != null) {
-                    escolhidos.add(s);
-                    System.out.println(" Adicionado!");
+                    if (!escolhidos.contains(s)) {
+                        escolhidos.add(s);
+                        System.out.println("✔ Adicionado!");
+                    } else {
+                        System.out.println("⚠ Serviço já escolhido!");
+                    }
                 } else {
-                    System.out.println(" Serviço não encontrado!");
+                    System.out.println("⚠ Serviço não encontrado!");
                 }
             }
         } while (id != 0);

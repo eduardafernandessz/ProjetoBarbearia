@@ -9,8 +9,8 @@ import java.util.Scanner;
 
 public class GerenciadorPessoas {
 
-    private CRUDGenerico<Cliente> crudClientes;
-    private CRUDGenerico<Funcionario> crudFuncionarios;
+    private final CRUDGenerico<Cliente> crudClientes;
+    private final CRUDGenerico<Funcionario> crudFuncionarios;
 
     public GerenciadorPessoas() {
         crudClientes = new CRUDGenerico<>("src/main/java/repositorio/clientes.json", Cliente.class);
@@ -20,7 +20,6 @@ public class GerenciadorPessoas {
     // ==============================
     // CLIENTES
     // ==============================
-
     public void adicionarCliente(String nome, String cpf, String telefone, String email, String endereco) {
         Cliente c = new Cliente(0, nome, cpf, telefone, email, endereco);
         crudClientes.adicionar(c);
@@ -42,17 +41,16 @@ public class GerenciadorPessoas {
             if (!nome.isEmpty()) c.setNome(nome);
 
             System.out.print("Telefone (" + c.getTelefone() + "): ");
-            String tel = sc.nextLine();
-            if (!tel.isEmpty()) c.setTelefone(tel);
+            String telefone = sc.nextLine();
+            if (!telefone.isEmpty()) c.setTelefone(telefone);
 
             System.out.print("Email (" + c.getEmail() + "): ");
             String email = sc.nextLine();
             if (!email.isEmpty()) c.setEmail(email);
 
             System.out.print("Endereço (" + c.getEndereco() + "): ");
-            String end = sc.nextLine();
-            if (!end.isEmpty()) c.setEndereco(end);
-
+            String endereco = sc.nextLine();
+            if (!endereco.isEmpty()) c.setEndereco(endereco);
         }
     }
 
@@ -68,7 +66,6 @@ public class GerenciadorPessoas {
     // ==============================
     // FUNCIONÁRIOS
     // ==============================
-
     public void adicionarFuncionario(String nome, String cpf, String telefone, String email,
                                      String endereco, String cargo, double salario, String login, int senha) {
         Funcionario f = new Funcionario(cargo, salario, login, senha, 0, nome, cpf, telefone, email, endereco);
@@ -117,7 +114,6 @@ public class GerenciadorPessoas {
             System.out.print("Senha (" + f.getSenha() + "): ");
             String senhaStr = sc.nextLine();
             if (!senhaStr.isEmpty()) f.setSenha(Integer.parseInt(senhaStr));
-
         }
     }
 
@@ -129,10 +125,13 @@ public class GerenciadorPessoas {
         }
         return false;
     }
-    
-        public void salvar() {
-            crudClientes.salvar();
-            crudFuncionarios.salvar();
-            System.out.println(" Alterações salvas!");
-        }
+
+    // ==============================
+    // SALVAR
+    // ==============================
+    public void salvar() {
+        crudClientes.salvar();
+        crudFuncionarios.salvar();
+        System.out.println("✔ Alterações salvas!");
+    }
 }

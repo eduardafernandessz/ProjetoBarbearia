@@ -35,7 +35,7 @@ public class CRUDGenerico<T> {
         mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     }
 
-    private List<T> carregar() {
+    public List<T> carregar() {
         File arquivo = new File(caminhoArquivo);
         if (!arquivo.exists()) return new ArrayList<>();
         try {

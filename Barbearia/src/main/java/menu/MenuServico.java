@@ -3,9 +3,11 @@ package menu;
 import gerenciadores.GerenciadorServicos;
 import modelo.Servico;
 import modelo.Estacao;
+
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+import java.util.ArrayList;
 
 public class MenuServico {
 
@@ -22,6 +24,7 @@ public class MenuServico {
             System.out.println("3 - Buscar Serviço por ID");
             System.out.println("4 - Editar Serviço");
             System.out.println("5 - Remover Serviço");
+            System.out.println("6 - Salvar Alterações");
             System.out.println("0 - Voltar");
             System.out.print("Escolha: ");
             opc = sc.nextInt(); sc.nextLine();
@@ -32,32 +35,24 @@ public class MenuServico {
                 case 3 -> buscarServico();
                 case 4 -> editarServico();
                 case 5 -> removerServico();
+                case 6 -> salvarServicos();
                 case 0 -> System.out.println("Voltando...");
                 default -> System.out.println("Opção inválida!");
             }
         } while (opc != 0);
     }
 
-    // ======================
-    // LISTAR SERVIÇOS
-    // ======================
+    // --- LISTAR ---
     private void listarServicos() {
-        List<Servico> lista = gerenciador.listarServicos();
-
+        List<Servico> lista = gerenciador.listar();
         if (lista.isEmpty()) {
             System.out.println("Nenhum serviço cadastrado.");
             return;
         }
 
-        System.out.println("\n======= LISTA DE SERVIÇOS =======");
-
         for (Servico s : lista) {
-
             String estacoes = (s.getEstacoesPossiveis() != null && !s.getEstacoesPossiveis().isEmpty())
-                    ? s.getEstacoesPossiveis()
-                            .stream()
-                            .map(Estacao::name)
-                            .collect(Collectors.joining(", "))
+                    ? s.getEstacoesPossiveis().stream().map(Estacao::name).collect(Collectors.joining(", "))
                     : "Não definidas";
 
             System.out.println("-----------------------------");
@@ -67,58 +62,62 @@ public class MenuServico {
             System.out.println("Duração: " + s.getDuracaoMinutos() + " min");
             System.out.println("Estações: " + estacoes);
         }
-
         System.out.println("-----------------------------");
     }
 
-
-    // ======================
-    // ADICIONAR SERVIÇO
-    // ======================
+    // --- ADICIONAR ---
     private void adicionarServico() {
-        System.out.print("Nome do serviço: "); String nome = sc.nextLine();
-        System.out.print("Preço: "); double preco = sc.nextDouble(); sc.nextLine();
-        System.out.print("Duração (minutos): "); int duracao = sc.nextInt(); sc.nextLine();
+        System.out.print("Nome do serviço: "); 
+        String nome = sc.nextLine();
+        System.out.print("Preço: "); 
+        double preco = sc.nextDouble(); sc.nextLine();
+        System.out.print("Duração (minutos): "); 
+        int duracao = sc.nextInt(); sc.nextLine();
 
         List<Estacao> estacoes = lerEstacoes();
-
-        gerenciador.adicionarServico(nome, preco, duracao, estacoes);
-        System.out.println(" Serviço adicionado!");
+        Servico s = new Servico(0, nome, preco, duracao, estacoes);
+        gerenciador.adicionar(s);
+        System.out.println("✔ Serviço adicionado!");
     }
 
-    // ======================
-    // BUSCAR SERVIÇO
-    // ======================
+    // --- BUSCAR ---
     private void buscarServico() {
-        System.out.print("ID do serviço: "); int id = sc.nextInt(); sc.nextLine();
-        Servico s = gerenciador.buscarServicoPorId(id);
-        if (s == null) System.out.println("Serviço não encontrado.");
-        else imprimirServico(s);
+        System.out.print("ID do serviço: "); 
+        int id = sc.nextInt(); sc.nextLine();
+        Servico s = gerenciador.buscarPorId(id);
+        if (s != null) {
+            imprimirServico(s);
+        } else {
+            System.out.println("Serviço não encontrado.");
+        }
     }
 
-    // ======================
-    // EDITAR SERVIÇO
-    // ======================
+    // --- EDITAR ---
     private void editarServico() {
-        System.out.print("ID do serviço para editar: "); int id = sc.nextInt(); sc.nextLine();
-        gerenciador.editarServico(id, sc);
-        System.out.println(" Serviço atualizado!");
+        System.out.print("ID do serviço para editar: "); 
+        int id = sc.nextInt(); sc.nextLine();
+        boolean ok = gerenciador.editar(id, sc);
+        if (ok) System.out.println("✔ Serviço atualizado!");
+        else System.out.println("❌ Serviço não encontrado.");
     }
 
-    // ======================
-    // REMOVER SERVIÇO
-    // ======================
+    // --- REMOVER ---
     private void removerServico() {
-        System.out.print("ID do serviço para remover: "); int id = sc.nextInt(); sc.nextLine();
-        if (gerenciador.removerServico(id)) System.out.println("✔ Serviço removido!");
-        else System.out.println("Serviço não encontrado.");
+        System.out.print("ID do serviço para remover: "); 
+        int id = sc.nextInt(); sc.nextLine();
+        boolean ok = gerenciador.remover(id);
+        if (ok) System.out.println("✔ Serviço removido!");
+        else System.out.println("❌ Serviço não encontrado.");
     }
 
-    // ======================
-    // MÉTODOS AUXILIARES
-    // ======================
+    // --- SALVAR ---
+    private void salvarServicos() {
+        gerenciador.salvar();
+    }
+
+    // --- MÉTODOS AUXILIARES ---
     private List<Estacao> lerEstacoes() {
-        List<Estacao> estacoes = new java.util.ArrayList<>();
+        List<Estacao> estacoes = new ArrayList<>();
         System.out.println("Escolha as estações possíveis (vazio para finalizar):");
         for (Estacao e : Estacao.values()) {
             System.out.println((e.ordinal() + 1) + " - " + e.name());
@@ -140,18 +139,20 @@ public class MenuServico {
                 System.out.println("Digite um número válido!");
             }
         }
-
         return estacoes;
     }
 
     private void imprimirServico(Servico s) {
-        String estacoes = s.getEstacoesPossiveis() != null
+        String estacoes = (s.getEstacoesPossiveis() != null && !s.getEstacoesPossiveis().isEmpty())
                 ? s.getEstacoesPossiveis().stream().map(Estacao::name).collect(Collectors.joining(", "))
                 : "Não definidas";
+
+        System.out.println("-----------------------------");
         System.out.println("ID: " + s.getId());
         System.out.println("Nome: " + s.getNome());
         System.out.println("Preço: R$ " + s.getPreco());
         System.out.println("Duração: " + s.getDuracaoMinutos() + " min");
-        System.out.println("Estações possíveis: " + estacoes);
+        System.out.println("Estações: " + estacoes);
+        System.out.println("-----------------------------");
     }
 }

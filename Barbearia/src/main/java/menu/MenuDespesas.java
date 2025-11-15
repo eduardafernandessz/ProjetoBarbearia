@@ -45,16 +45,19 @@ public class MenuDespesas {
         List<Despesas> lista = gerenciador.listarDespesas();
         if (lista.isEmpty()) {
             System.out.println("Nenhuma despesa cadastrada.");
-        } else {
-            for (Despesas d : lista) {
-                System.out.println("ID: " + d.getId());
-                System.out.println("Descrição: " + d.getDescricao());
-                System.out.println("Valor: R$ " + d.getValor());
-                System.out.println("Data: " + d.getData());
-                System.out.println("Categoria: " + d.getCategoria());
-                System.out.println("---------------------------");
-            }
+            return;
         }
+
+        System.out.println("\n--- LISTA DE DESPESAS ---");
+        for (Despesas d : lista) {
+            System.out.println("---------------------------");
+            System.out.println("ID: " + d.getId());
+            System.out.println("Descrição: " + d.getDescricao());
+            System.out.println("Valor: R$ " + d.getValor());
+            System.out.println("Data: " + d.getData());
+            System.out.println("Categoria: " + d.getCategoria());
+        }
+        System.out.println("---------------------------");
     }
 
     // --- ADICIONAR DESPESA ---
@@ -78,29 +81,33 @@ public class MenuDespesas {
         int id = sc.nextInt(); sc.nextLine();
         Despesas d = gerenciador.buscarDespesaPorId(id);
         if (d != null) {
+            System.out.println("---------------------------");
             System.out.println("Descrição: " + d.getDescricao());
             System.out.println("Valor: R$ " + d.getValor());
             System.out.println("Data: " + d.getData());
             System.out.println("Categoria: " + d.getCategoria());
+            System.out.println("---------------------------");
         } else {
             System.out.println("Despesa não encontrada.");
         }
     }
 
-    // --- EDITAR DESPESA ---
     private void editarDespesa() {
         System.out.print("ID da despesa para editar: ");
         int id = sc.nextInt(); sc.nextLine();
+
         gerenciador.editarDespesa(id, sc);
-        System.out.println(" Despesa atualizada!");
+        System.out.println("✔ Despesa atualizada!");
     }
+
 
     // --- REMOVER DESPESA ---
     private void removerDespesa() {
         System.out.print("ID da despesa para remover: ");
         int id = sc.nextInt(); sc.nextLine();
+
         if (gerenciador.removerDespesa(id)) {
-            System.out.println(" Despesa removida!");
+            System.out.println("✔ Despesa removida!");
         } else {
             System.out.println("Despesa não encontrada.");
         }

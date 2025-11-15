@@ -1,17 +1,19 @@
 package gerenciadores;
 
 import modelo.Agendamento;
-import gerenciadores.Agenda;
+import modelo.Funcionario;
+import modelo.Estacao;
+import utils.CRUDGenerico;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import utils.CRUDGenerico;
 
 public class GerenciadorAgendamentos {
 
-    private List<Agendamento> lista;
-    private CRUDGenerico<Agendamento> crud;
-    private Agenda agendaChecker;
+    private final List<Agendamento> lista;
+    private final CRUDGenerico<Agendamento> crud;
+    private final Agenda agendaChecker;
 
     public GerenciadorAgendamentos() {
         crud = new CRUDGenerico<>("src/main/java/repositorio/agendamentos.json", Agendamento.class);
@@ -48,9 +50,13 @@ public class GerenciadorAgendamentos {
     }
 
     // ===================== REMOVER =====================
-    public void remover(int id) {
+    public boolean remover(int id) {
         Agendamento ag = buscarPorId(id);
-        if (ag != null) lista.remove(ag);
+        if (ag != null) {
+            lista.remove(ag);
+            return true;
+        }
+        return false;
     }
 
     // ===================== BUSCAR =====================
@@ -68,8 +74,8 @@ public class GerenciadorAgendamentos {
 
     // ===================== SALVAR =====================
     public void salvar() {
-        crud.salvar();
-        System.out.println(" Alterações salvas no JSON!");
+        crud.salvar(); 
+        System.out.println("✔ Alterações salvas!");
     }
 
     // ===================== CONFLITOS =====================
@@ -78,14 +84,19 @@ public class GerenciadorAgendamentos {
         LocalDateTime fim = novo.getHorarioFim();
 
         for (Agendamento existente : lista) {
+            // Checa conflito de funcionário
             if (novo.getFuncionario().getId() == existente.getFuncionario().getId()) {
                 if (intervalosColidem(ini, fim, existente.getHorarioInicio(), existente.getHorarioFim())) {
-                    return " Conflito: O funcionário " + novo.getFuncionario().getNome() + " já possui outro atendimento nesse horário!";
+                    return "Conflito: O funcionário " + novo.getFuncionario().getNome() + " já possui outro atendimento nesse horário!";
                 }
             }
+
+            // Checa conflito de estação
             if (novo.getEstacaoEscolhida() != null) {
                 boolean livre = agendaChecker.estacaoDisponivel(lista, novo.getEstacaoEscolhida(), ini, fim);
-                if (!livre) return " Conflito: A estação " + novo.getEstacaoEscolhida().name() + " já está ocupada nesse horário!";
+                if (!livre) {
+                    return "Conflito: A estação " + novo.getEstacaoEscolhida().name() + " já está ocupada nesse horário!";
+                }
             }
         }
         return null;

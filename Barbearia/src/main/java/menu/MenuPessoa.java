@@ -75,6 +75,7 @@ public class MenuPessoa {
     // ======================
     private void salvar() {
         gerenciador.salvar();
+        System.out.println("✔ Alterações salvas!");
     }
 
     // ======================
@@ -82,12 +83,11 @@ public class MenuPessoa {
     // ======================
     private void listarClientes() {
         List<Cliente> lista = gerenciador.listarClientes();
-
         if (lista.isEmpty()) {
             System.out.println("Nenhum cliente cadastrado.");
             return;
         }
-
+        System.out.println("\n--- LISTA DE CLIENTES ---");
         for (Cliente c : lista) {
             System.out.println("-----------------------------");
             System.out.println("ID: " + c.getId());
@@ -95,9 +95,8 @@ public class MenuPessoa {
             System.out.println("Telefone: " + c.getTelefone());
             System.out.println("Endereço: " + c.getEndereco());
             System.out.println("Email: " + c.getEmail());
-            System.out.println("CPF: " + c.getCpf()); // se existir
+            System.out.println("CPF: " + c.getCpf());
         }
-
         System.out.println("-----------------------------");
     }
 
@@ -109,28 +108,35 @@ public class MenuPessoa {
         System.out.print("Endereço: "); String endereco = sc.nextLine();
 
         gerenciador.adicionarCliente(nome, cpf, telefone, email, endereco);
-        System.out.println(" Cliente adicionado!");
+        System.out.println("✔ Cliente adicionado!");
     }
 
     private void buscarCliente() {
         System.out.print("ID do cliente: ");
         int id = sc.nextInt(); sc.nextLine();
         Cliente c = gerenciador.buscarClientePorId(id);
-        System.out.println(c != null ? c : "Cliente não encontrado.");
+        if (c != null) {
+            System.out.println(c);
+        } else {
+            System.out.println("Cliente não encontrado.");
+        }
     }
 
     private void editarCliente() {
         System.out.print("ID do cliente para editar: ");
         int id = sc.nextInt(); sc.nextLine();
         gerenciador.editarCliente(id, sc);
-        System.out.println(" Cliente atualizado!");
+        System.out.println("✔ Cliente atualizado!");
     }
 
     private void removerCliente() {
         System.out.print("ID do cliente para remover: ");
         int id = sc.nextInt(); sc.nextLine();
-        if (gerenciador.removerCliente(id)) System.out.println(" Cliente removido!");
-        else System.out.println("Cliente não encontrado.");
+        if (gerenciador.removerCliente(id)) {
+            System.out.println("✔ Cliente removido!");
+        } else {
+            System.out.println("Cliente não encontrado.");
+        }
     }
 
     // ======================
@@ -138,12 +144,11 @@ public class MenuPessoa {
     // ======================
     private void listarFuncionarios() {
         List<Funcionario> lista = gerenciador.listarFuncionarios();
-
         if (lista.isEmpty()) {
             System.out.println("Nenhum funcionário cadastrado.");
             return;
         }
-
+        System.out.println("\n--- LISTA DE FUNCIONÁRIOS ---");
         for (Funcionario f : lista) {
             System.out.println("-----------------------------");
             System.out.println("ID: " + f.getId());
@@ -151,12 +156,10 @@ public class MenuPessoa {
             System.out.println("Telefone: " + f.getTelefone());
             System.out.println("Endereço: " + f.getEndereco());
             System.out.println("Email: " + f.getEmail());
-            System.out.println("CPF: " + f.getCpf());     
+            System.out.println("CPF: " + f.getCpf());
             System.out.println("Cargo: " + f.getCargo());
-            System.out.println("Salário: " + f.getSalario());
-
+            System.out.println("Salário: R$ " + f.getSalario());
         }
-
         System.out.println("-----------------------------");
     }
 
@@ -172,27 +175,34 @@ public class MenuPessoa {
         System.out.print("Senha: "); int senha = sc.nextInt(); sc.nextLine();
 
         gerenciador.adicionarFuncionario(nome, cpf, telefone, email, endereco, cargo, salario, login, senha);
-        System.out.println(" Funcionário adicionado!");
+        System.out.println("✔ Funcionário adicionado!");
     }
 
     private void buscarFuncionario() {
         System.out.print("ID do funcionário: ");
         int id = sc.nextInt(); sc.nextLine();
         Funcionario f = gerenciador.buscarFuncionarioPorId(id);
-        System.out.println(f != null ? f : "Funcionário não encontrado.");
+        if (f != null) {
+            System.out.println(f);
+        } else {
+            System.out.println("Funcionário não encontrado.");
+        }
     }
 
     private void editarFuncionario() {
         System.out.print("ID do funcionário para editar: ");
         int id = sc.nextInt(); sc.nextLine();
         gerenciador.editarFuncionario(id, sc);
-        System.out.println(" Funcionário atualizado!");
+        System.out.println("✔ Funcionário atualizado!");
     }
 
     private void removerFuncionario() {
         System.out.print("ID do funcionário para remover: ");
         int id = sc.nextInt(); sc.nextLine();
-        if (gerenciador.removerFuncionario(id)) System.out.println(" Funcionário removido!");
-        else System.out.println("Funcionário não encontrado.");
+        if (gerenciador.removerFuncionario(id)) {
+            System.out.println("✔ Funcionário removido!");
+        } else {
+            System.out.println("Funcionário não encontrado.");
+        }
     }
 }
