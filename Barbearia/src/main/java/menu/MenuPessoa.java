@@ -75,7 +75,7 @@ public class MenuPessoa {
     // ======================
     private void salvar() {
         gerenciador.salvar();
-        System.out.println("✔ Alterações salvas!");
+        System.out.println(" Alterações salvas!");
     }
 
     // ======================

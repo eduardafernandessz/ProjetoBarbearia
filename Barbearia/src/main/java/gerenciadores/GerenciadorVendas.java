@@ -22,7 +22,7 @@ public class GerenciadorVendas {
 
         // Inicializa CRUD para persistência
         this.crudVendas = new CRUDGenerico<>("src/main/java/repositorio/vendas.json", Venda.class);
-        this.vendas = crudVendas.carregar(); // Carrega vendas do JSON ou cria lista vazia
+        this.vendas = crudVendas.carregar();
         if (vendas == null) {
             vendas = new ArrayList<>();
         }
@@ -115,6 +115,6 @@ public class GerenciadorVendas {
     public void salvar() {
         crudVendas.salvar();   
         gerenciadorProdutos.salvar();    // persiste estoque atualizado
-        System.out.println("✔ Alterações salvas no JSON!");
+        System.out.println("Alterações salvas no JSON!");
     }
 }

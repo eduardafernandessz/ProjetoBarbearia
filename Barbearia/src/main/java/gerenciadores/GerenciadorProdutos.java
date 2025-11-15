@@ -64,6 +64,6 @@ public class GerenciadorProdutos {
     // ==============================
     public void salvar() {
         crud.salvar();
-        System.out.println("✔ Produtos salvos!");
+        System.out.println("Produtos salvos!");
     }
 }

@@ -132,6 +132,6 @@ public class GerenciadorPessoas {
     public void salvar() {
         crudClientes.salvar();
         crudFuncionarios.salvar();
-        System.out.println("✔ Alterações salvas!");
+        System.out.println(" Alterações salvas!");
     }
 }
