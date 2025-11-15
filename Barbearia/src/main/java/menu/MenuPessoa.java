@@ -22,6 +22,7 @@ public class MenuPessoa {
             System.out.println("3 - Buscar Cliente por ID");
             System.out.println("4 - Editar Cliente");
             System.out.println("5 - Remover Cliente");
+            System.out.println("6 - Salvar Alterações");
             System.out.println("0 - Voltar");
             System.out.print("Escolha: ");
             opc = sc.nextInt();
@@ -33,6 +34,7 @@ public class MenuPessoa {
                 case 3 -> buscarCliente();
                 case 4 -> editarCliente();
                 case 5 -> removerCliente();
+                case 6 -> salvar();
                 case 0 -> System.out.println("Voltando...");
                 default -> System.out.println("Opção inválida!");
             }
@@ -49,6 +51,7 @@ public class MenuPessoa {
             System.out.println("3 - Buscar Funcionário por ID");
             System.out.println("4 - Editar Funcionário");
             System.out.println("5 - Remover Funcionário");
+            System.out.println("6 - Salvar Alterações");
             System.out.println("0 - Voltar");
             System.out.print("Escolha: ");
             opc = sc.nextInt();
@@ -60,6 +63,7 @@ public class MenuPessoa {
                 case 3 -> buscarFuncionario();
                 case 4 -> editarFuncionario();
                 case 5 -> removerFuncionario();
+                case 6 -> salvar();
                 case 0 -> System.out.println("Voltando...");
                 default -> System.out.println("Opção inválida!");
             }
@@ -67,12 +71,34 @@ public class MenuPessoa {
     }
 
     // ======================
+    // SALVAR
+    // ======================
+    private void salvar() {
+        gerenciador.salvar();
+    }
+
+    // ======================
     // CLIENTES
     // ======================
     private void listarClientes() {
         List<Cliente> lista = gerenciador.listarClientes();
-        if (lista.isEmpty()) System.out.println("Nenhum cliente cadastrado.");
-        else lista.forEach(c -> System.out.println(c.getId() + " - " + c.getNome()));
+
+        if (lista.isEmpty()) {
+            System.out.println("Nenhum cliente cadastrado.");
+            return;
+        }
+
+        for (Cliente c : lista) {
+            System.out.println("-----------------------------");
+            System.out.println("ID: " + c.getId());
+            System.out.println("Nome: " + c.getNome());
+            System.out.println("Telefone: " + c.getTelefone());
+            System.out.println("Endereço: " + c.getEndereco());
+            System.out.println("Email: " + c.getEmail());
+            System.out.println("CPF: " + c.getCpf()); // se existir
+        }
+
+        System.out.println("-----------------------------");
     }
 
     private void adicionarCliente() {
@@ -83,7 +109,7 @@ public class MenuPessoa {
         System.out.print("Endereço: "); String endereco = sc.nextLine();
 
         gerenciador.adicionarCliente(nome, cpf, telefone, email, endereco);
-        System.out.println("✔ Cliente adicionado!");
+        System.out.println(" Cliente adicionado!");
     }
 
     private void buscarCliente() {
@@ -97,13 +123,13 @@ public class MenuPessoa {
         System.out.print("ID do cliente para editar: ");
         int id = sc.nextInt(); sc.nextLine();
         gerenciador.editarCliente(id, sc);
-        System.out.println("✔ Cliente atualizado!");
+        System.out.println(" Cliente atualizado!");
     }
 
     private void removerCliente() {
         System.out.print("ID do cliente para remover: ");
         int id = sc.nextInt(); sc.nextLine();
-        if (gerenciador.removerCliente(id)) System.out.println("✔ Cliente removido!");
+        if (gerenciador.removerCliente(id)) System.out.println(" Cliente removido!");
         else System.out.println("Cliente não encontrado.");
     }
 
@@ -112,8 +138,26 @@ public class MenuPessoa {
     // ======================
     private void listarFuncionarios() {
         List<Funcionario> lista = gerenciador.listarFuncionarios();
-        if (lista.isEmpty()) System.out.println("Nenhum funcionário cadastrado.");
-        else lista.forEach(f -> System.out.println(f.getId() + " - " + f.getNome()));
+
+        if (lista.isEmpty()) {
+            System.out.println("Nenhum funcionário cadastrado.");
+            return;
+        }
+
+        for (Funcionario f : lista) {
+            System.out.println("-----------------------------");
+            System.out.println("ID: " + f.getId());
+            System.out.println("Nome: " + f.getNome());
+            System.out.println("Telefone: " + f.getTelefone());
+            System.out.println("Endereço: " + f.getEndereco());
+            System.out.println("Email: " + f.getEmail());
+            System.out.println("CPF: " + f.getCpf());     
+            System.out.println("Cargo: " + f.getCargo());
+            System.out.println("Salário: " + f.getSalario());
+
+        }
+
+        System.out.println("-----------------------------");
     }
 
     private void adicionarFuncionario() {
@@ -128,7 +172,7 @@ public class MenuPessoa {
         System.out.print("Senha: "); int senha = sc.nextInt(); sc.nextLine();
 
         gerenciador.adicionarFuncionario(nome, cpf, telefone, email, endereco, cargo, salario, login, senha);
-        System.out.println("✔ Funcionário adicionado!");
+        System.out.println(" Funcionário adicionado!");
     }
 
     private void buscarFuncionario() {
@@ -142,13 +186,13 @@ public class MenuPessoa {
         System.out.print("ID do funcionário para editar: ");
         int id = sc.nextInt(); sc.nextLine();
         gerenciador.editarFuncionario(id, sc);
-        System.out.println("✔ Funcionário atualizado!");
+        System.out.println(" Funcionário atualizado!");
     }
 
     private void removerFuncionario() {
         System.out.print("ID do funcionário para remover: ");
         int id = sc.nextInt(); sc.nextLine();
-        if (gerenciador.removerFuncionario(id)) System.out.println("✔ Funcionário removido!");
+        if (gerenciador.removerFuncionario(id)) System.out.println(" Funcionário removido!");
         else System.out.println("Funcionário não encontrado.");
     }
 }

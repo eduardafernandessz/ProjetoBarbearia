@@ -26,4 +26,11 @@
   "telefone" : "3398780855",
   "email" : "pedro@gmail.com",
   "endereco" : "Rua das Flores"
+}, {
+  "id" : 6,
+  "nome" : "matheus",
+  "cpf" : "23455676543",
+  "telefone" : "44566789877",
+  "email" : "matheus@gmail.com",
+  "endereco" : "Ru cabral"
 } ]

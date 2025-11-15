@@ -53,7 +53,6 @@ public class GerenciadorPessoas {
             String end = sc.nextLine();
             if (!end.isEmpty()) c.setEndereco(end);
 
-            crudClientes.salvar();
         }
     }
 
@@ -119,7 +118,6 @@ public class GerenciadorPessoas {
             String senhaStr = sc.nextLine();
             if (!senhaStr.isEmpty()) f.setSenha(Integer.parseInt(senhaStr));
 
-            crudFuncionarios.salvar();
         }
     }
 
@@ -131,4 +129,10 @@ public class GerenciadorPessoas {
         }
         return false;
     }
+    
+        public void salvar() {
+            crudClientes.salvar();
+            crudFuncionarios.salvar();
+            System.out.println(" Alterações salvas!");
+        }
 }

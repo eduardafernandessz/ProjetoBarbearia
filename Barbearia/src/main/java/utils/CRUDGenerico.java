@@ -55,7 +55,6 @@ public class CRUDGenerico<T> {
         try {
             mapper.writerWithDefaultPrettyPrinter()
                     .writeValue(new File(caminhoArquivo), lista);
-            System.out.println("✔ Alterações salvas no arquivo " + caminhoArquivo);
         } catch (IOException e) {
             e.printStackTrace();
         }

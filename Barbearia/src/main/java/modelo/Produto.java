@@ -16,6 +16,8 @@ public class Produto {
         this.quantidadeEstoque = quantidadeEstoque;
         this.categoria = categoria;
     }
+    
+    public Produto(){}
 
     public int getId() {
         return id;

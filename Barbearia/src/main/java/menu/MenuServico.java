@@ -43,14 +43,34 @@ public class MenuServico {
     // ======================
     private void listarServicos() {
         List<Servico> lista = gerenciador.listarServicos();
-        if (lista.isEmpty()) System.out.println("Nenhum serviço cadastrado.");
-        else lista.forEach(s -> {
-            String estacoes = s.getEstacoesPossiveis() != null
-                    ? s.getEstacoesPossiveis().stream().map(Estacao::name).collect(Collectors.joining(", "))
+
+        if (lista.isEmpty()) {
+            System.out.println("Nenhum serviço cadastrado.");
+            return;
+        }
+
+        System.out.println("\n======= LISTA DE SERVIÇOS =======");
+
+        for (Servico s : lista) {
+
+            String estacoes = (s.getEstacoesPossiveis() != null && !s.getEstacoesPossiveis().isEmpty())
+                    ? s.getEstacoesPossiveis()
+                            .stream()
+                            .map(Estacao::name)
+                            .collect(Collectors.joining(", "))
                     : "Não definidas";
-            System.out.println(s.getId() + " - " + s.getNome() + " | R$ " + s.getPreco() + " | Duração: " + s.getDuracaoMinutos() + " min | Estações: " + estacoes);
-        });
+
+            System.out.println("-----------------------------");
+            System.out.println("ID: " + s.getId());
+            System.out.println("Nome: " + s.getNome());
+            System.out.println("Preço: R$ " + s.getPreco());
+            System.out.println("Duração: " + s.getDuracaoMinutos() + " min");
+            System.out.println("Estações: " + estacoes);
+        }
+
+        System.out.println("-----------------------------");
     }
+
 
     // ======================
     // ADICIONAR SERVIÇO
@@ -63,7 +83,7 @@ public class MenuServico {
         List<Estacao> estacoes = lerEstacoes();
 
         gerenciador.adicionarServico(nome, preco, duracao, estacoes);
-        System.out.println("✔ Serviço adicionado!");
+        System.out.println(" Serviço adicionado!");
     }
 
     // ======================
@@ -82,7 +102,7 @@ public class MenuServico {
     private void editarServico() {
         System.out.print("ID do serviço para editar: "); int id = sc.nextInt(); sc.nextLine();
         gerenciador.editarServico(id, sc);
-        System.out.println("✔ Serviço atualizado!");
+        System.out.println(" Serviço atualizado!");
     }
 
     // ======================
