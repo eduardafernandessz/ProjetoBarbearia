@@ -1,6 +1,4 @@
-package usuarios;
-
-import usuarios.Pessoa;
+package modelo;
 
 public class Funcionario extends Pessoa{
 

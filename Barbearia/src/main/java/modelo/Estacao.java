@@ -1,4 +1,4 @@
-package servico;
+package modelo;
 
 public enum Estacao {
     CADEIRA_1("Cadeira 1"),

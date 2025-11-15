@@ -1,7 +1,7 @@
-package usuarios;
+package gerenciadores;
 
-import usuarios.Cliente;
-import usuarios.Funcionario;
+import modelo.Cliente;
+import modelo.Funcionario;
 import utils.CRUDGenerico;
 
 import java.util.List;

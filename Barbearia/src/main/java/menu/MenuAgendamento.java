@@ -1,12 +1,12 @@
 package menu;
 
-import agenda.Agendamento;
-import agenda.Agendamento;
-import agenda.GerenciadorAgendamentos;
-import servico.Servico;
-import servico.Estacao;
-import usuarios.Cliente;
-import usuarios.Funcionario;
+import modelo.Agendamento;
+import modelo.Agendamento;
+import gerenciadores.GerenciadorAgendamentos;
+import modelo.Servico;
+import modelo.Estacao;
+import modelo.Cliente;
+import modelo.Funcionario;
 import utils.CRUDGenerico;
 
 import java.time.LocalDateTime;

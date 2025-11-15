@@ -1,8 +1,8 @@
 package menu;
 
-import servico.GerenciadorServicos;
-import servico.Servico;
-import servico.Estacao;
+import gerenciadores.GerenciadorServicos;
+import modelo.Servico;
+import modelo.Estacao;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;

@@ -1,6 +1,6 @@
-package usuarios;
+package modelo;
 
-import usuarios.Funcionario;
+import modelo.Funcionario;
 
 public class Gerente extends Funcionario {
 

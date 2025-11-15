@@ -1,4 +1,4 @@
-package agenda;
+package modelo;
 
 
 
@@ -6,10 +6,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import servico.Estacao;
-import servico.Servico;
-import usuarios.Cliente;
-import usuarios.Funcionario;
+import modelo.Estacao;
+import modelo.Servico;
+import modelo.Cliente;
+import modelo.Funcionario;
 
 public class Agendamento {
 

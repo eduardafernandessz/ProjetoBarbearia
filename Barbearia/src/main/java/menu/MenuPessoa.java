@@ -1,8 +1,8 @@
 package menu;
 
-import usuarios.GerenciadorPessoas;
-import usuarios.Cliente;
-import usuarios.Funcionario;
+import gerenciadores.GerenciadorPessoas;
+import modelo.Cliente;
+import modelo.Funcionario;
 
 import java.util.List;
 import java.util.Scanner;

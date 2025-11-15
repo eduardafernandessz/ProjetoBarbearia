@@ -1,4 +1,4 @@
-package usuarios;
+package modelo;
 
 public abstract class Pessoa {
 

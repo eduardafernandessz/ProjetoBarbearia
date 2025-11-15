@@ -1,7 +1,5 @@
 
-package usuarios;
-
-import usuarios.Pessoa;
+package modelo;
 
 public class Cliente extends Pessoa{
 

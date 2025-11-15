@@ -1,10 +1,12 @@
-package servico;
+package gerenciadores;
 
 import utils.CRUDGenerico;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import modelo.Estacao;
+import modelo.Servico;
 
 public class GerenciadorServicos {
 

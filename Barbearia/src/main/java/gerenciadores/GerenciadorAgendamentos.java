@@ -1,7 +1,7 @@
-package agenda;
+package gerenciadores;
 
-import agenda.Agendamento;
-import agenda.Agenda;
+import modelo.Agendamento;
+import gerenciadores.Agenda;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

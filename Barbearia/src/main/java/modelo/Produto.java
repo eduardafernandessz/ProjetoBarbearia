@@ -1,5 +1,5 @@
 
-package produto;
+package modelo;
 
 public class Produto {
 

@@ -1,9 +1,10 @@
-package agenda;
+package gerenciadores;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import agenda.Agendamento;
-import servico.Estacao;
+import modelo.Agendamento;
+import modelo.Estacao;
+import modelo.Estacao;
 
 public class Agenda {
 

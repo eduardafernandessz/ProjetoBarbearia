@@ -1,5 +1,6 @@
-package servico;
+package modelo;
 
+import modelo.Estacao;
 import java.util.List;
 
 public class Servico {

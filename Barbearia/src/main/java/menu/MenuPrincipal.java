@@ -1,7 +1,7 @@
 package menu;
 
-import usuarios.Funcionario;
-import usuarios.Gerente;
+import modelo.Funcionario;
+import modelo.Gerente;
 import utils.CRUDGenerico;
 import utils.Login;
 
