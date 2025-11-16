@@ -33,4 +33,11 @@
   "telefone" : "44566789877",
   "email" : "matheus@gmail.com",
   "endereco" : "Ru cabral"
+}, {
+  "id" : 7,
+  "nome" : "Ana Luiza",
+  "cpf" : "12345678910",
+  "telefone" : "1516546514648",
+  "email" : "ana@gmail",
+  "endereco" : "rua c, diamantina"
 } ]

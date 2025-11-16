@@ -19,7 +19,7 @@ public class MenuPessoa {
             System.out.println("\n--- MENU CLIENTES ---");
             System.out.println("1 - Listar Clientes");
             System.out.println("2 - Adicionar Cliente");
-            System.out.println("3 - Buscar Cliente por ID");
+            System.out.println("3 - Verificar existencia do Cliente");
             System.out.println("4 - Editar Cliente");
             System.out.println("5 - Remover Cliente");
             System.out.println("6 - Salvar Alterações");
@@ -107,11 +107,21 @@ public class MenuPessoa {
     }
 
     private void buscarCliente() {
-        System.out.print("ID do cliente: ");
-        int id = sc.nextInt(); sc.nextLine();
-        Cliente c = gerenciador.buscarClientePorId(id);
-        System.out.println(c != null ? c : "Cliente não encontrado.");
+    System.out.print("Nome do cliente: ");
+    String nome = sc.nextLine();
+
+    Cliente cliente = gerenciador.buscarCliente(nome);
+
+    if (cliente != null) {
+        System.out.println("Cliente encontrado:");
+        System.out.println(cliente);
+    } else {
+        System.out.println("Cliente não encontrado. Cadastrando novo cliente...");
+        adicionarCliente();
+        gerenciador.salvar();
     }
+    }
+
 
     private void editarCliente() {
         System.out.print("ID do cliente para editar: ");

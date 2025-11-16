@@ -19,6 +19,21 @@ public class GerenciadorPessoas {
     // ==============================
     // CLIENTES
     // ==============================
+    
+    public Cliente buscarCliente(String nome) {
+
+    List<Cliente> lista = crudClientes.listar();
+
+    for (Cliente c : lista) {
+        if (c.getNome().equalsIgnoreCase(nome)) {
+            return c;
+        }
+    }
+
+    return null; 
+}
+
+
     public void adicionarCliente(Cliente cliente) {
         crudClientes.adicionar(cliente);
     }
