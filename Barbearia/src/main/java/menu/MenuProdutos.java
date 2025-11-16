@@ -52,6 +52,7 @@ public class MenuProdutos {
 
         System.out.println("\n--- LISTA DE PRODUTOS ---");
         for (Produto p : lista) {
+             System.out.println("-----------------------------");
             System.out.println(p); // Agora chama o toString() do Produto automaticamente
         }
         System.out.println("-----------------------------");

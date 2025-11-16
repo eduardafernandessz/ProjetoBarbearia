@@ -62,13 +62,13 @@ public class Servico {
                 ? "Nenhuma"
                 : estacoesPossiveis.stream().map(Enum::name).reduce((a, b) -> a + ", " + b).orElse("Nenhuma");
 
-        return "Servico {\n" +
+        return "Servico \n" +
+                "-------------------------------\n" +
                 "  ID: " + id + "\n" +
                 "  Nome: " + nome + "\n" +
                 "  Preço: R$ " + String.format("%.2f", preco) + "\n" +
                 "  Duração: " + duracaoMinutos + " minutos\n" +
-                "  Estações possíveis: " + estacoes + "\n" +
-                "}";
+                "  Estações possíveis: " + estacoes + "\n" ;
     }
 
 }

@@ -61,13 +61,13 @@ public class Produto {
     
     @Override
     public String toString() {
-        return "Produto {" +
+        return "Produto" +
+               "-------------------------------\n" +                
                "\n  ID: " + id +
                "\n  Nome: " + nome +
                "\n  Categoria: " + categoria +
-               "\n  Preço: R$ " + String.format("%.2f", preco) +
-               "\n  Quantidade em estoque: " + quantidadeEstoque +
-               "\n}";
+               "\n  Preco: R$ " + String.format("%.2f", preco) +
+               "\n  Quantidade em estoque: " + quantidadeEstoque;
     }
     
 }

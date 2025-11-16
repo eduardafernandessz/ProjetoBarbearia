@@ -12,7 +12,10 @@ public class Cliente extends Pessoa{
 }
     
     public String toString() {
-        return  "\nId:" + getId() +
+        return  
+                "Cliente\n" +
+                "-------------------------------\n" +
+                "\nId:" + getId() +
                 "\nNome: " + getNome() +
                 "\nCpf: " + getCpf() +
                 "\nTelefone: " + getTelefone() +

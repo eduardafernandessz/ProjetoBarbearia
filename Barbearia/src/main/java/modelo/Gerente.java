@@ -14,7 +14,8 @@ public class Gerente extends Funcionario {
 
     @Override
    public String toString() {
-       return "Gerente {" +
+       return "Gerente" +
+               "-------------------------------\n" +
               "\n  ID: " + id +
               "\n  Nome: " + nome +
               "\n  CPF: " + cpf +
@@ -22,8 +23,7 @@ public class Gerente extends Funcionario {
               "\n  Email: " + email +
               "\n  Endereço: " + endereco +
               "\n  Cargo: " + cargo +
-              "\n  Salário: R$ " + String.format("%.2f", salario) +
-              "\n}";
+              "\n  Salário: R$ " + String.format("%.2f", salario);
    }
 
 }
