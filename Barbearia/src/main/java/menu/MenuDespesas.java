@@ -7,11 +7,26 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Classe responsável por exibir o menu de gerenciamento de despesas
+ * e permitir operações como listar, adicionar, editar, buscar e remover
+ * despesas cadastradas no sistema.
+ *
+ * <p>Essa classe funciona como interface de interação com o usuário,
+ * utilizando o console para leitura de entradas e exibição de resultados.</p>
+ */
 public class MenuDespesas {
 
+    /** Scanner utilizado para ler entradas do usuário pelo console */
     private final Scanner sc = new Scanner(System.in);
+
+    /** Gerenciador responsável por manipular os dados das despesas */
     private final GerenciadorDespesas gerenciador = new GerenciadorDespesas();
 
+    /**
+     * Exibe o menu principal de despesas e controla o fluxo das opções escolhidas.
+     * <p>Permite ao usuário realizar operações CRUD sobre despesas.</p>
+     */
     public void exibirMenu() {
         int opc;
         do {
@@ -42,6 +57,11 @@ public class MenuDespesas {
     // ======================
     // LISTAR
     // ======================
+
+    /**
+     * Lista todas as despesas cadastradas no sistema.
+     * <p>Caso não haja despesas, informa ao usuário.</p>
+     */
     private void listarDespesas() {
         List<Despesas> lista = gerenciador.listarDespesas();
         if (lista.isEmpty()) {
@@ -51,7 +71,7 @@ public class MenuDespesas {
         System.out.println("\n--- LISTA DE DESPESAS ---");
         for (Despesas d : lista) {
             System.out.println("-----------------------------");
-            System.out.println(d); // Isso chama automaticamente o toString() da classe Despesas
+            System.out.println(d);
         }
         System.out.println("-----------------------------");
     }
@@ -59,17 +79,22 @@ public class MenuDespesas {
     // ======================
     // ADICIONAR
     // ======================
+
+    /**
+     * Solicita informações ao usuário e adiciona uma nova despesa ao sistema.
+     * <p>Os campos preenchidos são: descrição, valor, data e categoria.</p>
+     */
     private void adicionarDespesa() {
-        System.out.print("Descrição: "); 
+        System.out.print("Descrição: ");
         String desc = sc.nextLine();
 
-        System.out.print("Valor: "); 
+        System.out.print("Valor: ");
         double valor = sc.nextDouble(); sc.nextLine();
 
-        System.out.print("Data [yyyy-MM-dd]: "); 
+        System.out.print("Data [yyyy-MM-dd]: ");
         String dataStr = sc.nextLine();
 
-        System.out.print("Categoria: "); 
+        System.out.print("Categoria: ");
         String categoria = sc.nextLine();
 
         LocalDate data = LocalDate.parse(dataStr);
@@ -81,8 +106,13 @@ public class MenuDespesas {
     // ======================
     // BUSCAR
     // ======================
+
+    /**
+     * Busca uma despesa pelo ID informado pelo usuário.
+     * <p>Se existir, exibe seus dados. Caso contrário, mostra mensagem de erro.</p>
+     */
     private void buscarDespesa() {
-        System.out.print("ID da despesa: "); 
+        System.out.print("ID da despesa: ");
         int id = sc.nextInt(); sc.nextLine();
 
         Despesas d = gerenciador.buscarDespesaPorId(id);
@@ -98,8 +128,14 @@ public class MenuDespesas {
     // ======================
     // EDITAR
     // ======================
+
+    /**
+     * Edita uma despesa existente com base no ID informado.
+     * <p>Permite alterar descrição, valor, categoria e data.
+     * Campos deixados vazios mantêm o valor original.</p>
+     */
     private void editarDespesa() {
-        System.out.print("ID da despesa para editar: "); 
+        System.out.print("ID da despesa para editar: ");
         int id = sc.nextInt(); sc.nextLine();
 
         Despesas d = gerenciador.buscarDespesaPorId(id);
@@ -108,23 +144,22 @@ public class MenuDespesas {
             return;
         }
 
-        System.out.print("Descrição (" + d.getDescricao() + "): "); 
+        System.out.print("Descrição (" + d.getDescricao() + "): ");
         String desc = sc.nextLine();
         String novaDesc = desc.isEmpty() ? d.getDescricao() : desc;
 
-        System.out.print("Valor (" + d.getValor() + "): "); 
+        System.out.print("Valor (" + d.getValor() + "): ");
         String valStr = sc.nextLine();
         double novoValor = valStr.isEmpty() ? d.getValor() : Double.parseDouble(valStr);
 
-        System.out.print("Data (" + d.getData() + ") [yyyy-MM-dd]: "); 
+        System.out.print("Data (" + d.getData() + ") [yyyy-MM-dd]: ");
         String dataStr = sc.nextLine();
         LocalDate novaData = dataStr.isEmpty() ? d.getData() : LocalDate.parse(dataStr);
 
-        System.out.print("Categoria (" + d.getCategoria() + "): "); 
+        System.out.print("Categoria (" + d.getCategoria() + "): ");
         String cat = sc.nextLine();
         String novaCategoria = cat.isEmpty() ? d.getCategoria() : cat;
 
-        // Passar objeto atualizado para o gerenciador
         gerenciador.editarDespesa(id, new Despesas(id, novaDesc, novoValor, novaData, novaCategoria));
         System.out.println("✔ Despesa atualizada!");
     }
@@ -132,8 +167,14 @@ public class MenuDespesas {
     // ======================
     // REMOVER
     // ======================
+
+    /**
+     * Remove uma despesa do sistema com base no ID informado.
+     *
+     * <p>Exibe mensagem indicando se a remoção foi bem-sucedida.</p>
+     */
     private void removerDespesa() {
-        System.out.print("ID da despesa para remover: "); 
+        System.out.print("ID da despesa para remover: ");
         int id = sc.nextInt(); sc.nextLine();
 
         boolean ok = gerenciador.removerDespesa(id);
@@ -143,6 +184,10 @@ public class MenuDespesas {
     // ======================
     // SALVAR
     // ======================
+
+    /**
+     * Salva todas as alterações realizadas no arquivo JSON.
+     */
     private void salvarDespesas() {
         gerenciador.salvar();
     }

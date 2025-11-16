@@ -6,12 +6,12 @@ import utils.CRUDGenerico;
 
 import java.util.List;
 
-/**
- * Classe responsável por gerenciar clientes, funcionários.
- *
- * <p>Utiliza CRUD genérico para criar, armazenar, buscar, editar e remover
- * objetos Cliente, Funcionario em memória e em arquivos JSON.</p>
- */
+    /**
+     * Classe responsável por gerenciar clientes, funcionários.
+     *
+     * <p>Utiliza CRUD genérico para criar, armazenar, buscar, editar e remover
+     * objetos Cliente, Funcionario em memória e em arquivos JSON.</p>
+     */
 public class GerenciadorPessoas {
 
     /** CRUD genérico para gerenciar clientes. */

@@ -9,12 +9,21 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.ArrayList;
 
+/**
+ * Menu de gerenciamento de serviços.
+ * Permite listar, adicionar, buscar, editar, remover e salvar serviços.
+ */
 public class MenuServico {
 
+    /** Scanner para leitura de dados do usuário */
     private final Scanner sc = new Scanner(System.in);
+
+    /** Gerenciador responsável pelas operações de CRUD de serviços */
     private final GerenciadorServicos gerenciador = new GerenciadorServicos();
 
-    // --- MENU PRINCIPAL ---
+    /**
+     * Exibe o menu principal e controla o fluxo das opções escolhidas.
+     */
     public void exibirMenu() {
         int opc;
         do {
@@ -42,7 +51,10 @@ public class MenuServico {
         } while (opc != 0);
     }
 
-    // --- LISTAR ---
+    /**
+     * Lista todos os serviços cadastrados no sistema.
+     * Caso não existam serviços, avisa o usuário.
+     */
     private void listarServicos() {
         List<Servico> lista = gerenciador.listar();
         if (lista.isEmpty()) {
@@ -54,7 +66,9 @@ public class MenuServico {
         }
     }
 
-    // --- ADICIONAR ---
+    /**
+     * Lê dados do usuário e adiciona um novo serviço ao sistema.
+     */
     private void adicionarServico() {
         System.out.print("Nome do serviço: ");
         String nome = sc.nextLine();
@@ -92,7 +106,9 @@ public class MenuServico {
         System.out.println(" Serviço adicionado!");
     }
 
-    // --- BUSCAR ---
+    /**
+     * Busca e exibe um serviço por ID.
+     */
     private void buscarServico() {
         System.out.print("ID do serviço: ");
         int id = sc.nextInt(); sc.nextLine();
@@ -101,7 +117,10 @@ public class MenuServico {
         else System.out.println("Serviço não encontrado.");
     }
 
-    // --- EDITAR ---
+    /**
+     * Edita um serviço já existente.
+     * Permite alterar nome, preço, duração e estações.
+     */
     private void editarServico() {
         System.out.print("ID do serviço para editar: ");
         int id = sc.nextInt(); sc.nextLine();
@@ -111,30 +130,26 @@ public class MenuServico {
             return;
         }
 
-        // --- Nome ---
         System.out.print("Nome (" + s.getNome() + "): ");
         String nome = sc.nextLine();
         nome = nome.isBlank() ? null : nome;
 
-        // --- Preço ---
         Double preco = null;
         System.out.print("Preço (" + s.getPreco() + "): ");
         String precoStr = sc.nextLine();
         if (!precoStr.isBlank()) {
-            try { preco = Double.parseDouble(precoStr); } 
+            try { preco = Double.parseDouble(precoStr); }
             catch (NumberFormatException e) { System.out.println("Valor inválido, preço não alterado."); }
         }
 
-        // --- Duração ---
         Integer duracao = null;
         System.out.print("Duração (" + s.getDuracaoMinutos() + " min): ");
         String durStr = sc.nextLine();
         if (!durStr.isBlank()) {
-            try { duracao = Integer.parseInt(durStr); } 
+            try { duracao = Integer.parseInt(durStr); }
             catch (NumberFormatException e) { System.out.println("Valor inválido, duração não alterada."); }
         }
 
-        // --- Estações ---
         List<Estacao> estacoes = null;
         System.out.print("Deseja alterar estações? (s/n): ");
         String alt = sc.nextLine();
@@ -144,7 +159,9 @@ public class MenuServico {
         System.out.println(ok ? " Serviço atualizado!" : " Falha ao atualizar serviço.");
     }
 
-    // --- REMOVER ---
+    /**
+     * Remove um serviço do sistema com base no ID informado.
+     */
     private void removerServico() {
         System.out.print("ID do serviço para remover: ");
         int id = sc.nextInt(); sc.nextLine();
@@ -152,17 +169,26 @@ public class MenuServico {
         System.out.println(ok ? " Serviço removido!" : " Serviço não encontrado.");
     }
 
-    // --- SALVAR ---
+    /**
+     * Salva todas as alterações feitas na base JSON.
+     */
     private void salvarServicos() {
         gerenciador.salvar();
         System.out.println(" Alterações salvas!");
     }
 
-    // --- AUXILIARES ---
+    /**
+     * Lê as estações permitidas para um serviço.
+     * O usuário pode selecionar várias estações.
+     *
+     * @return lista de estações escolhidas
+     */
     private List<Estacao> lerEstacoes() {
         List<Estacao> estacoes = new ArrayList<>();
         System.out.println("Escolha as estações possíveis (vazio para finalizar):");
-        for (Estacao e : Estacao.values()) System.out.println((e.ordinal() + 1) + " - " + e.name());
+        for (Estacao e : Estacao.values()) {
+            System.out.println((e.ordinal() + 1) + " - " + e.name());
+        }
 
         while (true) {
             System.out.print("Número da estação: ");
@@ -181,10 +207,16 @@ public class MenuServico {
         return estacoes;
     }
 
+    /**
+     * Imprime as informações completas de um serviço.
+     *
+     * @param s serviço a ser exibido
+     */
     private void imprimirServico(Servico s) {
         String estacoes = (s.getEstacoesPossiveis() != null && !s.getEstacoesPossiveis().isEmpty())
                 ? s.getEstacoesPossiveis().stream().map(Estacao::name).collect(Collectors.joining(", "))
                 : "Não definidas";
+
         System.out.println("-----------------------------");
         System.out.println("ID: " + s.getId());
         System.out.println("Nome: " + s.getNome());

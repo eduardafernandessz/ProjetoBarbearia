@@ -42,7 +42,16 @@ public class Agenda {
     }
 
     /**
-     * Retorna true se os intervalos colidem (ou seja, horários sobrepostos)
+     * Verifica se dois intervalos de tempo se sobrepõem.
+     * 
+     * <p>Dois intervalos [inicio1, fim1) e [inicio2, fim2) colidem
+     * se existe pelo menos um instante em que ambos estão ativos ao mesmo tempo.</p>
+     *
+     * @param inicio1 o início do primeiro intervalo (inclusive)
+     * @param fim1 o fim do primeiro intervalo (exclusive)
+     * @param inicio2 o início do segundo intervalo (inclusive)
+     * @param fim2 o fim do segundo intervalo (exclusive)
+     * @return {@code true} se os intervalos se sobrepõem, {@code false} caso contrário
      */
     private boolean intervalosColidem(LocalDateTime inicio1, LocalDateTime fim1,
                                       LocalDateTime inicio2, LocalDateTime fim2) {

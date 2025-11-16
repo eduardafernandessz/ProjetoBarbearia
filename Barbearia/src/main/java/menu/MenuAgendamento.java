@@ -13,6 +13,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Menu responsável por todas as interações de Agendamentos no sistema.
+ * Permite criar, listar, editar, remover e buscar agendamentos.
+ */
 public class MenuAgendamento {
 
     private Scanner sc = new Scanner(System.in);
@@ -30,7 +34,13 @@ public class MenuAgendamento {
 
     private DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
-    // --- MENU PRINCIPAL ---
+    // =========================================================
+    // MENU PRINCIPAL
+    // =========================================================
+
+    /**
+     * Exibe o menu principal do sistema de agendamentos.
+     */
     public void exibirMenu() {
         int opc;
         do {
@@ -43,6 +53,7 @@ public class MenuAgendamento {
             System.out.println("6 - Salvar Alterações");
             System.out.println("0 - Sair");
             System.out.print("Escolha: ");
+
             opc = sc.nextInt(); sc.nextLine();
 
             switch (opc) {
@@ -55,14 +66,21 @@ public class MenuAgendamento {
                     gerenciador.salvar();
                     System.out.println("✔ Alterações salvas!");
                 }
-                case 0 -> System.out.println("Saindo...");
-                default -> System.out.println(" Opção inválida!");
+                case 0 -> System.out.println("Saindo do menu...");
+                default -> System.out.println("Opção inválida!");
             }
         } while (opc != 0);
     }
 
-    // --- CRIAR AGENDAMENTO ---
+    // =========================================================
+    // CRIAR AGENDAMENTO
+    // =========================================================
+
+    /**
+     * Cria um novo agendamento pedindo todas as informações ao usuário.
+     */
     private void criarAgendamento() {
+
         Cliente cliente = selecionarCliente();
         if (cliente == null) return;
 
@@ -73,17 +91,18 @@ public class MenuAgendamento {
         if (servicosEscolhidos.isEmpty()) return;
 
         System.out.print("Digite a data e hora do agendamento (dd/MM/yyyy HH:mm): ");
+
         LocalDateTime inicio;
         try {
             inicio = LocalDateTime.parse(sc.nextLine(), fmt);
         } catch (Exception e) {
-            System.out.println(" Data inválida!");
+            System.out.println("Data inválida!");
             return;
         }
 
         Estacao estacao = escolherEstacaoParaServicos(servicosEscolhidos);
         if (estacao == null) {
-            System.out.println(" Não há estação compatível com TODOS os serviços escolhidos.");
+            System.out.println("Não há estação compatível com TODOS os serviços escolhidos.");
             return;
         }
 
@@ -91,77 +110,119 @@ public class MenuAgendamento {
         novo.setServicos(servicosEscolhidos);
 
         boolean sucesso = gerenciador.adicionar(novo);
-        System.out.println(sucesso ? " Agendamento criado com sucesso!" : " Não foi possível criar. Verifique conflitos.");
+        System.out.println(sucesso ? "Agendamento criado com sucesso!" : "Não foi possível criar. Verifique conflitos.");
     }
 
-    // --- ESCOLHER ESTAÇÃO ---
+    // =========================================================
+    // ESCOLHER ESTAÇÃO
+    // =========================================================
+
+    /**
+     * Retorna uma estação compatível com TODOS os serviços escolhidos.
+     */
     private Estacao escolherEstacaoParaServicos(List<Servico> servicos) {
         Set<Estacao> estacoesComuns = new HashSet<>(servicos.get(0).getEstacoesPossiveis());
-        for (Servico s : servicos) estacoesComuns.retainAll(s.getEstacoesPossiveis());
+
+        for (Servico s : servicos)
+            estacoesComuns.retainAll(s.getEstacoesPossiveis());
+
         if (estacoesComuns.isEmpty()) return null;
 
         List<Estacao> lista = new ArrayList<>(estacoesComuns);
-        System.out.println("\n--- Estações possíveis ---");
-        for (int i = 0; i < lista.size(); i++) {
-            System.out.println((i + 1) + " - " + lista.get(i).name());
-        }
 
-        System.out.print("Escolha o número da estação: ");
+        System.out.println("\n--- Estações possíveis ---");
+        for (int i = 0; i < lista.size(); i++)
+            System.out.println((i + 1) + " - " + lista.get(i).name());
+
+        System.out.print("Escolha a estação: ");
         int escolha = sc.nextInt(); sc.nextLine();
+
         return (escolha < 1 || escolha > lista.size()) ? null : lista.get(escolha - 1);
     }
 
-    // --- LISTAR AGENDAMENTOS ---
+    // =========================================================
+    // LISTAR
+    // =========================================================
+
+    /**
+     * Lista todos os agendamentos cadastrados.
+     */
     private void listarAgendamentos() {
         List<Agendamento> lista = gerenciador.listar();
+
         if (lista.isEmpty()) {
-            System.out.println(" Nenhum agendamento.");
+            System.out.println("Nenhum agendamento encontrado.");
             return;
         }
+
         System.out.println("\n===== Lista de Agendamentos =====");
         lista.forEach(System.out::println);
     }
 
-    // --- REMOVER AGENDAMENTO ---
+    // =========================================================
+    // REMOVER
+    // =========================================================
+
+    /**
+     * Remove um agendamento a partir do ID informado pelo usuário.
+     */
     private void removerAgendamento() {
+
         System.out.print("Digite o ID do agendamento: ");
         int id = sc.nextInt(); sc.nextLine();
 
         Agendamento ag = gerenciador.buscarPorId(id);
         if (ag == null) {
-            System.out.println(" Agendamento não encontrado.");
+            System.out.println("Agendamento não encontrado.");
             return;
         }
+
         gerenciador.remover(id);
-        System.out.println(" Agendamento removido!");
+        System.out.println("Agendamento removido!");
     }
 
-    // --- BUSCAR AGENDAMENTO ---
+    // =========================================================
+    // BUSCAR
+    // =========================================================
+
+    /**
+     * Busca e exibe um agendamento pelo ID.
+     */
     private void buscarAgendamento() {
+
         System.out.print("Digite o ID do agendamento: ");
         int id = sc.nextInt(); sc.nextLine();
 
         Agendamento ag = gerenciador.buscarPorId(id);
+
         if (ag == null) {
-            System.out.println(" Agendamento não encontrado.");
+            System.out.println("Agendamento não encontrado.");
             return;
         }
+
         System.out.println("\n===== Detalhes =====");
         System.out.println(ag);
     }
 
-    // --- EDITAR AGENDAMENTO ---
+    // =========================================================
+    // EDITAR
+    // =========================================================
+
+    /**
+     * Edita um agendamento existente.
+     */
     private void editarAgendamento() {
+
         System.out.print("Digite o ID do agendamento: ");
         int id = sc.nextInt(); sc.nextLine();
 
         Agendamento atual = gerenciador.buscarPorId(id);
         if (atual == null) {
-            System.out.println(" Agendamento não encontrado.");
+            System.out.println("Agendamento não encontrado.");
             return;
         }
 
-        // Clonar para edição
+        // Criar cópia editável
         Agendamento novo = new Agendamento();
         novo.setId(atual.getId());
         novo.setCliente(atual.getCliente());
@@ -173,17 +234,18 @@ public class MenuAgendamento {
         // --- CLIENTE ---
         System.out.print("ID do cliente (" + atual.getCliente().getId() + "): ");
         String entradaCliente = sc.nextLine();
-        novo.setCliente(entradaCliente.isEmpty() ? atual.getCliente() : selecionarClientePorId(Integer.parseInt(entradaCliente)));
+        if (!entradaCliente.isEmpty())
+            novo.setCliente(selecionarClientePorId(Integer.parseInt(entradaCliente)));
 
         // --- FUNCIONÁRIO ---
         System.out.print("ID do funcionário (" + atual.getFuncionario().getId() + "): ");
         String entradaFuncionario = sc.nextLine();
-        novo.setFuncionario(entradaFuncionario.isEmpty() ? atual.getFuncionario() : selecionarFuncionarioPorId(Integer.parseInt(entradaFuncionario)));
+        if (!entradaFuncionario.isEmpty())
+            novo.setFuncionario(selecionarFuncionarioPorId(Integer.parseInt(entradaFuncionario)));
 
         // --- SERVIÇOS ---
         System.out.print("Deseja alterar os serviços? (s/n): ");
-        String servChoice = sc.nextLine();
-        if (servChoice.equalsIgnoreCase("s")) {
+        if (sc.nextLine().equalsIgnoreCase("s")) {
             List<Servico> servs = selecionarServicos();
             if (!servs.isEmpty()) {
                 novo.setServicos(servs);
@@ -192,92 +254,117 @@ public class MenuAgendamento {
         }
 
         // --- HORÁRIO ---
-        System.out.print("Digite nova data/hora (" + atual.getHorarioInicio().format(fmt) + ") ou Enter para manter: ");
+        System.out.print("Nova data/hora (" + atual.getHorarioInicio().format(fmt) + "): ");
         String entradaHorario = sc.nextLine();
-        novo.setHorarioInicio(entradaHorario.isEmpty() ? atual.getHorarioInicio() : LocalDateTime.parse(entradaHorario, fmt));
+
+        if (!entradaHorario.isEmpty())
+            novo.setHorarioInicio(LocalDateTime.parse(entradaHorario, fmt));
 
         boolean ok = gerenciador.editar(id, novo);
-        System.out.println(ok ? " Agendamento editado com sucesso!" : " Não foi possível editar. Verifique conflitos.");
+        System.out.println(ok ? "Agendamento editado!" : "Não foi possível editar (conflito).");
     }
 
-    // --- AUXILIARES PARA SELEÇÃO POR ID (ternário) ---
+    // =========================================================
+    // AUXILIARES
+    // =========================================================
+
     private Cliente selecionarClientePorId(int id) {
         Cliente c = crudClientes.buscarPorId(id);
-        if (c == null) System.out.println(" Cliente não encontrado, mantendo o anterior.");
-        return c != null ? c : crudClientes.listar().get(0); // fallback
+        if (c == null) System.out.println("Cliente não encontrado, mantendo o anterior.");
+        return c != null ? c : crudClientes.listar().get(0);
     }
 
     private Funcionario selecionarFuncionarioPorId(int id) {
         Funcionario f = crudFuncionarios.buscarPorId(id);
-        if (f == null) System.out.println(" Funcionário não encontrado, mantendo o anterior.");
-        return f != null ? f : crudFuncionarios.listar().get(0); // fallback
+        if (f == null) System.out.println("Funcionário não encontrado, mantendo o anterior.");
+        return f != null ? f : crudFuncionarios.listar().get(0);
     }
 
-    // --- SELEÇÃO DE CLIENTE ---
+    // =========================================================
+    // SELEÇÃO DE CLIENTE
+    // =========================================================
+
     private Cliente selecionarCliente() {
         List<Cliente> clientes = crudClientes.listar();
+
         if (clientes.isEmpty()) {
-            System.out.println("⚠ Nenhum cliente cadastrado!");
+            System.out.println("Nenhum cliente cadastrado!");
             return null;
         }
 
         clientes.forEach(c -> System.out.println(c.getId() + " - " + c.getNome()));
+
         System.out.print("Digite o ID do cliente: ");
         Cliente cliente = crudClientes.buscarPorId(sc.nextInt()); sc.nextLine();
 
-        if (cliente == null) System.out.println(" Cliente não encontrado!");
+        if (cliente == null) System.out.println("Cliente não encontrado!");
         return cliente;
     }
 
-    // --- SELEÇÃO DE FUNCIONÁRIO ---
+    // =========================================================
+    // SELEÇÃO DE FUNCIONÁRIO
+    // =========================================================
+
     private Funcionario selecionarFuncionario() {
         List<Funcionario> funcionarios = crudFuncionarios.listar();
+
         if (funcionarios.isEmpty()) {
-            System.out.println(" Nenhum funcionário cadastrado!");
+            System.out.println("Nenhum funcionário cadastrado!");
             return null;
         }
 
         funcionarios.forEach(f -> System.out.println(f.getId() + " - " + f.getNome()));
+
         System.out.print("Digite o ID do funcionário: ");
         Funcionario funcionario = crudFuncionarios.buscarPorId(sc.nextInt()); sc.nextLine();
 
-        if (funcionario == null) System.out.println(" Funcionário não encontrado!");
+        if (funcionario == null) System.out.println("Funcionário não encontrado!");
         return funcionario;
     }
 
-    // --- SELEÇÃO DE SERVIÇOS ---
+    // =========================================================
+    // SELEÇÃO DE SERVIÇOS
+    // =========================================================
+
     private List<Servico> selecionarServicos() {
         List<Servico> servicos = crudServicos.listar();
+
         if (servicos.isEmpty()) {
-            System.out.println(" Nenhum serviço cadastrado!");
+            System.out.println("Nenhum serviço cadastrado!");
             return Collections.emptyList();
         }
 
         servicos.forEach(s -> {
-            String estacoes = s.getEstacoesPossiveis().stream()
+            String estacoes = s.getEstacoesPossiveis()
+                    .stream()
                     .map(Estacao::name)
                     .collect(Collectors.joining(", "));
+
             System.out.println(s.getId() + " - " + s.getNome() + " (Estações: " + estacoes + ")");
         });
 
         List<Servico> escolhidos = new ArrayList<>();
         int id;
+
         do {
             System.out.print("Digite o ID do serviço (0 para finalizar): ");
             id = sc.nextInt(); sc.nextLine();
+
             if (id != 0) {
                 Servico s = crudServicos.buscarPorId(id);
+
                 if (s != null) {
                     if (!escolhidos.contains(s)) {
                         escolhidos.add(s);
-                        System.out.println(" Adicionado!");
+                        System.out.println("Adicionado!");
                     } else {
-                        System.out.println(" Serviço já escolhido!");
+                        System.out.println("Serviço já escolhido!");
                     }
                 } else {
-                    System.out.println(" Serviço não encontrado!");
+                    System.out.println("Serviço não encontrado!");
                 }
             }
+
         } while (id != 0);
 
         return escolhidos;

@@ -5,14 +5,21 @@ import java.util.Scanner;
 import modelo.Produto;
 import gerenciadores.GerenciadorProdutos;
 
+/**
+ * Menu responsável por realizar operações relacionadas aos produtos do sistema.
+ * Permite listar, adicionar, buscar, editar, remover e salvar produtos.
+ */
 public class MenuProdutos {
 
+    /** Gerenciador responsável por manipular os produtos. */
     private final GerenciadorProdutos gerenciador = new GerenciadorProdutos();
+
+    /** Scanner utilizado para leitura das entradas do usuário. */
     private final Scanner sc = new Scanner(System.in);
 
-    // ===========================
-    // MENU PRINCIPAL
-    // ===========================
+    /**
+     * Exibe o menu principal de produtos e controla a navegação entre as opções.
+     */
     public void exibirMenu() {
         int op;
         do {
@@ -40,9 +47,9 @@ public class MenuProdutos {
         } while (op != 0);
     }
 
-    // ===========================
-    // LISTAR
-    // ===========================
+    /**
+     * Lista todos os produtos cadastrados no sistema.
+     */
     private void listarProdutos() {
         List<Produto> lista = gerenciador.listar();
         if (lista.isEmpty()) {
@@ -52,15 +59,15 @@ public class MenuProdutos {
 
         System.out.println("\n--- LISTA DE PRODUTOS ---");
         for (Produto p : lista) {
-             System.out.println("-----------------------------");
-            System.out.println(p); // Agora chama o toString() do Produto automaticamente
+            System.out.println("-----------------------------");
+            System.out.println(p); // Chama automaticamente o toString()
         }
         System.out.println("-----------------------------");
     }
 
-    // ===========================
-    // ADICIONAR
-    // ===========================
+    /**
+     * Adiciona um novo produto ao sistema, pedindo os dados ao usuário.
+     */
     private void adicionarProduto() {
         System.out.print("Nome: ");
         String nome = sc.nextLine();
@@ -80,9 +87,9 @@ public class MenuProdutos {
         System.out.println("✔ Produto adicionado!");
     }
 
-    // ===========================
-    // BUSCAR
-    // ===========================
+    /**
+     * Busca um produto pelo ID informado pelo usuário.
+     */
     private void buscarProduto() {
         System.out.print("ID do produto: ");
         int id = Integer.parseInt(sc.nextLine());
@@ -90,16 +97,16 @@ public class MenuProdutos {
         Produto p = gerenciador.buscarProdutoPorId(id);
         if (p != null) {
             System.out.println("-----------------------------");
-            System.out.println(p); // Usa o toString() aqui também
+            System.out.println(p);
             System.out.println("-----------------------------");
         } else {
             System.out.println("Produto não encontrado.");
         }
     }
 
-    // ===========================
-    // EDITAR
-    // ===========================
+    /**
+     * Edita as informações de um produto existente.
+     */
     private void editarProduto() {
         System.out.print("ID do produto para editar: ");
         int id = Integer.parseInt(sc.nextLine());
@@ -130,31 +137,31 @@ public class MenuProdutos {
 
         if (gerenciador.editar(id, atualizado)) {
             System.out.println(atualizado);
-            System.out.println(" Produto atualizado!");
+            System.out.println("✔ Produto atualizado!");
         } else {
-            System.out.println(" Erro ao atualizar produto.");
+            System.out.println("❌ Erro ao atualizar produto.");
         }
     }
 
-    // ===========================
-    // REMOVER
-    // ===========================
+    /**
+     * Remove um produto do sistema pelo ID.
+     */
     private void removerProduto() {
         System.out.print("ID do produto para remover: ");
         int id = Integer.parseInt(sc.nextLine());
 
         if (gerenciador.remover(id)) {
-            System.out.println(" Produto removido!");
+            System.out.println("✔ Produto removido!");
         } else {
-            System.out.println(" Produto não encontrado.");
+            System.out.println("❌ Produto não encontrado.");
         }
     }
 
-    // ===========================
-    // SALVAR
-    // ===========================
+    /**
+     * Salva as alterações feitas na lista de produtos.
+     */
     private void salvarProdutos() {
         gerenciador.salvar();
-        System.out.println(" Produtos salvos!");
+        System.out.println("✔ Produtos salvos!");
     }
 }
