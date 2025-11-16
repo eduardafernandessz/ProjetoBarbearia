@@ -87,9 +87,12 @@ public class MenuPessoa {
         }
         System.out.println("\n--- LISTA DE CLIENTES ---");
         for (Cliente c : lista) {
-            System.out.println(c);
+            System.out.println("-----------------------------");
+            System.out.println(c); // Chama automaticamente o toString() da classe Cliente
+            System.out.println("-----------------------------");
         }
     }
+
 
     private void adicionarCliente() {
         System.out.print("Nome: "); String nome = sc.nextLine();
@@ -159,7 +162,9 @@ public class MenuPessoa {
         }
         System.out.println("\n--- LISTA DE FUNCIONÁRIOS ---");
         for (Funcionario f : lista) {
-            System.out.println(f);
+            System.out.println("-----------------------------");
+            System.out.println(f); // Chama automaticamente o toString() da classe Funcionario
+            System.out.println("-----------------------------");
         }
     }
 

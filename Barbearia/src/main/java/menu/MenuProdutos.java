@@ -50,12 +50,9 @@ public class MenuProdutos {
             return;
         }
 
+        System.out.println("\n--- LISTA DE PRODUTOS ---");
         for (Produto p : lista) {
-            System.out.println("-----------------------------");
-            System.out.println("ID: " + p.getId());
-            System.out.println("Nome: " + p.getNome());
-            System.out.println("Preço Venda: R$ " + p.getPreco());
-            System.out.println("Estoque: " + p.getQuantidadeEstoque());
+            System.out.println(p); // Agora chama o toString() do Produto automaticamente
         }
         System.out.println("-----------------------------");
     }
@@ -91,7 +88,9 @@ public class MenuProdutos {
 
         Produto p = gerenciador.buscarProdutoPorId(id);
         if (p != null) {
-            imprimirProduto(p);
+            System.out.println("-----------------------------");
+            System.out.println(p); // Usa o toString() aqui também
+            System.out.println("-----------------------------");
         } else {
             System.out.println("Produto não encontrado.");
         }
@@ -129,9 +128,10 @@ public class MenuProdutos {
         atualizado.setQuantidadeEstoque(quantidadeEstoque);
 
         if (gerenciador.editar(id, atualizado)) {
-            System.out.println("✔ Produto atualizado!");
+            System.out.println(atualizado);
+            System.out.println(" Produto atualizado!");
         } else {
-            System.out.println("❌ Erro ao atualizar produto.");
+            System.out.println(" Erro ao atualizar produto.");
         }
     }
 
@@ -143,9 +143,9 @@ public class MenuProdutos {
         int id = Integer.parseInt(sc.nextLine());
 
         if (gerenciador.remover(id)) {
-            System.out.println("✔ Produto removido!");
+            System.out.println(" Produto removido!");
         } else {
-            System.out.println("❌ Produto não encontrado.");
+            System.out.println(" Produto não encontrado.");
         }
     }
 
@@ -154,18 +154,6 @@ public class MenuProdutos {
     // ===========================
     private void salvarProdutos() {
         gerenciador.salvar();
-        System.out.println("✔ Produtos salvos!");
-    }
-
-    // ===========================
-    // IMPRIMIR PRODUTO
-    // ===========================
-    private void imprimirProduto(Produto p) {
-        System.out.println("-----------------------------");
-        System.out.println("ID: " + p.getId());
-        System.out.println("Nome: " + p.getNome());
-        System.out.println("Preço Venda: R$ " + p.getPreco());
-        System.out.println("Estoque: " + p.getQuantidadeEstoque());
-        System.out.println("-----------------------------");
+        System.out.println(" Produtos salvos!");
     }
 }

@@ -65,15 +65,13 @@ public class Despesas {
         @Override
     public String toString() {
         String dataFormatada = (data != null) ? data.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")) : "Sem data";
-
-        return "Despesa {\n" +
-               "  ID: " + id + "\n" +
-               "  Descrição: " + (descricao != null ? descricao : "Indefinida") + "\n" +
-               "  Valor: R$ " + String.format("%.2f", valor) + "\n" +
-               "  Data: " + dataFormatada + "\n" +
-               "  Categoria: " + (categoria != null ? categoria : "Indefinida") + "\n" +
-               "}";
-    }
+        return "Despesa\n" +
+           "-----------------------------\n" +
+           "Descrição: " + descricao + "\n" +
+           "Valor: R$ " + valor + "\n" +
+           "Data: " + data + "\n" +
+           "Categoria: " + categoria + "\n";
+}
 
 
 }

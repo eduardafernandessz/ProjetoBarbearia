@@ -52,16 +52,15 @@ public class MenuVendas {
             System.out.println("Nenhuma venda registrada.");
             return;
         }
-        for (Venda v : lista) {
-            System.out.println("ID: " + v.getId());
-            System.out.println("Cliente: " + v.getCliente().getNome());
-            System.out.println("Produto: " + v.getProduto().getNome());
-            System.out.println("Quantidade: " + v.getQuantidade());
-            System.out.println("Data: " + v.getData());
-            System.out.println("---------------------------");
-        }
-    }
 
+        System.out.println("\n--- LISTA DE VENDAS ---");
+        for (Venda v : lista) {
+            System.out.println(v); // Agora usa o toString() do objeto Venda
+        }
+        System.out.println("---------------------------");
+    }
+    
+    
     // --- REGISTRAR VENDA ---
     private void registrarVenda() {
         System.out.print("ID do Cliente: ");
@@ -89,12 +88,7 @@ public class MenuVendas {
             System.out.println("Venda não encontrada.");
             return;
         }
-
-        System.out.println("ID: " + v.getId());
-        System.out.println("Cliente: " + v.getCliente().getNome());
-        System.out.println("Produto: " + v.getProduto().getNome());
-        System.out.println("Quantidade: " + v.getQuantidade());
-        System.out.println("Data: " + v.getData());
+        System.out.println(v);
     }
 
     // --- EDITAR VENDA ---

@@ -121,25 +121,32 @@ public class Agendamento {
     
 
 
-    @Override
+        @Override
     public String toString() {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        DecimalFormat df = new DecimalFormat("#0.00");
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
-        return "Agendamento:\n" +
-               "ID: " + id + "\n" +
-               "Cliente: " + (cliente != null ? cliente.getNome() : "N/A") + "\n" +
-               "Funcionário: " + (funcionario != null ? funcionario.getNome() : "N/A") + "\n" +
-               "Horário Início: " + (horarioInicio != null ? dtf.format(horarioInicio) : "N/A") + "\n" +
-               "Horário Fim: " + (horarioFim != null ? dtf.format(horarioFim) : "N/A") + "\n" +
-               "Estação: " + (estacaoEscolhida != null ? estacaoEscolhida : "N/A") + "\n" +
-               "Preço Total: R$ " + df.format(precoTotal) + "\n" +
-               "Serviços: " + (servicos != null && !servicos.isEmpty()
-                                ? servicos.stream()
-                                         .map(Servico::getNome)
-                                         .reduce((s1, s2) -> s1 + ", " + s2)
-                                         .orElse("")
-                                : "Nenhum");
+        String texto =
+                "=== Agendamento ===\n" +
+                "ID: " + id + "\n" +
+                "Cliente: " + (cliente != null ? cliente.getNome() : "N/A") + "\n" +
+                "Funcionário: " + (funcionario != null ? funcionario.getNome() : "N/A") + "\n" +
+                "Estação: " + (estacaoEscolhida != null ? estacaoEscolhida.name() : "N/A") + "\n" +
+                "Horário Inicial: " + (horarioInicio != null ? horarioInicio.format(fmt) : "N/A") + "\n" +
+                "Horário Final: " + (horarioFim != null ? horarioFim.format(fmt) : "N/A") + "\n" +
+                "Preço Total: R$ " + precoTotal + "\n" +
+                "Serviços:\n";
+
+        if (servicos != null && !servicos.isEmpty()) {
+            for (Servico s : servicos) {
+                texto += " - " + s.getNome() +
+                        " (R$ " + s.getPreco() +
+                        ", " + s.getDuracaoMinutos() + " min)\n";
+            }
+        } else {
+            texto += " - Nenhum serviço informado\n";
+        }
+
+        return texto;
     }
 
 

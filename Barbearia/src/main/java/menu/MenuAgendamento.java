@@ -119,7 +119,7 @@ public class MenuAgendamento {
             return;
         }
         System.out.println("\n===== Lista de Agendamentos =====");
-        lista.forEach(this::imprimirResumo);
+        lista.forEach(System.out::println);
     }
 
     // --- REMOVER AGENDAMENTO ---
@@ -147,7 +147,7 @@ public class MenuAgendamento {
             return;
         }
         System.out.println("\n===== Detalhes =====");
-        imprimirResumo(ag);
+        System.out.println(ag);
     }
 
     // --- EDITAR AGENDAMENTO ---
@@ -283,16 +283,4 @@ public class MenuAgendamento {
         return escolhidos;
     }
 
-    // --- IMPRIMIR RESUMO ---
-    private void imprimirResumo(Agendamento a) {
-        System.out.println("\nID: " + a.getId());
-        System.out.println("Cliente: " + a.getCliente().getNome());
-        System.out.println("Funcionário: " + a.getFuncionario().getNome());
-        System.out.println("Estação escolhida: " + (a.getEstacaoEscolhida() != null ? a.getEstacaoEscolhida().name() : "Nenhuma"));
-        System.out.println("Início: " + a.getHorarioInicio().format(fmt));
-        System.out.println("Fim: " + a.getHorarioFim().format(fmt));
-        System.out.println("Serviços:");
-        a.getServicos().forEach(s -> System.out.println(" - " + s.getNome()));
-        System.out.println("Total: R$ " + a.getPrecoTotal());
-    }
 }

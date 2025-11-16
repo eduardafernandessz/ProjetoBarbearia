@@ -51,11 +51,7 @@ public class MenuDespesas {
         System.out.println("\n--- LISTA DE DESPESAS ---");
         for (Despesas d : lista) {
             System.out.println("-----------------------------");
-            System.out.println("ID: " + d.getId());
-            System.out.println("Descrição: " + d.getDescricao());
-            System.out.println("Valor: R$ " + d.getValor());
-            System.out.println("Data: " + d.getData());
-            System.out.println("Categoria: " + d.getCategoria());
+            System.out.println(d); // Isso chama automaticamente o toString() da classe Despesas
         }
         System.out.println("-----------------------------");
     }
@@ -79,7 +75,7 @@ public class MenuDespesas {
         LocalDate data = LocalDate.parse(dataStr);
         gerenciador.adicionarDespesa(new Despesas(0, desc, valor, data, categoria));
 
-        System.out.println("✔ Despesa adicionada!");
+        System.out.println(" Despesa adicionada!");
     }
 
     // ======================
@@ -95,7 +91,7 @@ public class MenuDespesas {
             System.out.println(d);
             System.out.println("-----------------------------");
         } else {
-            System.out.println("❌ Despesa não encontrada.");
+            System.out.println(" Despesa não encontrada.");
         }
     }
 
