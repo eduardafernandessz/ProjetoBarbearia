@@ -13,7 +13,7 @@ public class TelaLogin {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("===================================");
-        System.out.println("         BARBEARIA SYSTEM");
+        System.out.println("            BARBEARIA");
         System.out.println("===================================");
         System.out.println("             LOGIN");
         System.out.println("===================================\n");

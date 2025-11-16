@@ -48,10 +48,10 @@ public class MenuPrincipal {
     }
 
     public void exibir(Object usuario) {
-        if (usuario instanceof Funcionario f) {
-            exibirMenuFuncionario(f);
-        } else if (usuario instanceof Gerente g) {
+        if (usuario instanceof Gerente g) {
             exibirMenuGerente(g);
+        } else if (usuario instanceof Funcionario f) {
+            exibirMenuFuncionario(f);
         }
     }
 
