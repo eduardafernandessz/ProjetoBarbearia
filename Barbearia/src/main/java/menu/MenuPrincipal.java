@@ -15,7 +15,6 @@ public class MenuPrincipal {
     private GerenciadorProdutos gerenciadorProdutos;
     private GerenciadorAgendamentos gerenciadorAgendamentos;
     private GerenciadorVendas gerenciadorVendas;
-    
 
     private MenuAgendamento menuAgendamento = new MenuAgendamento();
     private MenuPessoa menuPessoa = new MenuPessoa();

@@ -6,18 +6,18 @@ import modelo.Gerente;
 
 import java.util.Scanner;
 
-/**
- * Classe responsável por exibir e controlar o fluxo da tela inicial de login.
- *
- * <p>Esta tela permite que o usuário escolha entre logar como
- * Funcionário ou como Gerente. Após a seleção,
- * o método chama o sistema genérico de autenticação {@link Login}
- * para validar usuário e senha.</p>
- *
- * <p>O método {@link #iniciar(Login, Login)} retorna o objeto autenticado,
- * podendo ser um {@link Funcionario} ou um {@link Gerente}.
- * Caso a autenticação falhe, retorna {@code null}.</p>
- */
+    /**
+     * Classe responsável por exibir e controlar o fluxo da tela inicial de login.
+     *
+     * <p>Esta tela permite que o usuário escolha entre logar como
+     * Funcionário ou como Gerente. Após a seleção,
+     * o método chama o sistema genérico de autenticação {@link Login}
+     * para validar usuário e senha.</p>
+     *
+     * <p>O método {@link #iniciar(Login, Login)} retorna o objeto autenticado,
+     * podendo ser um {@link Funcionario} ou um {@link Gerente}.
+     * Caso a autenticação falhe, retorna {@code null}.</p>
+     */
 public class TelaLogin {
 
     /**
@@ -68,7 +68,7 @@ public class TelaLogin {
             case 1 -> {
                 Funcionario f = loginFunc.autenticar();
                 if (f != null) {
-                    System.out.println("\n✔ Bem-vindo, " + f.getNome() + "!");
+                    System.out.println("\n Bem-vindo, " + f.getNome() + "!");
                     yield f;
                 }
                 yield null;
@@ -77,7 +77,7 @@ public class TelaLogin {
             case 2 -> {
                 Gerente g = loginGer.autenticar();
                 if (g != null) {
-                    System.out.println("\n✔ Bem-vindo, " + g.getNome() + "!");
+                    System.out.println("\n Bem-vindo, " + g.getNome() + "!");
                     yield g;
                 }
                 yield null;
