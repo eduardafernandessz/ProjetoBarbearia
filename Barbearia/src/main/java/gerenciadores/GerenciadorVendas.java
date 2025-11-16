@@ -51,7 +51,7 @@ public class GerenciadorVendas {
     // =====================================================
     // BUSCAR POR ID
     // =====================================================
-    public Venda buscarVendaPorId(int id) {
+    public Venda buscarPorId(int id) {
         return crudVendas.buscarPorId(id);
     }
 

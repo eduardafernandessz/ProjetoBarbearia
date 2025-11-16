@@ -83,7 +83,7 @@ public class MenuVendas {
         System.out.print("ID da venda: ");
         int id = sc.nextInt(); sc.nextLine();
 
-        Venda v = gerenciadorVendas.buscarVendaPorId(id);
+        Venda v = gerenciadorVendas.buscarPorId(id);
         if (v == null) {
             System.out.println("Venda não encontrada.");
             return;
@@ -96,7 +96,7 @@ public class MenuVendas {
         System.out.print("ID da venda para editar: ");
         int id = sc.nextInt(); sc.nextLine();
 
-        Venda v = gerenciadorVendas.buscarVendaPorId(id);
+        Venda v = gerenciadorVendas.buscarPorId(id);
         if (v == null) {
             System.out.println("Venda não encontrada.");
             return;

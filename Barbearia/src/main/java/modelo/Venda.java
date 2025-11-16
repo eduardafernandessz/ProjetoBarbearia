@@ -35,6 +35,11 @@ public class Venda {
     public LocalDate getData() { return data; }
     public void setData(LocalDate data) { this.data = data; }
     
+    public double getValorTotal() {
+    if (produto == null) return 0.0;
+    return produto.getPreco() * quantidade;
+    }
+    
         @Override
     public String toString() {
         String dataFormatada = (data != null) ? data.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")) : "Sem data";

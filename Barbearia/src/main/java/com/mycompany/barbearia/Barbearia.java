@@ -1,7 +1,9 @@
 package com.mycompany.barbearia;
 
+import gerenciadores.GerenciadorAgendamentos;
 import gerenciadores.GerenciadorPessoas;
 import gerenciadores.GerenciadorProdutos;
+import gerenciadores.GerenciadorVendas;
 import menu.MenuPrincipal;
 import menu.TelaLogin;
 import utils.Login;
@@ -15,6 +17,8 @@ public class Barbearia {
         
     GerenciadorPessoas gp = new GerenciadorPessoas();
     GerenciadorProdutos gprod = new GerenciadorProdutos();
+    GerenciadorAgendamentos ga = new GerenciadorAgendamentos();
+    GerenciadorVendas gv = new GerenciadorVendas(gp, gprod);
 
         // CRUDs para login
         CRUDGenerico<Funcionario> crudFuncionarios =
@@ -33,7 +37,7 @@ public class Barbearia {
             usuarioLogado = TelaLogin.iniciar(loginFuncionario, loginGerente);
         }
         // CHAMA MENU PRINCIPAL
-        MenuPrincipal menu = new MenuPrincipal(gp, gprod);
+    MenuPrincipal menu = new MenuPrincipal(gp, gprod, ga, gv);      
         menu.exibir(usuarioLogado);
     }
 }

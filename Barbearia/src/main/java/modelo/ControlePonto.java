@@ -18,6 +18,9 @@ public class ControlePonto {
         this.data = data;
         this.funcionario = funcionario; 
     }
+    
+    public ControlePonto() {
+}
 
     public int getIdFuncionario() { return idFuncionario; }
     public LocalDate getData() { return data; }
