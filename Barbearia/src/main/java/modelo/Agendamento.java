@@ -3,7 +3,9 @@ package modelo;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.Estacao;
@@ -116,4 +118,29 @@ public class Agendamento {
             calcularHorarioFim();
         }
     }
+    
+
+
+    @Override
+    public String toString() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        DecimalFormat df = new DecimalFormat("#0.00");
+
+        return "Agendamento:\n" +
+               "ID: " + id + "\n" +
+               "Cliente: " + (cliente != null ? cliente.getNome() : "N/A") + "\n" +
+               "Funcionário: " + (funcionario != null ? funcionario.getNome() : "N/A") + "\n" +
+               "Horário Início: " + (horarioInicio != null ? dtf.format(horarioInicio) : "N/A") + "\n" +
+               "Horário Fim: " + (horarioFim != null ? dtf.format(horarioFim) : "N/A") + "\n" +
+               "Estação: " + (estacaoEscolhida != null ? estacaoEscolhida : "N/A") + "\n" +
+               "Preço Total: R$ " + df.format(precoTotal) + "\n" +
+               "Serviços: " + (servicos != null && !servicos.isEmpty()
+                                ? servicos.stream()
+                                         .map(Servico::getNome)
+                                         .reduce((s1, s2) -> s1 + ", " + s2)
+                                         .orElse("")
+                                : "Nenhum");
+    }
+
+
 }

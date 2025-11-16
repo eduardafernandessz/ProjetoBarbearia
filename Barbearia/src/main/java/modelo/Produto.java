@@ -58,6 +58,16 @@ public class Produto {
     public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
-
+    
+    @Override
+    public String toString() {
+        return "Produto {" +
+               "\n  ID: " + id +
+               "\n  Nome: " + nome +
+               "\n  Categoria: " + categoria +
+               "\n  Preço: R$ " + String.format("%.2f", preco) +
+               "\n  Quantidade em estoque: " + quantidadeEstoque +
+               "\n}";
+    }
     
 }

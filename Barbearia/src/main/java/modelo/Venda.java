@@ -34,4 +34,18 @@ public class Venda {
 
     public LocalDate getData() { return data; }
     public void setData(LocalDate data) { this.data = data; }
+    
+        @Override
+    public String toString() {
+        String dataFormatada = (data != null) ? data.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")) : "Sem data";
+
+        return "Venda {\n" +
+               "  ID: " + id + "\n" +
+               "  Cliente: " + (cliente != null ? cliente.getNome() : "Indefinido") + "\n" +
+               "  Produto: " + (produto != null ? produto.getNome() : "Indefinido") + "\n" +
+               "  Quantidade: " + quantidade + "\n" +
+               "  Data: " + dataFormatada + "\n" +
+               "}";
+    }
+
 }

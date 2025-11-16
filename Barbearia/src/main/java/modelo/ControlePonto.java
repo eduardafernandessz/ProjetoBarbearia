@@ -2,6 +2,7 @@ package modelo;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class ControlePonto {
 
@@ -27,4 +28,21 @@ public class ControlePonto {
     public void setHorarioSaida(LocalTime horarioSaida) {
         this.horarioSaida = horarioSaida;
     }
+    
+        @Override
+    public String toString() {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+
+        String entrada = (horarioEntrada != null) ? horarioEntrada.format(timeFormatter) : "Não registrado";
+        String saida = (horarioSaida != null) ? horarioSaida.format(timeFormatter) : "Não registrado";
+
+        return "ControlePonto {" +
+               "ID Funcionário=" + idFuncionario +
+               ", Data=" + data.format(dateFormatter) +
+               ", Entrada=" + entrada +
+               ", Saida=" + saida +
+               '}';
+    }
 }
+

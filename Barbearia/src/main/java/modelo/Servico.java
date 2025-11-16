@@ -55,4 +55,20 @@ public class Servico {
     public void setEstacoesPossiveis(List<Estacao> estacoesPossiveis) {
         this.estacoesPossiveis = estacoesPossiveis;
     }
+    
+        @Override
+    public String toString() {
+        String estacoes = (estacoesPossiveis == null || estacoesPossiveis.isEmpty())
+                ? "Nenhuma"
+                : estacoesPossiveis.stream().map(Enum::name).reduce((a, b) -> a + ", " + b).orElse("Nenhuma");
+
+        return "Servico {\n" +
+                "  ID: " + id + "\n" +
+                "  Nome: " + nome + "\n" +
+                "  Preço: R$ " + String.format("%.2f", preco) + "\n" +
+                "  Duração: " + duracaoMinutos + " minutos\n" +
+                "  Estações possíveis: " + estacoes + "\n" +
+                "}";
+    }
+
 }

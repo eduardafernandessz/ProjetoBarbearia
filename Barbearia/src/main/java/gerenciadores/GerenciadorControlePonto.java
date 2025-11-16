@@ -11,7 +11,7 @@ public class GerenciadorControlePonto {
     private final CRUDGenerico<ControlePonto> crudPontos;
 
     public GerenciadorControlePonto() {
-        crudPontos = new CRUDGenerico<>("src/main/java/repositorio/controle_ponto.json", ControlePonto.class);
+        crudPontos = new CRUDGenerico<>("src/main/java/repositorio/ControlePonto.json", ControlePonto.class);
     }
 
     // ==============================

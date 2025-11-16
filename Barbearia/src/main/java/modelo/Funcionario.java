@@ -54,16 +54,18 @@ public class Funcionario extends Pessoa{
         this.senha = senha;
     }
 
-
+    @Override
     public String toString() {
-        return "Funcionario:\n" +
-                "ID: " + id + "\n" +
-                "Nome: " + nome + "\n" +
-                "Telefone: " + telefone + "\n" +
-                "Email: " + email + "\n" +
-                "CPF: " + cpf + "\n" +
-                "Endereço: " + endereco + "\n" +
-                "Cargo: " + cargo + "\n" +
-                "Salário: " + salario;
+        return "Funcionario {" +
+               "\n  ID: " + id +
+               "\n  Nome: " + nome +
+               "\n  CPF: " + cpf +
+               "\n  Telefone: " + telefone +
+               "\n  Email: " + email +
+               "\n  Endereço: " + endereco +
+               "\n  Cargo: " + cargo +
+               "\n  Salário: R$ " + String.format("%.2f", salario) +
+               "\n}";
     }
+
 }
