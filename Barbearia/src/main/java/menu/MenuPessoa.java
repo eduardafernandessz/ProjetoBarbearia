@@ -27,7 +27,7 @@ public class MenuPessoa {
     public void exibirMenuClientes() {
         int opc;
         do {
-            System.out.println("\n--- MENU CLIENTES ---");
+            System.out.println("\n--- MENU gERENCIAR CLIENTES ---");
             System.out.println("1 - Listar Clientes");
             System.out.println("2 - Adicionar Cliente");
             System.out.println("3 - Verificar existencia do Cliente(Buscar)");
@@ -55,7 +55,7 @@ public class MenuPessoa {
     public void exibirMenuFuncionarios() {
         int opc;
         do {
-            System.out.println("\n--- MENU FUNCIONÁRIOS ---");
+            System.out.println("\n--- MENU GERENCIAR FUNCIONÁRIOS ---");
             System.out.println("1 - Listar Funcionários");
             System.out.println("2 - Adicionar Funcionário");
             System.out.println("3 - Buscar Funcionário por ID");
