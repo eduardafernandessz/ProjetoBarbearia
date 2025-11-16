@@ -1,0 +1,89 @@
+package menu;
+
+import gerenciadores.GerenciadorControlePonto;
+import modelo.ControlePonto;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
+import java.util.Scanner;
+
+public class MenuControlePonto {
+
+    private GerenciadorControlePonto gerenciador;
+    private Scanner sc = new Scanner(System.in);
+
+    public MenuControlePonto() {
+        gerenciador = new GerenciadorControlePonto();
+    }
+
+    public void exibirMenu(int idFuncionario) {
+        int opc;
+        do {
+            System.out.println("\n--- MENU CONTROLE DE PONTO ---");
+            System.out.println("1 - Registrar Entrada");
+            System.out.println("2 - Registrar Saída");
+            System.out.println("3 - Consultar Ponto por Data");
+            System.out.println("4 - Salvar alterações");
+            System.out.println("0 - Voltar");
+            System.out.print("Escolha: ");
+            opc = sc.nextInt();
+            sc.nextLine();
+
+            switch (opc) {
+                case 1 -> registrarEntrada(idFuncionario);
+                case 2 -> registrarSaida(idFuncionario);
+                case 3 -> consultarPonto(idFuncionario);
+                case 4 -> {
+                    gerenciador.salvar();
+                    System.out.println("Alterações salvas com sucesso!");
+                }
+                case 0 -> System.out.println("Voltando ao menu anterior...");
+                default -> System.out.println("Opção inválida!");
+            }
+        } while (opc != 0);
+    }
+
+    private void registrarEntrada(int idFuncionario) {
+        LocalDate data = LocalDate.now();
+        LocalTime hora = LocalTime.now();
+        ControlePonto ponto = gerenciador.buscarPorData(idFuncionario, data);
+        if (ponto == null) {
+            ponto = new ControlePonto(idFuncionario, data);
+        }
+        ponto.setHorarioEntrada(hora);
+        gerenciador.adicionarOuAtualizar(ponto);
+        System.out.println("Entrada registrada às " + hora);
+    }
+
+    private void registrarSaida(int idFuncionario) {
+        LocalDate data = LocalDate.now();
+        LocalTime hora = LocalTime.now();
+        ControlePonto ponto = gerenciador.buscarPorData(idFuncionario, data);
+        if (ponto == null) {
+            System.out.println("Erro: Não há registro de entrada para hoje.");
+            return;
+        }
+        ponto.setHorarioSaida(hora);
+        gerenciador.adicionarOuAtualizar(ponto);
+        System.out.println("Saída registrada às " + hora);
+    }
+
+    private void consultarPonto(int idFuncionario) {
+        System.out.print("Digite a data para consulta (AAAA-MM-DD): ");
+        String dataStr = sc.nextLine();
+        try {
+            LocalDate data = LocalDate.parse(dataStr);
+            ControlePonto ponto = gerenciador.buscarPorData(idFuncionario, data);
+            if (ponto == null) {
+                System.out.println("Nenhum ponto registrado para essa data.");
+            } else {
+                System.out.println("Data: " + ponto.getData());
+                System.out.println("Entrada: " + ponto.getHorarioEntrada());
+                System.out.println("Saída: " + ponto.getHorarioSaida());
+            }
+        } catch (Exception e) {
+            System.out.println("Data inválida!");
+        }
+    }
+}

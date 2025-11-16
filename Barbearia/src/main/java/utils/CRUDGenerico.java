@@ -1,5 +1,6 @@
 package utils;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.type.CollectionType;
@@ -13,10 +14,8 @@ import java.util.List;
 /**
  * CRUD genérico para qualquer tipo de objeto.
  *
- * Agora, os métodos adicionar, remover e editar apenas alteram a lista em memória.
- * Para persistir no JSON, é necessário chamar manualmente o método salvar().
- *
- * @param <T> Tipo de objeto que será gerenciado (Cliente, Funcionario, Agendamento...)
+ * Métodos alteram somente em memória.
+ * Para persistir: chamar salvar().
  */
 public class CRUDGenerico<T> {
 
@@ -24,38 +23,44 @@ public class CRUDGenerico<T> {
     private final Class<T> clazz;
     private List<T> lista;
 
-    private final ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper;
 
     public CRUDGenerico(String caminhoArquivo, Class<T> clazz) {
         this.caminhoArquivo = caminhoArquivo;
         this.clazz = clazz;
-        this.lista = carregar();
 
+        // ⚠ IMPORTANTE → configurar antes de carregar.
+        this.mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
         mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+
+        this.lista = carregar();
     }
 
-    public List<T> carregar() {
+    private List<T> carregar() {
         File arquivo = new File(caminhoArquivo);
         if (!arquivo.exists()) return new ArrayList<>();
+
         try {
-            CollectionType tipoLista = mapper.getTypeFactory()
+            CollectionType tipo = mapper.getTypeFactory()
                     .constructCollectionType(List.class, clazz);
-            return mapper.readValue(arquivo, tipoLista);
+            return mapper.readValue(arquivo, tipo);
+
         } catch (IOException e) {
+            System.out.println("Erro ao carregar arquivo JSON: " + caminhoArquivo);
             e.printStackTrace();
             return new ArrayList<>();
         }
     }
 
-    /**
-     * Salva a lista atual em arquivo JSON
-     */
     public void salvar() {
         try {
             mapper.writerWithDefaultPrettyPrinter()
                     .writeValue(new File(caminhoArquivo), lista);
+
         } catch (IOException e) {
+            System.out.println("Erro ao salvar arquivo JSON: " + caminhoArquivo);
             e.printStackTrace();
         }
     }
@@ -66,36 +71,30 @@ public class CRUDGenerico<T> {
             try {
                 int idAtual = (int) obj.getClass().getMethod("getId").invoke(obj);
                 if (idAtual > maiorId) maiorId = idAtual;
+
             } catch (Exception e) {
+                System.out.println("Classe sem getId(): " + clazz.getSimpleName());
                 e.printStackTrace();
             }
         }
         return maiorId + 1;
     }
 
-    /**
-     * Apenas adiciona na lista em memória
-     */
     public void adicionar(T obj) {
         int novoId = gerarId();
         try {
             obj.getClass().getMethod("setId", int.class).invoke(obj, novoId);
         } catch (Exception e) {
+            System.out.println("Classe sem setId(): " + clazz.getSimpleName());
             e.printStackTrace();
         }
         lista.add(obj);
     }
 
-    /**
-     * Apenas remove da lista em memória
-     */
     public void remover(T obj) {
         lista.remove(obj);
     }
 
-    /**
-     * Apenas substitui o objeto na lista em memória
-     */
     public void editar(int indice, T obj) {
         if (indice >= 0 && indice < lista.size()) {
             lista.set(indice, obj);
@@ -111,6 +110,7 @@ public class CRUDGenerico<T> {
             try {
                 int idAtual = (int) obj.getClass().getMethod("getId").invoke(obj);
                 if (idAtual == id) return obj;
+
             } catch (Exception e) {
                 e.printStackTrace();
             }

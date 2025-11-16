@@ -108,9 +108,7 @@ public class MenuAgendamento {
 
         System.out.print("Escolha o número da estação: ");
         int escolha = sc.nextInt(); sc.nextLine();
-        if (escolha < 1 || escolha > lista.size()) return null;
-
-        return lista.get(escolha - 1);
+        return (escolha < 1 || escolha > lista.size()) ? null : lista.get(escolha - 1);
     }
 
     // --- LISTAR AGENDAMENTOS ---
@@ -163,7 +161,7 @@ public class MenuAgendamento {
             return;
         }
 
-        // Clonar para editar
+        // Clonar para edição
         Agendamento novo = new Agendamento();
         novo.setId(atual.getId());
         novo.setCliente(atual.getCliente());
@@ -172,20 +170,20 @@ public class MenuAgendamento {
         novo.setHorarioInicio(atual.getHorarioInicio());
         novo.setEstacaoEscolhida(atual.getEstacaoEscolhida());
 
-        System.out.print("Deseja trocar o cliente? (s/n): ");
-        if (sc.nextLine().equalsIgnoreCase("s")) {
-            Cliente c = selecionarCliente();
-            if (c != null) novo.setCliente(c);
-        }
+        // --- CLIENTE ---
+        System.out.print("ID do cliente (" + atual.getCliente().getId() + "): ");
+        String entradaCliente = sc.nextLine();
+        novo.setCliente(entradaCliente.isEmpty() ? atual.getCliente() : selecionarClientePorId(Integer.parseInt(entradaCliente)));
 
-        System.out.print("Deseja trocar o funcionário? (s/n): ");
-        if (sc.nextLine().equalsIgnoreCase("s")) {
-            Funcionario f = selecionarFuncionario();
-            if (f != null) novo.setFuncionario(f);
-        }
+        // --- FUNCIONÁRIO ---
+        System.out.print("ID do funcionário (" + atual.getFuncionario().getId() + "): ");
+        String entradaFuncionario = sc.nextLine();
+        novo.setFuncionario(entradaFuncionario.isEmpty() ? atual.getFuncionario() : selecionarFuncionarioPorId(Integer.parseInt(entradaFuncionario)));
 
+        // --- SERVIÇOS ---
         System.out.print("Deseja alterar os serviços? (s/n): ");
-        if (sc.nextLine().equalsIgnoreCase("s")) {
+        String servChoice = sc.nextLine();
+        if (servChoice.equalsIgnoreCase("s")) {
             List<Servico> servs = selecionarServicos();
             if (!servs.isEmpty()) {
                 novo.setServicos(servs);
@@ -193,18 +191,26 @@ public class MenuAgendamento {
             }
         }
 
-        System.out.print("Deseja alterar data/hora? (s/n): ");
-        if (sc.nextLine().equalsIgnoreCase("s")) {
-            try {
-                System.out.print("Digite a nova data e hora (dd/MM/yyyy HH:mm): ");
-                novo.setHorarioInicio(LocalDateTime.parse(sc.nextLine(), fmt));
-            } catch (Exception e) {
-                System.out.println(" Data inválida. Mantendo a original.");
-            }
-        }
+        // --- HORÁRIO ---
+        System.out.print("Digite nova data/hora (" + atual.getHorarioInicio().format(fmt) + ") ou Enter para manter: ");
+        String entradaHorario = sc.nextLine();
+        novo.setHorarioInicio(entradaHorario.isEmpty() ? atual.getHorarioInicio() : LocalDateTime.parse(entradaHorario, fmt));
 
         boolean ok = gerenciador.editar(id, novo);
         System.out.println(ok ? " Agendamento editado com sucesso!" : " Não foi possível editar. Verifique conflitos.");
+    }
+
+    // --- AUXILIARES PARA SELEÇÃO POR ID (ternário) ---
+    private Cliente selecionarClientePorId(int id) {
+        Cliente c = crudClientes.buscarPorId(id);
+        if (c == null) System.out.println(" Cliente não encontrado, mantendo o anterior.");
+        return c != null ? c : crudClientes.listar().get(0); // fallback
+    }
+
+    private Funcionario selecionarFuncionarioPorId(int id) {
+        Funcionario f = crudFuncionarios.buscarPorId(id);
+        if (f == null) System.out.println(" Funcionário não encontrado, mantendo o anterior.");
+        return f != null ? f : crudFuncionarios.listar().get(0); // fallback
     }
 
     // --- SELEÇÃO DE CLIENTE ---

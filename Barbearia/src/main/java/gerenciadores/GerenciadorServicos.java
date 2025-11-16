@@ -4,9 +4,7 @@ import modelo.Estacao;
 import modelo.Servico;
 import utils.CRUDGenerico;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class GerenciadorServicos {
 
@@ -40,50 +38,24 @@ public class GerenciadorServicos {
     // ==============================
     // EDITAR
     // ==============================
-    public boolean editar(int id, Scanner sc) {
+    /**
+     * Edita um serviço.
+     * Os parâmetros podem ser nulos ou negativos para manter o valor atual.
+     * @param id ID do serviço a ser editado
+     * @param novoNome Novo nome (null para manter)
+     * @param novoPreco Novo preço (negativo para manter)
+     * @param novaDuracao Nova duração em minutos (negativa para manter)
+     * @param novasEstacoes Lista de estações possíveis (null para manter)
+     * @return true se editado, false se serviço não encontrado
+     */
+    public boolean editar(int id, String novoNome, Double novoPreco, Integer novaDuracao, List<Estacao> novasEstacoes) {
         Servico s = crud.buscarPorId(id);
         if (s == null) return false;
 
-        System.out.print("Nome (" + s.getNome() + "): ");
-        String nome = sc.nextLine();
-        if (!nome.isEmpty()) s.setNome(nome);
-
-        System.out.print("Preço (" + s.getPreco() + "): ");
-        String precoStr = sc.nextLine();
-        if (!precoStr.isEmpty()) s.setPreco(Double.parseDouble(precoStr));
-
-        System.out.print("Duração (" + s.getDuracaoMinutos() + "): ");
-        String duracaoStr = sc.nextLine();
-        if (!duracaoStr.isEmpty()) s.setDuracaoMinutos(Integer.parseInt(duracaoStr));
-
-        System.out.print("Deseja alterar estações possíveis? (s/n): ");
-        String alterar = sc.nextLine();
-        if (alterar.equalsIgnoreCase("s")) {
-            List<Estacao> novas = new ArrayList<>();
-            System.out.println("Escolha as novas estações possíveis (vazio para finalizar):");
-            for (Estacao e : Estacao.values()) {
-                System.out.println((e.ordinal() + 1) + " - " + e.name());
-            }
-
-            while (true) {
-                System.out.print("Número da estação: ");
-                String input = sc.nextLine();
-                if (input.isBlank()) break;
-                try {
-                    int num = Integer.parseInt(input);
-                    if (num >= 1 && num <= Estacao.values().length) {
-                        Estacao escolhida = Estacao.values()[num - 1];
-                        if (!novas.contains(escolhida)) novas.add(escolhida);
-                    } else {
-                        System.out.println("Número inválido!");
-                    }
-                } catch (NumberFormatException ex) {
-                    System.out.println("Digite um número válido!");
-                }
-            }
-
-            s.setEstacoesPossiveis(novas);
-        }
+        if (novoNome != null && !novoNome.isEmpty()) s.setNome(novoNome);
+        if (novoPreco != null && novoPreco >= 0) s.setPreco(novoPreco);
+        if (novaDuracao != null && novaDuracao >= 0) s.setDuracaoMinutos(novaDuracao);
+        if (novasEstacoes != null) s.setEstacoesPossiveis(novasEstacoes);
 
         return true;
     }
@@ -105,6 +77,5 @@ public class GerenciadorServicos {
     // ==============================
     public void salvar() {
         crud.salvar();
-        System.out.println("✔ Serviços salvos!");
     }
 }

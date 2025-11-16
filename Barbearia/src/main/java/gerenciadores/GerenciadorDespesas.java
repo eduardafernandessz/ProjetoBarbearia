@@ -5,11 +5,10 @@ import utils.CRUDGenerico;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Scanner;
 
 public class GerenciadorDespesas {
 
-    private CRUDGenerico<Despesas> crud;
+    private final CRUDGenerico<Despesas> crud;
 
     public GerenciadorDespesas() {
         crud = new CRUDGenerico<>("src/main/java/repositorio/despesas.json", Despesas.class);
@@ -18,9 +17,8 @@ public class GerenciadorDespesas {
     // ==============================
     // ADICIONAR DESPESA
     // ==============================
-    public void adicionarDespesa(String descricao, double valor, LocalDate data, String categoria) {
-        Despesas d = new Despesas(0, descricao, valor, data, categoria);
-        crud.adicionar(d);
+    public void adicionarDespesa(Despesas despesa) {
+        crud.adicionar(despesa);
     }
 
     // ==============================
@@ -40,25 +38,17 @@ public class GerenciadorDespesas {
     // ==============================
     // EDITAR DESPESA
     // ==============================
-    public void editarDespesa(int id, Scanner sc) {
-        Despesas d = crud.buscarPorId(id);
-        if (d != null) {
-            System.out.print("Descrição (" + d.getDescricao() + "): ");
-            String desc = sc.nextLine();
-            if (!desc.isEmpty()) d.setDescricao(desc);
-
-            System.out.print("Valor (" + d.getValor() + "): ");
-            String valStr = sc.nextLine();
-            if (!valStr.isEmpty()) d.setValor(Double.parseDouble(valStr));
-
-            System.out.print("Data (" + d.getData() + ") [yyyy-MM-dd]: ");
-            String dataStr = sc.nextLine();
-            if (!dataStr.isEmpty()) d.setData(LocalDate.parse(dataStr));
-
-            System.out.print("Categoria (" + d.getCategoria() + "): ");
-            String cat = sc.nextLine();
-            if (!cat.isEmpty()) d.setCategoria(cat);
+    public boolean editarDespesa(int id, Despesas atualizada) {
+        Despesas original = crud.buscarPorId(id);
+        if (original != null) {
+            // Atualiza campos
+            original.setDescricao(atualizada.getDescricao());
+            original.setValor(atualizada.getValor());
+            original.setData(atualizada.getData());
+            original.setCategoria(atualizada.getCategoria());
+            return true;
         }
+        return false;
     }
 
     // ==============================
@@ -78,6 +68,5 @@ public class GerenciadorDespesas {
     // ==============================
     public void salvar() {
         crud.salvar();
-        System.out.println(" Alterações salvas!");
     }
 }

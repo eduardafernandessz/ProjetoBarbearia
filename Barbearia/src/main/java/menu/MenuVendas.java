@@ -10,12 +10,11 @@ import java.util.Scanner;
 
 public class MenuVendas {
 
-    private Scanner sc = new Scanner(System.in);
-    private GerenciadorVendas gerenciadorVendas;
+    private final Scanner sc = new Scanner(System.in);
+    private final GerenciadorVendas gerenciadorVendas;
 
-    // Construtor que inicializa o gerenciador de vendas
-    public MenuVendas(GerenciadorPessoas gerPessoas, GerenciadorProdutos gerProdutos) {
-        this.gerenciadorVendas = new GerenciadorVendas(gerPessoas, gerProdutos);
+    public MenuVendas(GerenciadorPessoas gerenciadorPessoas, GerenciadorProdutos gerenciadorProdutos) {
+        this.gerenciadorVendas = new GerenciadorVendas(gerenciadorPessoas, gerenciadorProdutos);
     }
 
     // --- MENU PRINCIPAL ---
@@ -51,15 +50,15 @@ public class MenuVendas {
         List<Venda> lista = gerenciadorVendas.listarVendas();
         if (lista.isEmpty()) {
             System.out.println("Nenhuma venda registrada.");
-        } else {
-            for (Venda v : lista) {
-                System.out.println("ID: " + v.getId());
-                System.out.println("Cliente: " + v.getCliente().getNome());
-                System.out.println("Produto: " + v.getProduto().getNome());
-                System.out.println("Quantidade: " + v.getQuantidade());
-                System.out.println("Data: " + v.getData());
-                System.out.println("---------------------------");
-            }
+            return;
+        }
+        for (Venda v : lista) {
+            System.out.println("ID: " + v.getId());
+            System.out.println("Cliente: " + v.getCliente().getNome());
+            System.out.println("Produto: " + v.getProduto().getNome());
+            System.out.println("Quantidade: " + v.getQuantidade());
+            System.out.println("Data: " + v.getData());
+            System.out.println("---------------------------");
         }
     }
 
@@ -76,24 +75,26 @@ public class MenuVendas {
 
         boolean sucesso = gerenciadorVendas.adicionarVenda(idCliente, idProduto, quantidade);
         System.out.println(sucesso
-                ? "✔ Venda registrada! Estoque atualizado em memória."
-                : "❌ Falha ao registrar venda. Verifique IDs e estoque disponível.");
+                ? " Venda registrada! Estoque atualizado."
+                : " Falha ao registrar venda. Verifique IDs e estoque disponível.");
     }
 
     // --- BUSCAR VENDA ---
     private void buscarVenda() {
         System.out.print("ID da venda: ");
         int id = sc.nextInt(); sc.nextLine();
+
         Venda v = gerenciadorVendas.buscarVendaPorId(id);
-        if (v != null) {
-            System.out.println("ID: " + v.getId());
-            System.out.println("Cliente: " + v.getCliente().getNome());
-            System.out.println("Produto: " + v.getProduto().getNome());
-            System.out.println("Quantidade: " + v.getQuantidade());
-            System.out.println("Data: " + v.getData());
-        } else {
+        if (v == null) {
             System.out.println("Venda não encontrada.");
+            return;
         }
+
+        System.out.println("ID: " + v.getId());
+        System.out.println("Cliente: " + v.getCliente().getNome());
+        System.out.println("Produto: " + v.getProduto().getNome());
+        System.out.println("Quantidade: " + v.getQuantidade());
+        System.out.println("Data: " + v.getData());
     }
 
     // --- EDITAR VENDA ---
@@ -101,17 +102,29 @@ public class MenuVendas {
         System.out.print("ID da venda para editar: ");
         int id = sc.nextInt(); sc.nextLine();
 
-        System.out.print("Novo ID do Cliente: ");
-        int idCliente = sc.nextInt(); sc.nextLine();
+        Venda v = gerenciadorVendas.buscarVendaPorId(id);
+        if (v == null) {
+            System.out.println("Venda não encontrada.");
+            return;
+        }
 
-        System.out.print("Novo ID do Produto: ");
-        int idProduto = sc.nextInt(); sc.nextLine();
+        // --- CLIENTE ---
+        System.out.print("ID do Cliente (" + v.getCliente().getId() + "): ");
+        String entradaCliente = sc.nextLine();
+        int novoIdCliente = entradaCliente.isEmpty() ? v.getCliente().getId() : Integer.parseInt(entradaCliente);
 
-        System.out.print("Nova quantidade: ");
-        int quantidade = sc.nextInt(); sc.nextLine();
+        // --- PRODUTO ---
+        System.out.print("ID do Produto (" + v.getProduto().getId() + "): ");
+        String entradaProduto = sc.nextLine();
+        int novoIdProduto = entradaProduto.isEmpty() ? v.getProduto().getId() : Integer.parseInt(entradaProduto);
 
-        boolean sucesso = gerenciadorVendas.editarVenda(id, idCliente, idProduto, quantidade);
-        System.out.println(sucesso ? "✔ Venda atualizada!" : "❌ Falha ao atualizar venda. Verifique IDs e estoque.");
+        // --- QUANTIDADE ---
+        System.out.print("Quantidade (" + v.getQuantidade() + "): ");
+        String entradaQtd = sc.nextLine();
+        int novaQtd = entradaQtd.isEmpty() ? v.getQuantidade() : Integer.parseInt(entradaQtd);
+
+        boolean sucesso = gerenciadorVendas.editarVenda(id, novoIdCliente, novoIdProduto, novaQtd);
+        System.out.println(sucesso ? " Venda atualizada!" : " Falha ao atualizar venda. Verifique IDs e estoque.");
     }
 
     // --- REMOVER VENDA ---
@@ -120,12 +133,12 @@ public class MenuVendas {
         int id = sc.nextInt(); sc.nextLine();
 
         boolean sucesso = gerenciadorVendas.removerVenda(id);
-        System.out.println(sucesso ? "✔ Venda removida e estoque reposto!" : "❌ Venda não encontrada.");
+        System.out.println(sucesso ? " Venda removida e estoque reposto!" : " Venda não encontrada.");
     }
 
     // --- SALVAR VENDAS ---
     private void salvarVendas() {
         gerenciadorVendas.salvar();
-        System.out.println("✔ Vendas salvas com sucesso!");
+        System.out.println(" Vendas salvas com sucesso!");
     }
 }

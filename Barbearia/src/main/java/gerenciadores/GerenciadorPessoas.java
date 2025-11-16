@@ -5,7 +5,6 @@ import modelo.Funcionario;
 import utils.CRUDGenerico;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class GerenciadorPessoas {
 
@@ -20,9 +19,8 @@ public class GerenciadorPessoas {
     // ==============================
     // CLIENTES
     // ==============================
-    public void adicionarCliente(String nome, String cpf, String telefone, String email, String endereco) {
-        Cliente c = new Cliente(0, nome, cpf, telefone, email, endereco);
-        crudClientes.adicionar(c);
+    public void adicionarCliente(Cliente cliente) {
+        crudClientes.adicionar(cliente);
     }
 
     public List<Cliente> listarClientes() {
@@ -33,25 +31,16 @@ public class GerenciadorPessoas {
         return crudClientes.buscarPorId(id);
     }
 
-    public void editarCliente(int id, Scanner sc) {
-        Cliente c = crudClientes.buscarPorId(id);
-        if (c != null) {
-            System.out.print("Nome (" + c.getNome() + "): ");
-            String nome = sc.nextLine();
-            if (!nome.isEmpty()) c.setNome(nome);
+    public boolean editarCliente(Cliente clienteEditado) {
+        Cliente c = crudClientes.buscarPorId(clienteEditado.getId());
+        if (c == null) return false;
 
-            System.out.print("Telefone (" + c.getTelefone() + "): ");
-            String telefone = sc.nextLine();
-            if (!telefone.isEmpty()) c.setTelefone(telefone);
+        c.setNome(clienteEditado.getNome());
+        c.setTelefone(clienteEditado.getTelefone());
+        c.setEmail(clienteEditado.getEmail());
+        c.setEndereco(clienteEditado.getEndereco());
 
-            System.out.print("Email (" + c.getEmail() + "): ");
-            String email = sc.nextLine();
-            if (!email.isEmpty()) c.setEmail(email);
-
-            System.out.print("Endereço (" + c.getEndereco() + "): ");
-            String endereco = sc.nextLine();
-            if (!endereco.isEmpty()) c.setEndereco(endereco);
-        }
+        return true;
     }
 
     public boolean removerCliente(int id) {
@@ -66,10 +55,8 @@ public class GerenciadorPessoas {
     // ==============================
     // FUNCIONÁRIOS
     // ==============================
-    public void adicionarFuncionario(String nome, String cpf, String telefone, String email,
-                                     String endereco, String cargo, double salario, String login, int senha) {
-        Funcionario f = new Funcionario(cargo, salario, login, senha, 0, nome, cpf, telefone, email, endereco);
-        crudFuncionarios.adicionar(f);
+    public void adicionarFuncionario(Funcionario funcionario) {
+        crudFuncionarios.adicionar(funcionario);
     }
 
     public List<Funcionario> listarFuncionarios() {
@@ -80,41 +67,20 @@ public class GerenciadorPessoas {
         return crudFuncionarios.buscarPorId(id);
     }
 
-    public void editarFuncionario(int id, Scanner sc) {
-        Funcionario f = crudFuncionarios.buscarPorId(id);
-        if (f != null) {
-            System.out.print("Nome (" + f.getNome() + "): ");
-            String nome = sc.nextLine();
-            if (!nome.isEmpty()) f.setNome(nome);
+    public boolean editarFuncionario(Funcionario funcionarioEditado) {
+        Funcionario f = crudFuncionarios.buscarPorId(funcionarioEditado.getId());
+        if (f == null) return false;
 
-            System.out.print("Cargo (" + f.getCargo() + "): ");
-            String cargo = sc.nextLine();
-            if (!cargo.isEmpty()) f.setCargo(cargo);
+        f.setNome(funcionarioEditado.getNome());
+        f.setCargo(funcionarioEditado.getCargo());
+        f.setSalario(funcionarioEditado.getSalario());
+        f.setTelefone(funcionarioEditado.getTelefone());
+        f.setEmail(funcionarioEditado.getEmail());
+        f.setEndereco(funcionarioEditado.getEndereco());
+        f.setLogin(funcionarioEditado.getLogin());
+        f.setSenha(funcionarioEditado.getSenha());
 
-            System.out.print("Salário (" + f.getSalario() + "): ");
-            String salarioStr = sc.nextLine();
-            if (!salarioStr.isEmpty()) f.setSalario(Double.parseDouble(salarioStr));
-
-            System.out.print("Telefone (" + f.getTelefone() + "): ");
-            String telefone = sc.nextLine();
-            if (!telefone.isEmpty()) f.setTelefone(telefone);
-
-            System.out.print("Email (" + f.getEmail() + "): ");
-            String email = sc.nextLine();
-            if (!email.isEmpty()) f.setEmail(email);
-
-            System.out.print("Endereço (" + f.getEndereco() + "): ");
-            String endereco = sc.nextLine();
-            if (!endereco.isEmpty()) f.setEndereco(endereco);
-
-            System.out.print("Login (" + f.getLogin() + "): ");
-            String login = sc.nextLine();
-            if (!login.isEmpty()) f.setLogin(login);
-
-            System.out.print("Senha (" + f.getSenha() + "): ");
-            String senhaStr = sc.nextLine();
-            if (!senhaStr.isEmpty()) f.setSenha(Integer.parseInt(senhaStr));
-        }
+        return true;
     }
 
     public boolean removerFuncionario(int id) {
@@ -132,6 +98,5 @@ public class GerenciadorPessoas {
     public void salvar() {
         crudClientes.salvar();
         crudFuncionarios.salvar();
-        System.out.println(" Alterações salvas!");
     }
 }

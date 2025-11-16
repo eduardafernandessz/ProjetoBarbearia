@@ -10,7 +10,7 @@ public class GerenciadorProdutos {
     private final CRUDGenerico<Produto> crud;
 
     public GerenciadorProdutos() {
-        crud = new CRUDGenerico<>("src/main/java/repositorio/produtos.json", Produto.class);
+        this.crud = new CRUDGenerico<>("src/main/java/repositorio/produtos.json", Produto.class);
     }
 
     // ==============================
@@ -26,6 +26,7 @@ public class GerenciadorProdutos {
     public boolean editar(int id, Produto atualizado) {
         Produto antigo = crud.buscarPorId(id);
         if (antigo != null) {
+            // Atualiza removendo e adicionando novamente
             crud.remover(antigo);
             crud.adicionar(atualizado);
             return true;
@@ -55,7 +56,7 @@ public class GerenciadorProdutos {
     // ==============================
     // BUSCAR POR ID
     // ==============================
-    public Produto buscarPorId(int id) {
+    public Produto buscarProdutoPorId(int id) {
         return crud.buscarPorId(id);
     }
 
@@ -64,6 +65,5 @@ public class GerenciadorProdutos {
     // ==============================
     public void salvar() {
         crud.salvar();
-        System.out.println("Produtos salvos!");
     }
 }

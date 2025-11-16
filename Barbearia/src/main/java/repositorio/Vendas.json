@@ -1,1 +1,20 @@
-[ ]
+[ {
+  "id" : 1,
+  "cliente" : {
+    "id" : 2,
+    "nome" : "Maria Souza",
+    "cpf" : "987.654.321-00",
+    "telefone" : "(31) 98888-2222",
+    "email" : "maria@email.com",
+    "endereco" : "Rua B, 456"
+  },
+  "produto" : {
+    "id" : 1,
+    "nome" : "Shampoo Profissional",
+    "preco" : 35.0,
+    "quantidadeEstoque" : 46,
+    "categoria" : "Higiene"
+  },
+  "quantidade" : 2,
+  "data" : "2025-11-15"
+} ]

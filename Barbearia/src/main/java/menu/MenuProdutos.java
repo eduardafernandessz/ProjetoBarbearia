@@ -1,19 +1,14 @@
 package menu;
 
+import java.util.List;
 import java.util.Scanner;
 import modelo.Produto;
 import gerenciadores.GerenciadorProdutos;
-import java.util.List;
 
 public class MenuProdutos {
 
-    private final GerenciadorProdutos gerenciador;
-    private final Scanner sc;
-
-    public MenuProdutos() {
-        gerenciador = new GerenciadorProdutos();
-        sc = new Scanner(System.in);
-    }
+    private final GerenciadorProdutos gerenciador = new GerenciadorProdutos();
+    private final Scanner sc = new Scanner(System.in);
 
     // ===========================
     // MENU PRINCIPAL
@@ -30,7 +25,7 @@ public class MenuProdutos {
             System.out.println("6 - Salvar alterações");
             System.out.println("0 - Voltar");
             System.out.print("Escolha: ");
-            op = sc.nextInt(); sc.nextLine();
+            op = Integer.parseInt(sc.nextLine());
 
             switch (op) {
                 case 1 -> listarProdutos();
@@ -73,10 +68,10 @@ public class MenuProdutos {
         String nome = sc.nextLine();
 
         System.out.print("Preço de venda: ");
-        double preco = sc.nextDouble(); sc.nextLine();
+        double preco = Double.parseDouble(sc.nextLine());
 
         System.out.print("Quantidade em estoque: ");
-        int quantidadeEstoque = sc.nextInt(); sc.nextLine();
+        int quantidadeEstoque = Integer.parseInt(sc.nextLine());
 
         Produto p = new Produto();
         p.setNome(nome);
@@ -92,16 +87,11 @@ public class MenuProdutos {
     // ===========================
     private void buscarProduto() {
         System.out.print("ID do produto: ");
-        int id = sc.nextInt(); sc.nextLine();
+        int id = Integer.parseInt(sc.nextLine());
 
-        Produto p = gerenciador.buscarPorId(id);
+        Produto p = gerenciador.buscarProdutoPorId(id);
         if (p != null) {
-            System.out.println("-----------------------------");
-            System.out.println("ID: " + p.getId());
-            System.out.println("Nome: " + p.getNome());
-            System.out.println("Preço Venda: R$ " + p.getPreco());
-            System.out.println("Estoque: " + p.getQuantidadeEstoque());
-            System.out.println("-----------------------------");
+            imprimirProduto(p);
         } else {
             System.out.println("Produto não encontrado.");
         }
@@ -112,9 +102,9 @@ public class MenuProdutos {
     // ===========================
     private void editarProduto() {
         System.out.print("ID do produto para editar: ");
-        int id = sc.nextInt(); sc.nextLine();
+        int id = Integer.parseInt(sc.nextLine());
 
-        Produto existente = gerenciador.buscarPorId(id);
+        Produto existente = gerenciador.buscarProdutoPorId(id);
         if (existente == null) {
             System.out.println("Produto não encontrado.");
             return;
@@ -122,12 +112,15 @@ public class MenuProdutos {
 
         System.out.print("Novo nome (" + existente.getNome() + "): ");
         String nome = sc.nextLine();
+        if (nome.isBlank()) nome = existente.getNome();
 
         System.out.print("Novo preço (" + existente.getPreco() + "): ");
-        double preco = sc.nextDouble(); sc.nextLine();
+        String precoStr = sc.nextLine();
+        double preco = precoStr.isBlank() ? existente.getPreco() : Double.parseDouble(precoStr);
 
         System.out.print("Nova quantidade (" + existente.getQuantidadeEstoque() + "): ");
-        int quantidadeEstoque = sc.nextInt(); sc.nextLine();
+        String qtdStr = sc.nextLine();
+        int quantidadeEstoque = qtdStr.isBlank() ? existente.getQuantidadeEstoque() : Integer.parseInt(qtdStr);
 
         Produto atualizado = new Produto();
         atualizado.setId(id);
@@ -147,7 +140,7 @@ public class MenuProdutos {
     // ===========================
     private void removerProduto() {
         System.out.print("ID do produto para remover: ");
-        int id = sc.nextInt(); sc.nextLine();
+        int id = Integer.parseInt(sc.nextLine());
 
         if (gerenciador.remover(id)) {
             System.out.println("✔ Produto removido!");
@@ -161,5 +154,18 @@ public class MenuProdutos {
     // ===========================
     private void salvarProdutos() {
         gerenciador.salvar();
+        System.out.println("✔ Produtos salvos!");
+    }
+
+    // ===========================
+    // IMPRIMIR PRODUTO
+    // ===========================
+    private void imprimirProduto(Produto p) {
+        System.out.println("-----------------------------");
+        System.out.println("ID: " + p.getId());
+        System.out.println("Nome: " + p.getNome());
+        System.out.println("Preço Venda: R$ " + p.getPreco());
+        System.out.println("Estoque: " + p.getQuantidadeEstoque());
+        System.out.println("-----------------------------");
     }
 }

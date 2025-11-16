@@ -11,8 +11,8 @@ import java.util.ArrayList;
 
 public class MenuServico {
 
-    private Scanner sc = new Scanner(System.in);
-    private GerenciadorServicos gerenciador = new GerenciadorServicos();
+    private final Scanner sc = new Scanner(System.in);
+    private final GerenciadorServicos gerenciador = new GerenciadorServicos();
 
     // --- MENU PRINCIPAL ---
     public void exibirMenu() {
@@ -49,79 +49,120 @@ public class MenuServico {
             System.out.println("Nenhum serviço cadastrado.");
             return;
         }
-
         for (Servico s : lista) {
-            String estacoes = (s.getEstacoesPossiveis() != null && !s.getEstacoesPossiveis().isEmpty())
-                    ? s.getEstacoesPossiveis().stream().map(Estacao::name).collect(Collectors.joining(", "))
-                    : "Não definidas";
-
-            System.out.println("-----------------------------");
-            System.out.println("ID: " + s.getId());
-            System.out.println("Nome: " + s.getNome());
-            System.out.println("Preço: R$ " + s.getPreco());
-            System.out.println("Duração: " + s.getDuracaoMinutos() + " min");
-            System.out.println("Estações: " + estacoes);
+            imprimirServico(s);
         }
-        System.out.println("-----------------------------");
     }
 
     // --- ADICIONAR ---
     private void adicionarServico() {
-        System.out.print("Nome do serviço: "); 
+        System.out.print("Nome do serviço: ");
         String nome = sc.nextLine();
-        System.out.print("Preço: "); 
-        double preco = sc.nextDouble(); sc.nextLine();
-        System.out.print("Duração (minutos): "); 
-        int duracao = sc.nextInt(); sc.nextLine();
+
+        double preco;
+        while (true) {
+            System.out.print("Preço: ");
+            String precoStr = sc.nextLine();
+            if (precoStr.isEmpty()) continue;
+            try {
+                preco = Double.parseDouble(precoStr);
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Digite um número válido!");
+            }
+        }
+
+        int duracao;
+        while (true) {
+            System.out.print("Duração (minutos): ");
+            String durStr = sc.nextLine();
+            if (durStr.isEmpty()) continue;
+            try {
+                duracao = Integer.parseInt(durStr);
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Digite um número válido!");
+            }
+        }
 
         List<Estacao> estacoes = lerEstacoes();
+
         Servico s = new Servico(0, nome, preco, duracao, estacoes);
         gerenciador.adicionar(s);
-        System.out.println("✔ Serviço adicionado!");
+        System.out.println(" Serviço adicionado!");
     }
 
     // --- BUSCAR ---
     private void buscarServico() {
-        System.out.print("ID do serviço: "); 
+        System.out.print("ID do serviço: ");
         int id = sc.nextInt(); sc.nextLine();
         Servico s = gerenciador.buscarPorId(id);
-        if (s != null) {
-            imprimirServico(s);
-        } else {
-            System.out.println("Serviço não encontrado.");
-        }
+        if (s != null) imprimirServico(s);
+        else System.out.println("Serviço não encontrado.");
     }
 
     // --- EDITAR ---
     private void editarServico() {
-        System.out.print("ID do serviço para editar: "); 
+        System.out.print("ID do serviço para editar: ");
         int id = sc.nextInt(); sc.nextLine();
-        boolean ok = gerenciador.editar(id, sc);
-        if (ok) System.out.println("✔ Serviço atualizado!");
-        else System.out.println("❌ Serviço não encontrado.");
+        Servico s = gerenciador.buscarPorId(id);
+        if (s == null) {
+            System.out.println(" Serviço não encontrado.");
+            return;
+        }
+
+        // --- Nome ---
+        System.out.print("Nome (" + s.getNome() + "): ");
+        String nome = sc.nextLine();
+        nome = nome.isBlank() ? null : nome;
+
+        // --- Preço ---
+        Double preco = null;
+        System.out.print("Preço (" + s.getPreco() + "): ");
+        String precoStr = sc.nextLine();
+        if (!precoStr.isBlank()) {
+            try { preco = Double.parseDouble(precoStr); } 
+            catch (NumberFormatException e) { System.out.println("Valor inválido, preço não alterado."); }
+        }
+
+        // --- Duração ---
+        Integer duracao = null;
+        System.out.print("Duração (" + s.getDuracaoMinutos() + " min): ");
+        String durStr = sc.nextLine();
+        if (!durStr.isBlank()) {
+            try { duracao = Integer.parseInt(durStr); } 
+            catch (NumberFormatException e) { System.out.println("Valor inválido, duração não alterada."); }
+        }
+
+        // --- Estações ---
+        List<Estacao> estacoes = null;
+        System.out.print("Deseja alterar estações? (s/n): ");
+        String alt = sc.nextLine();
+        if (alt.equalsIgnoreCase("s")) estacoes = lerEstacoes();
+
+        boolean ok = gerenciador.editar(id, nome, preco, duracao, estacoes);
+        System.out.println(ok ? " Serviço atualizado!" : " Falha ao atualizar serviço.");
     }
 
     // --- REMOVER ---
     private void removerServico() {
-        System.out.print("ID do serviço para remover: "); 
+        System.out.print("ID do serviço para remover: ");
         int id = sc.nextInt(); sc.nextLine();
         boolean ok = gerenciador.remover(id);
-        if (ok) System.out.println("✔ Serviço removido!");
-        else System.out.println("❌ Serviço não encontrado.");
+        System.out.println(ok ? " Serviço removido!" : " Serviço não encontrado.");
     }
 
     // --- SALVAR ---
     private void salvarServicos() {
         gerenciador.salvar();
+        System.out.println(" Alterações salvas!");
     }
 
-    // --- MÉTODOS AUXILIARES ---
+    // --- AUXILIARES ---
     private List<Estacao> lerEstacoes() {
         List<Estacao> estacoes = new ArrayList<>();
         System.out.println("Escolha as estações possíveis (vazio para finalizar):");
-        for (Estacao e : Estacao.values()) {
-            System.out.println((e.ordinal() + 1) + " - " + e.name());
-        }
+        for (Estacao e : Estacao.values()) System.out.println((e.ordinal() + 1) + " - " + e.name());
 
         while (true) {
             System.out.print("Número da estação: ");
@@ -132,9 +173,7 @@ public class MenuServico {
                 if (num >= 1 && num <= Estacao.values().length) {
                     Estacao escolhida = Estacao.values()[num - 1];
                     if (!estacoes.contains(escolhida)) estacoes.add(escolhida);
-                } else {
-                    System.out.println("Número inválido!");
-                }
+                } else System.out.println("Número inválido!");
             } catch (NumberFormatException ex) {
                 System.out.println("Digite um número válido!");
             }
@@ -146,7 +185,6 @@ public class MenuServico {
         String estacoes = (s.getEstacoesPossiveis() != null && !s.getEstacoesPossiveis().isEmpty())
                 ? s.getEstacoesPossiveis().stream().map(Estacao::name).collect(Collectors.joining(", "))
                 : "Não definidas";
-
         System.out.println("-----------------------------");
         System.out.println("ID: " + s.getId());
         System.out.println("Nome: " + s.getNome());

@@ -2,7 +2,7 @@
   "id" : 1,
   "nome" : "Shampoo Profissional",
   "preco" : 35.0,
-  "quantidadeEstoque" : 50,
+  "quantidadeEstoque" : 46,
   "categoria" : "Higiene"
 }, {
   "id" : 2,
