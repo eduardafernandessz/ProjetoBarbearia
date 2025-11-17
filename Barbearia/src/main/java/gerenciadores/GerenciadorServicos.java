@@ -16,7 +16,7 @@ import java.util.List;
 public class GerenciadorServicos {
 
     /** CRUD genérico para manipulação de serviços no arquivo JSON. */
-    private final CRUDGenerico<Servico> crud;
+    public final CRUDGenerico<Servico> crud;
 
     /**
      * Construtor do gerenciador de serviços.

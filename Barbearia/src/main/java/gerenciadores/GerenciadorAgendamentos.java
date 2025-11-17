@@ -21,7 +21,7 @@ public class GerenciadorAgendamentos {
     private final List<Agendamento> lista;
 
     /** CRUD genérico para persistência dos agendamentos em JSON. */
-    private final CRUDGenerico<Agendamento> crud;
+    public final CRUDGenerico<Agendamento> crud;
 
     /** Utilitário para verificar disponibilidade das estações. */
     private final Agenda agendaChecker;

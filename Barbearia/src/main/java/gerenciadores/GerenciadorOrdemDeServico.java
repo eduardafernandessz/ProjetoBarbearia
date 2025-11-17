@@ -16,7 +16,7 @@ import java.util.List;
 public class GerenciadorOrdemDeServico {
 
     /** CRUD genérico para persistência das Ordens de Serviço em JSON. */
-    private final CRUDGenerico<OrdemDeServico> crudOS;
+    public final CRUDGenerico<OrdemDeServico> crudOS;
 
     /** Gerenciador de pessoas (clientes e funcionários). */
     private final GerenciadorPessoas gerenciadorPessoas;

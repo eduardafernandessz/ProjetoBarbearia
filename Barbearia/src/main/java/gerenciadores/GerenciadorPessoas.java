@@ -15,7 +15,7 @@ import java.util.List;
 public class GerenciadorPessoas {
 
     /** CRUD genérico para gerenciar clientes. */
-    private final CRUDGenerico<Cliente> crudClientes;
+    public final CRUDGenerico<Cliente> crudClientes;
 
     /** CRUD genérico para gerenciar funcionários. */
     private final CRUDGenerico<Funcionario> crudFuncionarios;

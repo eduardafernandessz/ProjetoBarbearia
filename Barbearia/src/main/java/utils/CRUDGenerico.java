@@ -59,7 +59,7 @@ public class CRUDGenerico<T> {
      *
      * @return Lista de objetos carregados do arquivo JSON
      */
-    private List<T> carregar() {
+    public List<T> carregar() {
         File arquivo = new File(caminhoArquivo);
         if (!arquivo.exists()) return new ArrayList<>();
 

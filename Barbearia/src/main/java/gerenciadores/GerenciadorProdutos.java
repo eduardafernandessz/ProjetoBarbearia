@@ -15,7 +15,7 @@ import java.util.List;
 public class GerenciadorProdutos {
 
     /** CRUD genérico para manipulação de produtos no arquivo JSON. */
-    private final CRUDGenerico<Produto> crud;
+    public final CRUDGenerico<Produto> crud;
 
     /**
      * Construtor do gerenciador de produtos.

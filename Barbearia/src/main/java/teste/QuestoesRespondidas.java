@@ -22,12 +22,6 @@ public class QuestoesRespondidas {
         GerenciadorAgendamentos ga = new GerenciadorAgendamentos();
         GerenciadorOrdemDeServico gos = new GerenciadorOrdemDeServico(gp, ga, gv);
         
-        gp.carregar();
-        gpro.carregar();
-        gs.carregar();
-        ga.carregar();
-        gos.carregar();
-        gv.carregar();
 
      //Questão 1: Diagrama de Classes criado no LaTeX
      
@@ -236,7 +230,23 @@ public class QuestoesRespondidas {
     Cliente c9 = new Cliente(9, "Fernanda Lima", "258.147.369-09", "99999-0009", "fernanda.lima@email.com", "Rua I, 90");
     Cliente c10 = new Cliente(10, "Pedro Oliveira", "369.258.147-10", "99999-0010", "pedro.oliveira@email.com", "Rua J, 100");
     
+    gp.adicionarCliente(c1);
+    gp.adicionarCliente(c2);
+    gp.adicionarCliente(c3);
+    gp.adicionarCliente(c4);
+    gp.adicionarCliente(c5);
+    gp.adicionarCliente(c6);
+    gp.adicionarCliente(c7);
+    gp.adicionarCliente(c8);
+    gp.adicionarCliente(c9);
+    gp.adicionarCliente(c10);
     
+    gp.salvar();
+    
+    System.out.println("Clientes cadastrados:");
+    for (Cliente c : gp.listarClientes()) {
+    System.out.println(c);
+    }
     
     }
 }
