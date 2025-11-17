@@ -23,7 +23,6 @@ import utils.CRUDGenerico;
 public class questao {
     
 
-
     /**
      * Questão 15: Demonstra duas formas de percorrer uma lista:
      * <p>
