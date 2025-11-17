@@ -7,6 +7,7 @@ import gerenciadores.GerenciadorProdutos;
 import gerenciadores.GerenciadorServicos;
 import gerenciadores.GerenciadorVendas;
 import modelo.Cliente;
+import modelo.Funcionario;
 
 
 

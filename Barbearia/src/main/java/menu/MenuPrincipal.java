@@ -9,6 +9,18 @@ import modelo.Gerente;
 
 import java.util.Scanner;
 
+    /**
+     * Classe responsável por exibir e controlar o menu principal do sistema,
+     * direcionando o usuário (Gerente ou Funcionário) para os submenus adequados.
+     *
+     * <p>O menu é exibido de acordo com o tipo de usuário autenticado,
+     * permitindo acesso a diferentes funcionalidades como agendamentos,
+     * clientes, vendas, serviços, controle de ponto e ordem de serviço.</p>
+     *
+     * <p>Esta classe funciona como um centralizador de navegação,
+     * chamando os menus específicos e utilizando os gerenciadores
+     * responsáveis pelas operações de cada módulo.</p>
+     */
 public class MenuPrincipal {
 
     private GerenciadorPessoas gerenciadorPessoas;
@@ -26,7 +38,16 @@ public class MenuPrincipal {
     private MenuOrdemDeServico menuOrdemDeServico;
 
     private Scanner sc = new Scanner(System.in);
-
+    
+    /**
+     * Constrói o menu principal recebendo os gerenciadores necessários
+     * para operação do sistema.
+     *
+     * @param gerenciadorPessoas Gerencia clientes e funcionários.
+     * @param gerenciadorProdutos Gerencia produtos cadastrados.
+     * @param gerenciadorAgendamentos Gerencia agendamentos da barbearia.
+     * @param gerenciadorVendas Gerencia registros de vendas.
+     */
     public MenuPrincipal(GerenciadorPessoas gerenciadorPessoas,
                          GerenciadorProdutos gerenciadorProdutos,
                          GerenciadorAgendamentos gerenciadorAgendamentos,
@@ -53,7 +74,21 @@ public class MenuPrincipal {
             exibirMenuFuncionario(f);
         }
     }
-
+    /**
+     * Exibe o menu destinado aos funcionários.
+     * 
+     * <p>Permite acesso a funcionalidades como:</p>
+     * <ul>
+     *   <li>Agendamentos</li>
+     *   <li>Clientes</li>
+     *   <li>Produtos</li>
+     *   <li>Registro de vendas</li>
+     *   <li>Controle de ponto</li>
+     *   <li>Ordem de serviço</li>
+     * </ul>
+     *
+     * @param f Funcionário autenticado no sistema.
+     */
     // ============================================================
     // MENU FUNCIONÁRIO
     // ============================================================
@@ -85,7 +120,21 @@ public class MenuPrincipal {
 
         } while (opc != 0);
     }
-
+    
+    /**
+     * Exibe o menu destinado aos gerentes.
+     *
+     * <p>Gerentes possuem permissões ampliadas, incluindo:</p>
+     * <ul>
+     *   <li>Gerenciamento de funcionários</li>
+     *   <li>Gerenciamento de serviços</li>
+     *   <li>Despesas</li>
+     *   <li>Controle de ponto de qualquer funcionário</li>
+     *   <li>Ordem de serviço</li>
+     * </ul>
+     *
+     * @param g Gerente autenticado no sistema.
+     */
     // ============================================================
     // MENU GERENTE
     // ============================================================
