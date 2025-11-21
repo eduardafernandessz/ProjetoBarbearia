@@ -83,7 +83,7 @@ public class QuestoesRespondidas {
      
     System.out.println("===========Questao 05================");
     System.out.println("Existe a classe Estacao em modelo\n +"
-                     + "o gerenciamento acontece em GerenciadorAtendimento");     
+                     + "o gerenciamento acontece em GerenciadorAgendamento");     
 
      
      // Questão 6: Deve ser possível cadastrar os colaboradores no sistema, 
@@ -143,9 +143,7 @@ public class QuestoesRespondidas {
                        "se nao chamar elas ficam na memoria heap");
     
     
-    
-    
-    
+ 
     
     
      
@@ -156,8 +154,11 @@ public class QuestoesRespondidas {
      // aula para alocar e desalocar recursos com segurança. 
       
          System.out.println("===========Questao 14================");
-    System.out.println("A classe JSONUtils e responsavel por converte qualquer\n " +
-                       "objeto Java em uma string JSON, e vise versqa'");
+    System.out.println("Na leitura JSON, mesmo usando Jackson, abri explicitamente o arquivo\n " +
+        "com FileReader dentro de um try-with-resources. Assim garanto o \n " +
+        "gerenciamento seguro do recurso (arquivo), evitando vazamentos e \n " +
+        "atendendo exatamente à exigência da questão.\n "
+        );
      
 
      // Questão 15: Instaciar um iterator para a arraylist de pessoas/funcionario/cliente (qual estiver usando)
@@ -174,7 +175,7 @@ public class QuestoesRespondidas {
             + "se há proximos elementos com hasNext() e os retorna com next(). Essa\n "
             + "abordagem da controle direto sobre a iteração. Em seguida, a lista e\n "
             + "percorrida com um foreach, que faz a mesma coisa, porem de forma\n "
-            + "simplificada. O foreach utiliza internamente um Iterator, mas escondeessa\n "
+            + "simplificada. O foreach utiliza internamente um Iterator, mas esconde essa\n "
             + "logica, deixando o código mais limpo"); 
     System.out.println("\n========================================");
     System.out.println("            TESTE QUESTÃO 15");
@@ -219,28 +220,18 @@ public class QuestoesRespondidas {
     //estoque e denotação correta dos serviços realizados, até finalizar com a emissão de nota 
     //fiscal após a conlusão de todos os processos.
         System.out.println("===========Questao 18================"); 
-        
-    Cliente c1 = new Cliente(1, "Maria Silva", "123.456.789-01", "99999-0001", "maria.silva@email.com", "Rua A, 10");
-    Cliente c2 = new Cliente(2, "João Pereira", "987.654.321-02", "99999-0002", "joao.pereira@email.com", "Rua B, 20");
-    Cliente c3 = new Cliente(3, "Ana Costa", "456.789.123-03", "99999-0003", "ana.costa@email.com", "Rua C, 30");
-    Cliente c4 = new Cliente(4, "Carlos Souza", "321.654.987-04", "99999-0004", "carlos.souza@email.com", "Rua D, 40");
-    Cliente c5 = new Cliente(5, "Juliana Rocha", "159.753.486-05", "99999-0005", "juliana.rocha@email.com", "Rua E, 50");
-    Cliente c6 = new Cliente(6, "Rafael Mendes", "753.159.842-06", "99999-0006", "rafael.mendes@email.com", "Rua F, 60");
-    Cliente c7 = new Cliente(7, "Beatriz Almeida", "852.456.951-07", "99999-0007", "bia.almeida@email.com", "Rua G, 70");
-    Cliente c8 = new Cliente(8, "Gabriel Santos", "951.357.258-08", "99999-0008", "gabriel.santos@email.com", "Rua H, 80");
-    Cliente c9 = new Cliente(9, "Fernanda Lima", "258.147.369-09", "99999-0009", "fernanda.lima@email.com", "Rua I, 90");
-    Cliente c10 = new Cliente(10, "Pedro Oliveira", "369.258.147-10", "99999-0010", "pedro.oliveira@email.com", "Rua J, 100");
-    
-    gp.adicionarCliente(c1);
-    gp.adicionarCliente(c2);
-    gp.adicionarCliente(c3);
-    gp.adicionarCliente(c4);
-    gp.adicionarCliente(c5);
-    gp.adicionarCliente(c6);
-    gp.adicionarCliente(c7);
-    gp.adicionarCliente(c8);
-    gp.adicionarCliente(c9);
-    gp.adicionarCliente(c10);
+      
+    gp.adicionarCliente(new Cliente(1, "Maria Silva", "123.456.789-01", "99999-0001", "maria.silva@email.com", "Rua A, 10"));
+    gp.adicionarCliente(new Cliente(2, "João Pereira", "987.654.321-02", "99999-0002", "joao.pereira@email.com", "Rua B, 20"));
+    gp.adicionarCliente(new Cliente(3, "Ana Costa", "456.789.123-03", "99999-0003", "ana.costa@email.com", "Rua C, 30"));
+    gp.adicionarCliente(new Cliente(4, "Carlos Souza", "321.654.987-04", "99999-0004", "carlos.souza@email.com", "Rua D, 40"));
+    gp.adicionarCliente(new Cliente(5, "Juliana Rocha", "159.753.486-05", "99999-0005", "juliana.rocha@email.com", "Rua E, 50"));
+    gp.adicionarCliente(new Cliente(6, "Rafael Mendes", "753.159.842-06", "99999-0006", "rafael.mendes@email.com", "Rua F, 60"));
+    gp.adicionarCliente(new Cliente(7, "Beatriz Almeida", "852.456.951-07", "99999-0007", "bia.almeida@email.com", "Rua G, 70"));
+    gp.adicionarCliente(new Cliente(8, "Gabriel Santos", "951.357.258-08", "99999-0008", "gabriel.santos@email.com", "Rua H, 80"));
+    gp.adicionarCliente(new Cliente(9, "Fernanda Lima", "258.147.369-09", "99999-0009", "fernanda.lima@email.com", "Rua I, 90"));
+    gp.adicionarCliente(new Cliente(10, "Pedro Oliveira", "369.258.147-10", "99999-0010", "pedro.oliveira@email.com", "Rua J, 100"));
+
     
     gp.salvar();
     

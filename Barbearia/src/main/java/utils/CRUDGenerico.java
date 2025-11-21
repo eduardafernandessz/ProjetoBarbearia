@@ -7,6 +7,8 @@ import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +65,7 @@ public class CRUDGenerico<T> {
         File arquivo = new File(caminhoArquivo);
         if (!arquivo.exists()) return new ArrayList<>();
 
-        try {
+        try (FileReader fr = new FileReader(arquivo))  { //Abre o arquivo para fazer a leitura e fecha automaticamnete
             CollectionType tipo = mapper.getTypeFactory()
                     .constructCollectionType(List.class, clazz);
             return mapper.readValue(arquivo, tipo);
@@ -77,7 +79,7 @@ public class CRUDGenerico<T> {
 
     /** Salva a lista de objetos em arquivo JSON. */
     public void salvar() {
-        try {
+        try (FileWriter fw = new FileWriter(caminhoArquivo)){ //Abre o arquivo para escrever e fecha automaticamente
             mapper.writerWithDefaultPrettyPrinter()
                     .writeValue(new File(caminhoArquivo), lista);
 

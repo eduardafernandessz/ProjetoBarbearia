@@ -24,7 +24,7 @@ public class GerenciadorProdutos {
      * </p>
      */
     public GerenciadorProdutos() {
-        this.crud = new CRUDGenerico<>("src/main/java/repositorio/produtos.json", Produto.class);
+        this.crud = new CRUDGenerico<>("src/main/java/repositorio/Produtos.json", Produto.class);
     }
 
     /**

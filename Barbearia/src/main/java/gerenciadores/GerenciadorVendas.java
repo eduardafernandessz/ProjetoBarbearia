@@ -36,7 +36,7 @@ public class GerenciadorVendas {
         this.gerenciadorPessoas = gerenciadorPessoas;
         this.gerenciadorProdutos = gerenciadorProdutos;
 
-        this.crudVendas = new CRUDGenerico<>("src/main/java/repositorio/vendas.json", Venda.class);
+        this.crudVendas = new CRUDGenerico<>("src/main/java/repositorio/Vendas.json", Venda.class);
     }
 
     // =====================================================

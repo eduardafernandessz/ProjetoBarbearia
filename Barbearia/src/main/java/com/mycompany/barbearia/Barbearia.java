@@ -22,10 +22,10 @@ public class Barbearia {
 
         // CRUDs para login
         CRUDGenerico<Funcionario> crudFuncionarios =
-                new CRUDGenerico<>("src/main/java/repositorio/funcionarios.json", Funcionario.class);
+                new CRUDGenerico<>("src/main/java/repositorio/Funcionarios.json", Funcionario.class);
 
         CRUDGenerico<Gerente> crudGerentes =
-                new CRUDGenerico<>("src/main/java/repositorio/gerente.json", Gerente.class);
+                new CRUDGenerico<>("src/main/java/repositorio/Gerente.json", Gerente.class);
 
         // LOGIN
         Login<Funcionario> loginFuncionario = new Login<>(crudFuncionarios);

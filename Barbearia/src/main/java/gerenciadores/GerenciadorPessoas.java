@@ -25,8 +25,8 @@ public class GerenciadorPessoas {
      * apontando para os arquivos JSON correspondentes.
      */
     public GerenciadorPessoas() {
-        crudClientes = new CRUDGenerico<>("src/main/java/repositorio/clientes.json", Cliente.class);
-        crudFuncionarios = new CRUDGenerico<>("src/main/java/repositorio/funcionarios.json", Funcionario.class);
+        crudClientes = new CRUDGenerico<>("src/main/java/repositorio/Clientes.json", Cliente.class);
+        crudFuncionarios = new CRUDGenerico<>("src/main/java/repositorio/Funcionarios.json", Funcionario.class);
     }
 
 

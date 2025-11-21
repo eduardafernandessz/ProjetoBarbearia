@@ -69,7 +69,6 @@ public class TelaLogin {
                 Funcionario f = loginFunc.autenticar();
                 if (f != null) {
                     System.out.println("\n Bem-vindo, " + f.getNome() + "!");
-                    yield f;
                 }
                 yield null;
             }
@@ -78,7 +77,6 @@ public class TelaLogin {
                 Gerente g = loginGer.autenticar();
                 if (g != null) {
                     System.out.println("\n Bem-vindo, " + g.getNome() + "!");
-                    yield g;
                 }
                 yield null;
             }

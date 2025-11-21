@@ -33,7 +33,7 @@ public class questao {
      */
     public void questao15() {
         CRUDGenerico<Cliente> crudClientes =
-            new CRUDGenerico<>("src/main/java/repositorio/clientes.json", Cliente.class);
+            new CRUDGenerico<>("src/main/java/repositorio/Clientes.json", Cliente.class);
 
         List<Cliente> lista = crudClientes.listar();
         Iterator<Cliente> iterator = lista.iterator();
@@ -65,7 +65,7 @@ public class questao {
     public void questao16() {
 
         CRUDGenerico<Cliente> crudClientes =
-                new CRUDGenerico<>("src/main/java/repositorio/clientes.json", Cliente.class);
+                new CRUDGenerico<>("src/main/java/repositorio/Clientes.json", Cliente.class);
 
         List<Cliente> lista = crudClientes.listar();
 
@@ -103,7 +103,7 @@ public class questao {
     public void questao17() {
 
         CRUDGenerico<Cliente> crudClientes =
-            new CRUDGenerico<>("src/main/java/repositorio/clientes.json", Cliente.class);
+            new CRUDGenerico<>("src/main/java/repositorio/Clientes.json", Cliente.class);
 
         List<Cliente> lista = crudClientes.listar();
         Scanner sc = new Scanner(System.in);

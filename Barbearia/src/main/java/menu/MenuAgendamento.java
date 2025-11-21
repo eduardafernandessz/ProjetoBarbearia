@@ -22,13 +22,13 @@ public class MenuAgendamento {
     private Scanner sc = new Scanner(System.in);
 
     private CRUDGenerico<Cliente> crudClientes =
-            new CRUDGenerico<>("src/main/java/repositorio/clientes.json", Cliente.class);
+            new CRUDGenerico<>("src/main/java/repositorio/Clientes.json", Cliente.class);
 
     private CRUDGenerico<Funcionario> crudFuncionarios =
-            new CRUDGenerico<>("src/main/java/repositorio/funcionarios.json", Funcionario.class);
+            new CRUDGenerico<>("src/main/java/repositorio/Funcionarios.json", Funcionario.class);
 
     private CRUDGenerico<Servico> crudServicos =
-            new CRUDGenerico<>("src/main/java/repositorio/servicos.json", Servico.class);
+            new CRUDGenerico<>("src/main/java/repositorio/Servicos.json", Servico.class);
 
     private GerenciadorAgendamentos gerenciador = new GerenciadorAgendamentos();
 

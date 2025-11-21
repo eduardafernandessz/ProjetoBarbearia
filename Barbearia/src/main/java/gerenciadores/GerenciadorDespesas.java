@@ -25,7 +25,7 @@ public class GerenciadorDespesas {
      * </p>
      */
     public GerenciadorDespesas() {
-        crud = new CRUDGenerico<>("src/main/java/repositorio/despesas.json", Despesas.class);
+        crud = new CRUDGenerico<>("src/main/java/repositorio/Despesas.json", Despesas.class);
     }
 
     /**
