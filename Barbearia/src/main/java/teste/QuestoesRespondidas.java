@@ -18,6 +18,7 @@ import modelo.OrdemDeServico;
 import modelo.Produto;
 import modelo.Servico;
 import modelo.Venda;
+import static teste.questao.pause;
 
 
 
@@ -39,6 +40,8 @@ public class QuestoesRespondidas {
 
         System.out.println("===========Questao 01================");
         System.out.println("      Diagrama criado no LaTeX!      ");
+        
+        pause();
 
 
          // Questão 2: O sistema será utilizado pelos colaboradores e pelo administrador 
@@ -71,6 +74,8 @@ public class QuestoesRespondidas {
                 System.out.println("9 - Ordem de Servico"); 
                 System.out.println("0 - Sair");
                 System.out.println("Escolha: ");
+                
+             pause();
 
 
          // Questão 3: Sobrescrever o método toString() de todas as classes implementadas
@@ -79,6 +84,7 @@ public class QuestoesRespondidas {
         System.out.println("O metodo toString() de todas as classes presentes\n +"
                          + "na package modelo foram sobrescritas.      ");  
 
+        pause();
 
          // Questão 4: Utilizar a palavra-chave super para implementar os 
          // construtores das subclasses
@@ -88,6 +94,7 @@ public class QuestoesRespondidas {
                          + " a pallavra-chave super para implementar construtores");           
 
 
+        pause();
          // Questão 5: O sistema deverá armazenar de forma estática (Vetor com tamanho 
          // fixo) as informações das 3 estações de atendimento.
 
@@ -96,6 +103,8 @@ public class QuestoesRespondidas {
                          + "o gerenciamento acontece em GerenciadorAgendamento");     
 
 
+        pause();
+        
          // Questão 6: Deve ser possível cadastrar os colaboradores no sistema, 
          // alterar ou editar seus atributos;
 
@@ -116,6 +125,8 @@ public class QuestoesRespondidas {
         System.out.println("Cada opcao dessa chama o metodo correspondente\n" +
                                "no GerenciadorPessoas");
 
+        
+        pause();
 
          // Questão 7: Cadastrar, alterar ou excluir clientes;
 
@@ -137,6 +148,8 @@ public class QuestoesRespondidas {
                            "no GerenciadorPessoas");
 
 
+        pause();
+        
          // Questão 8: Verificar e imprimir dados das ordens de serviço de cada cliente
 
         System.out.println("===========Questao 08================");
@@ -144,6 +157,7 @@ public class QuestoesRespondidas {
                            "Ordem de servico. Essa opcao chama o MenuOrdemDeServico\n " +
                            "onde e possivel selecionar o cliente e fazer as operacoes la presente");
 
+        pause();
 
          // Questão 9: As ordens de serviço, ações do estoque, da loja e os clientes 
          // devem ser salvos de forma dinâmica no sistema.
@@ -153,7 +167,7 @@ public class QuestoesRespondidas {
                            "se nao chamar elas ficam na memoria heap");
 
 
-
+        pause();
 
 
 
@@ -170,6 +184,7 @@ public class QuestoesRespondidas {
             "atendendo exatamente à exigência da questão.\n "
             );
 
+        pause();
 
          // Questão 15: Instaciar um iterator para a arraylist de pessoas/funcionario/cliente (qual estiver usando)
          // Fazer testes no main em pecorrer o arraylist com chamadas usando o código: 
@@ -193,6 +208,7 @@ public class QuestoesRespondidas {
         q.questao15();   // Lista clientes usando Iterator e foreach
 
 
+        pause();
 
          // Questão 16: Apresentar no main testes do comparator implementado.
          // Utilizar e apresentar no main a aplicação do método sort da classe collections 
@@ -209,6 +225,7 @@ public class QuestoesRespondidas {
             System.out.println("========================================\n");
             q.questao16();   // Ordenação com Comparator (Nome e ID)
 
+            pause();
 
         // Questão 17: Apresentar no main testes do comparator implementado.
         // Utilizar e apresentar no main a aplicação do método sort da classe collections 
@@ -224,6 +241,8 @@ public class QuestoesRespondidas {
             System.out.println("            TESTE QUESTÃO 17");
             System.out.println("========================================\n");
             q.questao17();   // Busca com find + binarySearch
+            
+           pause();
 
         //Questao 18: Apresentar o funcionamento básico para o atendimento de 10 clientes da barbearia, desde o 
         //cadastro do cliente até a criação das ordens de serviço para cada atendimento, com as baixas no 
@@ -276,6 +295,7 @@ public class QuestoesRespondidas {
         Servico s4 = gserv.buscarPorId(4);
         Servico s5 = gserv.buscarPorId(5);
         Servico s6 = gserv.buscarPorId(6);
+
         
         List<Agendamento> testeAgendamento = new ArrayList<>();
 
