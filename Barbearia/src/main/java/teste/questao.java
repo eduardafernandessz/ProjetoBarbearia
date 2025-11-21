@@ -163,4 +163,9 @@ public class questao {
 
         return null;
     }
+    
+    public static void pause() {
+        System.out.println("\nPressione ENTER para continuar...");
+        new java.util.Scanner(System.in).nextLine();
+    }
 }

@@ -25,7 +25,7 @@ public class GerenciadorServicos {
      * </p>
      */
     public GerenciadorServicos() {
-        crud = new CRUDGenerico<>("src/main/java/repositorio/servicos.json", Servico.class);
+        crud = new CRUDGenerico<>("src/main/java/repositorio/Servicos.json", Servico.class);
     }
 
     /**
